@@ -24,13 +24,14 @@ export function AIChatbot({ className }: AIChatbotProps) {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Animation for floating effect
   useEffect(() => {
     const interval = setInterval(() => {
       setPosition(prev => {
         // Create a subtle floating effect by oscillating between values
-        // We're using a different phase than WhatsAppButton to avoid synchronized movement
+        // Using a different phase than WhatsAppButton to avoid synchronized movement
         return Math.sin((Date.now() / 1000) + Math.PI) * 3;
       });
     }, 50);
@@ -57,6 +58,7 @@ export function AIChatbot({ className }: AIChatbotProps) {
     // Add user message
     const userMessageId = Date.now();
     setMessages(prev => [...prev, { id: userMessageId, text: input, isBot: false, completed: true }]);
+    const userInput = input; // Store input before clearing it
     setInput("");
     setIsTyping(true);
     
@@ -67,7 +69,7 @@ export function AIChatbot({ className }: AIChatbotProps) {
       
       // Check for keyword matches
       Object.entries(autoResponses).forEach(([keyword, response]) => {
-        if (input.toLowerCase().includes(keyword) && !foundResponse) {
+        if (userInput.toLowerCase().includes(keyword) && !foundResponse) {
           setMessages(prev => [...prev, { id: botMessageId, text: response, isBot: true }]);
           foundResponse = true;
         }
@@ -97,6 +99,13 @@ export function AIChatbot({ className }: AIChatbotProps) {
       handleSend();
     }
   };
+
+  // Focus input when chat opens
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
 
   return (
     <>
@@ -183,6 +192,7 @@ export function AIChatbot({ className }: AIChatbotProps) {
           {/* Input */}
           <div className="border-t border-white/10 p-3 flex items-center gap-2 bg-black/60">
             <input
+              ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}

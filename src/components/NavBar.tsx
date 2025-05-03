@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -10,7 +9,9 @@ const NavLinks = [
   { name: "Channels", url: "#channels" },
   { name: "Movies", url: "#movies" },
   { name: "Pricing", url: "#pricing" },
+  { name: "Reseller", url: "#reseller" },
   { name: "Installation", url: "#install" },
+  { name: "FAQ", url: "#faq" },
 ];
 
 const languages = [
@@ -132,7 +133,7 @@ export function NavBar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation - Now properly centered */}
+          {/* Desktop Navigation - Properly centered */}
           <div className="hidden md:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 space-x-8">
             {NavLinks.map((link) => (
               <a

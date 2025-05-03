@@ -11,7 +11,6 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import ParticleBackground from "@/components/ParticleBackground";
 import AIChatbot from "@/components/AIChatbot";
 import FeedbackSection from "@/components/FeedbackSection";
-import DeveloperDashboard from "@/components/DeveloperDashboard";
 
 const Index = () => {
   // Add scroll animation observer
@@ -225,6 +224,11 @@ const Index = () => {
         <div className="grid-line"></div>
       </div>
       <ParticleBackground />
+      
+      {/* Cyberpunk Light Beams */}
+      <div className="light-beam light-beam-1"></div>
+      <div className="light-beam light-beam-2"></div>
+      <div className="light-beam light-beam-3"></div>
 
       {/* Navigation */}
       <div id="home"></div>
@@ -273,10 +277,6 @@ const Index = () => {
         </div>
         
         <InstallGuide />
-        
-        <div className="section-divider"></div>
-        
-        <DeveloperDashboard />
         
         <div className="section-divider"></div>
         

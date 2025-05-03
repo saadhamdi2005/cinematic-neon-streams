@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GlassCard from "@/components/ui/GlassCard";
 import TypedText from "@/components/ui/TypedText";
 import { Check } from "lucide-react";
@@ -62,6 +62,20 @@ const currencies = [
 
 export function PricingSection() {
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
+  const [floatOffsets, setFloatOffsets] = useState([0, 0, 0]);
+  
+  // Floating animation effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFloatOffsets([
+        Math.sin(Date.now() / 2000) * 8,
+        Math.sin((Date.now() / 2000) + Math.PI * 0.6) * 8,
+        Math.sin((Date.now() / 2000) + Math.PI * 1.2) * 8
+      ]);
+    }, 50);
+    
+    return () => clearInterval(interval);
+  }, []);
 
   // Simple currency conversion factors (just for demo)
   const conversionRates = {
@@ -113,12 +127,19 @@ export function PricingSection() {
 
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {plans.map((plan) => {
+          {plans.map((plan, index) => {
             const neonColor = plan.color as "purple" | "pink" | "blue" | "green";
             const isPopular = plan.popular;
             
             return (
-              <div key={plan.id} className={`relative ${isPopular ? "md:-mt-4" : ""}`}>
+              <div 
+                key={plan.id} 
+                className={`relative ${isPopular ? "md:-mt-4" : ""}`}
+                style={{
+                  transform: `translateY(${floatOffsets[index]}px)`,
+                  transition: "transform 0.5s ease"
+                }}
+              >
                 {isPopular && (
                   <div className="absolute -top-4 inset-x-0 flex justify-center">
                     <span className="bg-yassin-neon-purple px-4 py-1 rounded-full text-sm font-medium animate-pulse-glow">
@@ -131,6 +152,7 @@ export function PricingSection() {
                   className={`p-6 flex flex-col h-full ${isPopular ? "border-yassin-neon-purple" : ""}`}
                   glowOnHover
                   neonColor={neonColor}
+                  tiltEffect
                 >
                   <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
                   <div className="mb-5">
@@ -171,7 +193,7 @@ export function PricingSection() {
 
         {/* Free Trial Section */}
         <div id="trial" className="mt-16 max-w-3xl mx-auto">
-          <GlassCard className="p-8 text-center">
+          <GlassCard className="p-8 text-center" tiltEffect>
             <h3 className="text-2xl font-bold mb-3">Not sure yet? Try our Free 24h Trial</h3>
             <p className="mb-6 text-white/70">
               Experience our premium service with no commitment. Get access to all our channels and features for 24 hours.

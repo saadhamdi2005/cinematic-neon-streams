@@ -1,6 +1,6 @@
 
 import { cn } from "@/lib/utils";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 interface GlassCardProps {
   children: React.ReactNode;
@@ -21,6 +21,8 @@ export function GlassCard({
   pulsate = false,
   tiltEffect = false
 }: GlassCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  
   // Map neon color to actual color class
   const neonColorMap = {
     purple: {
@@ -45,8 +47,17 @@ export function GlassCard({
     }
   };
 
+  // Active neon glow when hovered
+  const activeNeonMap = {
+    purple: "border-yassin-neon-purple/70 shadow-[0_0_20px_rgba(139,92,246,0.6)]",
+    pink: "border-yassin-neon-pink/70 shadow-[0_0_20px_rgba(217,70,239,0.6)]",
+    blue: "border-yassin-neon-blue/70 shadow-[0_0_20px_rgba(30,174,219,0.6)]",
+    green: "border-yassin-neon-green/70 shadow-[0_0_20px_rgba(34,197,94,0.6)]"
+  };
+
   const pulsateClass = pulsate ? "animate-pulse-glow" : "";
   const hoverClass = glowOnHover ? `transition-all duration-300 ${neonColorMap[neonColor][glowIntensity]}` : "";
+  const activeGlowClass = isHovered && glowOnHover ? activeNeonMap[neonColor] : "";
   
   // Ref for tilt effect
   const cardRef = useRef<HTMLDivElement>(null);
@@ -74,14 +85,21 @@ export function GlassCard({
     
     const handleMouseLeave = () => {
       card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      setIsHovered(false);
+    };
+    
+    const handleMouseEnter = () => {
+      setIsHovered(true);
     };
     
     card.addEventListener('mousemove', handleMouseMove);
     card.addEventListener('mouseleave', handleMouseLeave);
+    card.addEventListener('mouseenter', handleMouseEnter);
     
     return () => {
       card.removeEventListener('mousemove', handleMouseMove);
       card.removeEventListener('mouseleave', handleMouseLeave);
+      card.removeEventListener('mouseenter', handleMouseEnter);
     };
   }, [tiltEffect]);
 
@@ -92,10 +110,24 @@ export function GlassCard({
         "glass-card transition-transform duration-300", 
         hoverClass, 
         pulsateClass, 
+        activeGlowClass,
         tiltEffect && "transform-gpu",
         className
       )}
     >
+      {/* Add neon glow effect on the edges */}
+      {isHovered && glowOnHover && (
+        <div className="absolute inset-0 -z-10 opacity-50 blur-md" 
+          style={{
+            background: `radial-gradient(
+              circle at center,
+              var(--yassin-neon-${neonColor}) 0%,
+              transparent 70%
+            )`
+          }}
+        />
+      )}
+      
       {children}
     </div>
   );

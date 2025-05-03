@@ -1,462 +1,136 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --radius: 0.75rem;
-  }
-
-  * {
-    @apply border-border selection:bg-yassin-neon-purple/10 selection:text-yassin-neon-purple;
-  }
-  
-  body {
-    @apply bg-yassin-darkest text-foreground antialiased overflow-x-hidden font-space;
-    /* Enhanced cursor */
-    cursor: none;
-  }
-
-  a, button, [role="button"] {
-    cursor: none;
-  }
-
-  html {
-    @apply scroll-smooth;
-    scrollbar-color: rgba(139, 92, 246, 0.5) rgba(15, 23, 42, 0.1);
-    scrollbar-width: thin;
-  }
+:root {
+  --yassin-darkest: #090a13;
+  --yassin-darker: #121424;
+  --yassin-dark: #1b1f3b;
+  --yassin-neon-purple: rgb(139, 92, 246);
+  --yassin-neon-pink: rgb(217, 70, 239);
+  --yassin-neon-blue: rgb(30, 174, 219);
+  --yassin-neon-green: rgb(34, 197, 94);
 }
 
-@layer components {
-  .glass {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl;
-  }
-
-  .glass-card {
-    @apply bg-black/40 backdrop-blur-lg border border-white/10 rounded-xl shadow-xl;
-  }
-
-  .glass-card-glow {
-    @apply glass-card hover:border-yassin-neon-purple/50 transition-all duration-300 hover:shadow-[0_0_15px_rgba(139,92,246,0.3)];
-  }
-
-  .text-gradient {
-    @apply bg-gradient-to-r from-yassin-neon-blue via-yassin-neon-purple to-yassin-neon-pink bg-clip-text text-transparent;
-  }
-
-  .btn-primary {
-    @apply px-6 py-3 rounded-lg font-medium bg-yassin-neon-purple/90 text-white hover:bg-yassin-neon-purple transition-all duration-300 hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] hover:-translate-y-0.5;
-  }
-
-  .btn-secondary {
-    @apply px-6 py-3 rounded-lg font-medium border border-yassin-neon-purple/50 text-white hover:bg-yassin-neon-purple/10 transition-all duration-300 hover:shadow-[0_0_15px_rgba(139,92,246,0.3)] hover:-translate-y-0.5;
-  }
-  
-  .btn-accent {
-    @apply px-6 py-3 rounded-lg font-medium bg-yassin-neon-pink/90 text-white hover:bg-yassin-neon-pink transition-all duration-300 hover:shadow-[0_0_15px_rgba(217,70,239,0.5)] hover:-translate-y-0.5;
-  }
-  
-  .heading-glow {
-    @apply text-shadow-glow;
-  }
-  
-  .text-shadow-glow {
-    text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
-  }
-
-  .divider {
-    @apply relative z-10 w-full text-yassin-neon-purple/10 overflow-hidden h-16 md:h-24;
-  }
-  
-  .section-divider {
-    @apply w-full h-px bg-gradient-to-r from-transparent via-yassin-neon-purple/30 to-transparent my-12;
-  }
-  
-  .logo-text {
-    @apply font-bold text-gradient relative;
-  }
-  
-  .logo-text::after {
-    content: "";
-    @apply absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-yassin-neon-blue via-yassin-neon-purple to-yassin-neon-pink opacity-80;
-    filter: blur(1px);
-  }
-  
-  .language-selector {
-    @apply relative px-3 py-1.5 rounded-lg bg-black/30 border border-white/10 
-    text-white/80 hover:text-white hover:border-white/30 transition-all duration-300
-    flex items-center gap-1.5 text-sm;
-  }
-  
-  .language-dropdown {
-    @apply absolute top-full mt-2 right-0 bg-black/80 backdrop-blur-lg 
-    border border-white/10 rounded-lg overflow-hidden shadow-lg shadow-black/20
-    w-32 z-50 hidden group-hover:block;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--yassin-darkest);
+  color: white;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--yassin-neon-purple) var(--yassin-darkest);
 }
 
-/* Enhanced backgrounds */
-.animated-bg {
+/* Cyberpunk Light Beams */
+.light-beam {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  background: radial-gradient(circle at top right, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.3) 50%, rgba(17, 24, 39, 0.1) 100%), 
-              linear-gradient(to bottom right, #121420 0%, #0D0D14 100%);
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.08), transparent);
+  height: 100vh;
+  width: 80px;
+  transform: rotate(20deg);
+  z-index: 0;
+  opacity: 0.5;
 }
 
-/* Grid background animation */
-.animated-grid {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  perspective: 1000px;
-  opacity: 0.1;
+.light-beam-1 {
+  left: -5%;
+  animation: moveBeam 15s infinite alternate ease-in-out;
 }
 
-.grid-line {
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(139, 92, 246, 0.5), transparent);
-  animation: gridLineMove 8s infinite linear;
-  opacity: 0.3;
+.light-beam-2 {
+  left: 40%;
+  background: linear-gradient(90deg, transparent, rgba(217, 70, 239, 0.05), transparent);
+  animation: moveBeam 12s infinite alternate-reverse ease-in-out;
+  width: 120px;
+  transform: rotate(-15deg);
 }
 
-.grid-line:nth-child(1) {
-  top: 20%;
-  animation-delay: 0s;
+.light-beam-3 {
+  right: 10%;
+  background: linear-gradient(90deg, transparent, rgba(30, 174, 219, 0.06), transparent);
+  animation: moveBeam 18s infinite alternate ease-in-out;
+  width: 60px;
 }
 
-.grid-line:nth-child(2) {
-  top: 40%;
-  animation-delay: 1.6s;
-}
-
-.grid-line:nth-child(3) {
-  top: 60%;
-  animation-delay: 3.2s;
-}
-
-.grid-line:nth-child(4) {
-  top: 80%;
-  animation-delay: 4.8s;
-}
-
-.grid-line:nth-child(5) {
-  top: 30%;
-  animation-delay: 6.4s;
-}
-
-@keyframes gridLineMove {
+@keyframes moveBeam {
   0% {
-    transform: translateY(-100px) rotateX(75deg);
+    transform: translateX(-100px) rotate(20deg);
   }
   100% {
-    transform: translateY(100vh) rotateX(75deg);
+    transform: translateX(100px) rotate(20deg);
   }
 }
 
-/* Typing animation cursor */
-.typing-cursor::after {
-  content: '|';
-  display: inline-block;
-  animation: blink 0.7s infinite;
-}
-
-.typing-cursor-element {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background-color: currentColor;
-  margin-left: 2px;
-  vertical-align: middle;
-  animation: blink 0.7s infinite;
-}
-
-@keyframes blink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
-/* Typewriter effect */
-.typewriter {
-  overflow: hidden;
-  display: inline-block;
-  white-space: nowrap;
-  animation: typing 3.5s steps(40, end);
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-/* Enhanced Scroll animations */
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s cubic-bezier(0.13, 0.82, 0.31, 1), transform 0.8s cubic-bezier(0.13, 0.82, 0.31, 1);
-}
-
-.fade-in-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Improved scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.1);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.5);
-  border-radius: 3px;
+  background: linear-gradient(var(--yassin-neon-purple), var(--yassin-neon-blue));
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.8);
+  background: linear-gradient(var(--yassin-neon-pink), var(--yassin-neon-purple));
 }
 
-/* Hide scrollbar for auto-scroll components */
+/* Neon Cursor */
+.neon-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease;
+  background: transparent;
+  box-shadow: 
+    0 0 10px rgba(139, 92, 246, 0.8),
+    0 0 20px rgba(139, 92, 246, 0.5),
+    0 0 30px rgba(139, 92, 246, 0.3);
+}
+
+.neon-cursor.hovering {
+  width: 30px;
+  height: 30px;
+  box-shadow: 
+    0 0 10px rgba(217, 70, 239, 0.8),
+    0 0 20px rgba(217, 70, 239, 0.5),
+    0 0 30px rgba(217, 70, 239, 0.3);
+}
+
+/* Hide scroll bar but keep functionality */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-/* Enhanced Pulse effect for important elements */
-@keyframes pulse-shadow {
-  0% {
-    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.5);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
-  }
-}
-
-.pulse-animation {
-  animation: pulse-shadow 2s infinite;
-}
-
-/* Section separator */
-.section-divider {
-  height: 6px;
-  width: 100%;
-  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.7), transparent);
-  margin: 3rem 0;
-  border-radius: 3px;
-  position: relative;
-  overflow: hidden;
-}
-
-.section-divider::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-  animation: shineEffect 3s infinite;
-}
-
-@keyframes shineEffect {
-  to {
-    left: 150%;
-  }
-}
-
-/* Enhanced typing animation for all sections */
-.typing-animation {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  animation: typing 1s steps(40, end);
-}
-
-/* Enhanced card hover effects */
-.hover-card {
-  transition: all 0.3s ease;
-}
-
-.hover-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-}
-
-/* Active navigation highlight */
-.nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #8B5CF6;
-  transform: scaleX(1);
-  transition: transform 0.3s ease;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #8B5CF6;
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.nav-link:hover::after {
-  transform: scaleX(1);
-}
-
-/* Enhanced Neon cursor effect */
-.neon-cursor {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: transparent;
-  border: 2px solid;
-  border-color: #8B5CF6;
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.7), 0 0 20px rgba(139, 92, 246, 0.4), inset 0 0 8px rgba(139, 92, 246, 0.3);
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, border-color 0.2s, background-color 0.2s, mix-blend-mode 0.2s;
-  backdrop-filter: blur(2px);
-  mix-blend-mode: difference;
-}
-
-.neon-cursor::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 5px;
-  height: 5px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-}
-
-.neon-cursor.hovering {
-  width: 40px;
-  height: 40px;
-  background-color: rgba(217, 70, 239, 0.1);
-  border-color: #D946EF;
-  box-shadow: 0 0 15px rgba(217, 70, 239, 0.8), 0 0 30px rgba(217, 70, 239, 0.4), inset 0 0 12px rgba(217, 70, 239, 0.3);
-}
-
-/* Language selector styles */
-.language-selector {
-  position: relative;
-}
-
-.language-option {
-  @apply py-2 px-4 hover:bg-white/10 w-full text-left transition-colors duration-200;
-}
-
-/* Glossy section dividers */
-.glossy-divider {
-  height: 1px;
-  width: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  position: relative;
-  overflow: hidden;
-}
-
-.glossy-divider::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
-/* Enhanced Floating animations for UI elements */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-.floating-element {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Enhanced Glow pulse animation */
+/* Neon animations */
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-    transform: scale(1);
+  0% {
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
   }
   50% {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.4);
-    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
   }
 }
 
@@ -464,121 +138,167 @@
   animation: pulse-glow 2s infinite;
 }
 
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth !important;
+/* Fade In Up Animation */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-/* Enhanced section transitions */
-section {
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-/* Advanced scroll-triggered animations */
-.scroll-reveal {
+.fade-in-up {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 1s, opacity 1s;
 }
 
-.scroll-reveal.visible {
+.fade-in-up.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Channel and movie card animations */
-.channel-card, .movie-card {
-  transition: all 0.3s ease-out;
+/* Glass Card */
+.glass-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
 }
 
-.channel-card:hover, .movie-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  z-index: 10;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 
-              0 0 15px rgba(139, 92, 246, 0.5);
+/* Background Grid Animation */
+.animated-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  opacity: 0.15;
 }
 
-/* Center the main navigation items */
-.center-nav {
-  @apply absolute left-1/2 transform -translate-x-1/2 space-x-8;
+.grid-line {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--yassin-neon-purple), transparent);
+  transform: translateX(-50%);
 }
 
-/* Enhanced text centering for all sections */
-.text-center-all {
-  text-align: center;
+.grid-line:nth-child(1) {
+  left: 20%;
 }
 
-/* Movie hover effect */
-.movie-hover {
+.grid-line:nth-child(2) {
+  left: 40%;
+}
+
+.grid-line:nth-child(3) {
+  left: 60%;
+}
+
+.grid-line:nth-child(4) {
+  left: 80%;
+}
+
+.grid-line:nth-child(5) {
+  left: 100%;
+}
+
+/* Cyberpunk background effects */
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+  background: 
+    radial-gradient(circle at 10% 10%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 90% 20%, rgba(217, 70, 239, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(30, 174, 219, 0.08) 0%, transparent 60%);
+}
+
+/* Button Styles */
+.btn-primary {
+  @apply py-2 px-6 rounded-full bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue text-white font-medium hover:shadow-[0_0_15px_rgba(139,92,246,0.6)] transition-all duration-300;
   position: relative;
   overflow: hidden;
 }
 
-.movie-hover::before {
-  content: "";
+.btn-primary::after {
+  content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: -50%;
+  left: -100%;
+  width: 300%;
+  height: 200%;
   background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.8) 100%
+    to right, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0) 100%
   );
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  transform: rotate(30deg);
+  animation: shine 6s infinite;
 }
 
-.movie-hover:hover::before {
-  opacity: 1;
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  20%, 100% {
+    left: 100%;
+  }
 }
 
-.movie-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+.btn-accent {
+  @apply py-2 px-6 rounded-full bg-gradient-to-r from-yassin-neon-green to-yassin-neon-blue text-white font-medium hover:shadow-[0_0_15px_rgba(34,197,94,0.6)] transition-all duration-300;
+}
+
+/* Text Gradient */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-yassin-neon-purple via-yassin-neon-blue to-yassin-neon-pink;
+}
+
+/* Language selector */
+.language-selector {
+  @apply flex items-center gap-2 px-3 py-1 rounded-full text-white/80 hover:text-white transition-colors duration-200;
+}
+
+.language-dropdown {
+  @apply absolute right-0 mt-2 py-2 w-36 glass-card rounded-xl shadow-2xl border border-white/10 z-50;
+}
+
+.language-option {
+  @apply block w-full text-left px-4 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200;
+}
+
+/* Section Dividers */
+.section-divider {
+  position: relative;
+  height: 2px;
   width: 100%;
-  padding: 1rem;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
+  margin: 3rem 0;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(139, 92, 246, 0.3) 20%, 
+    rgba(217, 70, 239, 0.3) 50%, 
+    rgba(30, 174, 219, 0.3) 80%, 
+    transparent 100%
+  );
 }
 
-.movie-hover:hover .movie-info {
-  transform: translateY(0);
+.divider {
+  color: var(--yassin-dark);
+  margin: -1px 0;
 }
 
-/* Fix for images in movies and channels */
-.channel-image, .movie-image {
-  aspect-ratio: 16/9;
-  object-fit: cover;
-  width: 100%;
-}
-
-/* Neon text effect */
-.neon-text {
-  color: #fff;
-  text-shadow:
-    0 0 5px rgba(255, 255, 255, 0.8),
-    0 0 10px rgba(139, 92, 246, 0.8),
-    0 0 20px rgba(139, 92, 246, 0.5),
-    0 0 40px rgba(139, 92, 246, 0.3);
-}
-
-/* Clip path animations */
-.clip-path-animate {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-  transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.clip-path-animate:hover {
-  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
-}
-
-/* Prevent right-click context menu */
-body {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
