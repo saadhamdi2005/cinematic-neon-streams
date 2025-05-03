@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import NavBar from "@/components/NavBar";
 import Hero from "@/components/Hero";
@@ -41,75 +40,75 @@ const Index = () => {
   const moviePosters = [
     {
       id: 101,
-      title: "Pride & Prejudice",
-      genre: "Drama",
-      year: 2005,
-      rating: 7.8,
-      image: "/lovable-uploads/61ae7544-e0ad-47e5-a07d-85e6f8c68475.png"
+      title: "Titanic",
+      genre: "Romance",
+      year: 1997,
+      rating: 7.9,
+      image: "/lovable-uploads/d32ccab7-637d-48c7-b9fd-3a214bdec3e3.png"
     },
     {
       id: 102,
-      title: "Schindler's List",
-      genre: "Drama",
-      year: 1993,
-      rating: 8.9,
-      image: "/lovable-uploads/9810ba33-9132-47ca-a8ab-5de75f5d019e.png"
+      title: "Star Wars: The Empire Strikes Back",
+      genre: "Sci-Fi",
+      year: 1980,
+      rating: 8.7,
+      image: "/lovable-uploads/c1ed5536-ab6c-4c5a-8aec-9e2ef5c6ada6.png"
     },
     {
       id: 103,
-      title: "Spirited Away",
-      genre: "Animation",
-      year: 2001,
-      rating: 8.6,
-      image: "/lovable-uploads/1966ec4a-d3b6-4f82-a6a4-99d2781b0976.png"
+      title: "Supersalidos",
+      genre: "Comedy",
+      year: 2007,
+      rating: 7.6,
+      image: "/lovable-uploads/1ece0d5a-0586-484d-b9e2-5ab121bb4910.png"
     },
     {
       id: 104,
-      title: "A Quiet Place",
-      genre: "Horror",
-      year: 2018,
-      rating: 7.5,
-      image: "/lovable-uploads/1afb61ae-83ad-402f-a90a-b1c65c119429.png"
+      title: "The Big Lebowski",
+      genre: "Comedy",
+      year: 1998,
+      rating: 8.1,
+      image: "/lovable-uploads/580a3e78-0271-45f8-9d25-d43dd6b62942.png"
     },
     {
       id: 105,
-      title: "Amélie",
-      genre: "Comedy",
-      year: 2001,
-      rating: 8.3,
-      image: "/lovable-uploads/dfd5268e-a3b1-4d7a-8387-1dc5a4623cdb.png"
+      title: "The Dark Knight",
+      genre: "Action",
+      year: 2008,
+      rating: 9.0,
+      image: "/lovable-uploads/1200eca0-3026-444b-8579-b152bea0a0d4.png"
     },
     {
       id: 106,
-      title: "Blade Runner 2049",
-      genre: "Sci-Fi",
-      year: 2017,
-      rating: 8.0,
-      image: "/lovable-uploads/0650b9d0-e10d-4a26-a76c-3a9a8072140b.png"
+      title: "The Godfather",
+      genre: "Crime",
+      year: 1972,
+      rating: 9.2,
+      image: "/lovable-uploads/1a31b48b-46cf-4a27-ad8c-d0421820c072.png"
     },
     {
       id: 107,
-      title: "Bridesmaids",
-      genre: "Comedy",
-      year: 2011,
-      rating: 6.8,
-      image: "/lovable-uploads/18b95498-97f9-4645-9a43-03c03038042c.png"
+      title: "The Matrix",
+      genre: "Sci-Fi",
+      year: 1999,
+      rating: 8.7,
+      image: "/lovable-uploads/331841f0-afd0-4c62-9d3f-51d4760e8c6e.png"
     },
     {
       id: 108,
-      title: "Casablanca",
+      title: "The Notebook",
       genre: "Romance",
-      year: 1942,
-      rating: 8.5,
-      image: "/lovable-uploads/024ca144-5201-4352-8bd9-84476ed3cbd0.png"
+      year: 2004,
+      rating: 7.8,
+      image: "/lovable-uploads/5376cbf9-290d-47d7-b23d-3fc4751a16f1.png"
     },
     {
       id: 109,
-      title: "City of God",
-      genre: "Crime",
-      year: 2002,
-      rating: 8.6,
-      image: "/lovable-uploads/2bdd82e6-9a66-42ce-89e3-3d2c7159ace0.png"
+      title: "The Shining",
+      genre: "Horror",
+      year: 1980,
+      rating: 8.4,
+      image: "/lovable-uploads/6f36df6e-de26-4e77-95f9-98187ac4ecfc.png"
     },
     {
       id: 110,
@@ -221,29 +220,45 @@ const Index = () => {
       {/* Content Sections */}
       <main className="relative z-10">
         <Hero />
+        
+        <div className="section-divider"></div>
+        
         <div className="divider">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto">
             <path fill="currentColor" d="M0,96L80,101.3C160,107,320,117,480,112C640,107,800,85,960,80C1120,75,1280,85,1360,90.7L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" className="text-yassin-dark"></path>
           </svg>
         </div>
+        
         <ChannelShowcase />
+        
+        <div className="section-divider"></div>
+        
         <div className="divider">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto transform rotate-180">
             <path fill="currentColor" d="M0,96L80,101.3C160,107,320,117,480,112C640,107,800,85,960,80C1120,75,1280,85,1360,90.7L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" className="text-yassin-dark"></path>
           </svg>
         </div>
+        
         <MovieShowcase additionalMovies={moviePosters} />
+        
+        <div className="section-divider"></div>
+        
         <div className="divider">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto">
             <path fill="currentColor" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" className="text-yassin-darker"></path>
           </svg>
         </div>
+        
         <PricingSection />
+        
+        <div className="section-divider"></div>
+        
         <div className="divider">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto transform rotate-180">
             <path fill="currentColor" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" className="text-yassin-darker"></path>
           </svg>
         </div>
+        
         <InstallGuide />
       </main>
 
@@ -254,8 +269,10 @@ const Index = () => {
       <WhatsAppButton 
         phoneNumber="212657263966"
         text="Chat on WhatsApp"
+        className="fixed bottom-6 right-6 z-50"
       />
-      <AIChatbot />
+      
+      <AIChatbot className="fixed bottom-6 left-6 z-50" />
     </div>
   );
 };

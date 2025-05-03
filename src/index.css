@@ -35,6 +35,11 @@
   
   body {
     @apply bg-yassin-darkest text-foreground antialiased overflow-x-hidden font-space;
+    cursor: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="none" stroke="%238B5CF6" stroke-width="1.5" opacity="0.8"/></svg>') 8 8, auto;
+  }
+
+  a, button, [role="button"] {
+    cursor: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="%23D946EF" stroke-width="1.5" opacity="0.9"/></svg>') 10 10, pointer;
   }
 
   html {
@@ -81,6 +86,32 @@
 
   .divider {
     @apply relative z-10 w-full text-yassin-neon-purple/10 overflow-hidden h-16 md:h-24;
+  }
+  
+  .section-divider {
+    @apply w-full h-px bg-gradient-to-r from-transparent via-yassin-neon-purple/30 to-transparent my-8;
+  }
+  
+  .logo-text {
+    @apply font-bold text-gradient relative;
+  }
+  
+  .logo-text::after {
+    content: "";
+    @apply absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-yassin-neon-blue via-yassin-neon-purple to-yassin-neon-pink opacity-80;
+    filter: blur(1px);
+  }
+  
+  .language-selector {
+    @apply relative px-3 py-1.5 rounded-lg bg-black/30 border border-white/10 
+    text-white/80 hover:text-white hover:border-white/30 transition-all duration-300
+    flex items-center gap-1.5 text-sm;
+  }
+  
+  .language-dropdown {
+    @apply absolute top-full mt-2 right-0 bg-black/80 backdrop-blur-lg 
+    border border-white/10 rounded-lg overflow-hidden shadow-lg shadow-black/20
+    w-32 z-50 hidden group-hover:block;
   }
 }
 
@@ -302,4 +333,92 @@
 
 .nav-link:hover::after {
   transform: scaleX(1);
+}
+
+/* Neon cursor effect */
+.neon-cursor {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid #8B5CF6;
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, border-color 0.2s;
+}
+
+.neon-cursor.hovering {
+  width: 24px;
+  height: 24px;
+  border-color: #D946EF;
+  box-shadow: 0 0 12px rgba(217, 70, 239, 0.7);
+}
+
+/* Language selector styles */
+.language-selector {
+  position: relative;
+}
+
+.language-option {
+  @apply py-2 px-4 hover:bg-white/10 w-full text-left transition-colors duration-200;
+}
+
+/* Glossy section dividers */
+.glossy-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+.glossy-divider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Floating animations for UI elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Glow pulse animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
 }
