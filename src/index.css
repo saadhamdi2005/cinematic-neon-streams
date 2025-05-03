@@ -78,23 +78,93 @@
   .text-shadow-glow {
     text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
   }
+
+  .divider {
+    @apply relative z-10 w-full text-yassin-neon-purple/10 overflow-hidden h-16 md:h-24;
+  }
 }
 
+/* Enhanced backgrounds */
 .animated-bg {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: -2;
   background: radial-gradient(circle at top right, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.3) 50%, rgba(17, 24, 39, 0.1) 100%), 
               linear-gradient(to bottom right, #121420 0%, #0D0D14 100%);
+}
+
+/* Grid background animation */
+.animated-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  perspective: 1000px;
+  opacity: 0.1;
+}
+
+.grid-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(139, 92, 246, 0.5), transparent);
+  animation: gridLineMove 8s infinite linear;
+  opacity: 0.3;
+}
+
+.grid-line:nth-child(1) {
+  top: 20%;
+  animation-delay: 0s;
+}
+
+.grid-line:nth-child(2) {
+  top: 40%;
+  animation-delay: 1.6s;
+}
+
+.grid-line:nth-child(3) {
+  top: 60%;
+  animation-delay: 3.2s;
+}
+
+.grid-line:nth-child(4) {
+  top: 80%;
+  animation-delay: 4.8s;
+}
+
+.grid-line:nth-child(5) {
+  top: 30%;
+  animation-delay: 6.4s;
+}
+
+@keyframes gridLineMove {
+  0% {
+    transform: translateY(-100px) rotateX(75deg);
+  }
+  100% {
+    transform: translateY(100vh) rotateX(75deg);
+  }
 }
 
 /* Typing animation cursor */
 .typing-cursor::after {
   content: '|';
   display: inline-block;
+  animation: blink 0.7s infinite;
+}
+
+.typing-cursor-element {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: currentColor;
+  margin-left: 2px;
+  vertical-align: middle;
   animation: blink 0.7s infinite;
 }
 
@@ -105,6 +175,19 @@
   50% {
     opacity: 0;
   }
+}
+
+/* Typewriter effect */
+.typewriter {
+  overflow: hidden;
+  display: inline-block;
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end);
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
 }
 
 /* Scroll animations */
@@ -119,7 +202,7 @@
   transform: translateY(0);
 }
 
-/* Custom scrollbar */
+/* Improved scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -136,4 +219,87 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(139, 92, 246, 0.8);
+}
+
+/* Hide scrollbar for auto-scroll components */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Pulse effect for important elements */
+@keyframes pulse-shadow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+  }
+}
+
+.pulse-animation {
+  animation: pulse-shadow 2s infinite;
+}
+
+/* Section separator */
+.section-divider {
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.7), transparent);
+  margin: 2rem 0;
+  border-radius: 3px;
+}
+
+/* Typing animation for all sections */
+.typing-animation {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 1s steps(40, end);
+}
+
+/* Enhanced card hover effects */
+.hover-card {
+  transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Active navigation highlight */
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #8B5CF6;
+  transform: scaleX(1);
+  transition: transform 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #8B5CF6;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
 }

@@ -3,8 +3,8 @@ import { useRef, useEffect, useState } from "react";
 import GlassCard from "@/components/ui/GlassCard";
 import TypedText from "@/components/ui/TypedText";
 
-// Example movie data
-const movies = [
+// Base movie data
+const defaultMovies = [
   {
     id: 1,
     title: "The Matrix",
@@ -72,21 +72,40 @@ const movies = [
 ];
 
 // Movie genres
-const genres = ["All", "Sci-Fi", "Action", "Drama", "Crime", "Comedy"];
+const genres = ["All", "Sci-Fi", "Action", "Drama", "Crime", "Comedy", "Horror", "Animation", "Romance", "Fantasy", "Musical"];
 
-export function MovieShowcase() {
+interface MovieProps {
+  id: number;
+  title: string;
+  genre: string;
+  year: number;
+  rating: number;
+  image: string;
+}
+
+interface MovieShowcaseProps {
+  additionalMovies?: MovieProps[];
+}
+
+export function MovieShowcase({ additionalMovies = [] }: MovieShowcaseProps) {
+  // Combine default movies with additional movies
+  const allMovies = [...additionalMovies, ...defaultMovies].slice(0, 20);
+  
   const [selectedGenre, setSelectedGenre] = useState("All");
-  const [visibleMovies, setVisibleMovies] = useState(movies);
+  const [visibleMovies, setVisibleMovies] = useState(allMovies);
+  const [hoveredMovie, setHoveredMovie] = useState<number | null>(null);
+  
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const autoScrollRef = useRef<boolean>(true);
 
   // Filter movies based on genre
   useEffect(() => {
     if (selectedGenre === "All") {
-      setVisibleMovies(movies);
+      setVisibleMovies(allMovies);
     } else {
-      setVisibleMovies(movies.filter(movie => movie.genre === selectedGenre));
+      setVisibleMovies(allMovies.filter(movie => movie.genre === selectedGenre));
     }
-  }, [selectedGenre]);
+  }, [selectedGenre, allMovies]);
 
   // Auto-scroll effect
   useEffect(() => {
@@ -95,9 +114,14 @@ export function MovieShowcase() {
 
     let animationId: number;
     let scrollPosition = 0;
-    const scrollSpeed = 0.5;
+    let scrollSpeed = 0.5;
 
     const scroll = () => {
+      if (!autoScrollRef.current) {
+        animationId = requestAnimationFrame(scroll);
+        return;
+      }
+      
       scrollPosition += scrollSpeed;
       
       // Reset scroll position when it reaches the end
@@ -114,7 +138,7 @@ export function MovieShowcase() {
 
     // Pause scrolling when user interacts with the container
     const handleInteraction = () => {
-      cancelAnimationFrame(animationId);
+      autoScrollRef.current = false;
     };
 
     scrollContainer.addEventListener("mouseenter", handleInteraction);
@@ -124,7 +148,7 @@ export function MovieShowcase() {
     const handleInteractionEnd = () => {
       // Update scroll position based on current scroll
       scrollPosition = scrollContainer.scrollLeft;
-      animationId = requestAnimationFrame(scroll);
+      autoScrollRef.current = true;
     };
 
     scrollContainer.addEventListener("mouseleave", handleInteractionEnd);
@@ -132,38 +156,44 @@ export function MovieShowcase() {
 
     return () => {
       cancelAnimationFrame(animationId);
-      scrollContainer.removeEventListener("mouseenter", handleInteraction);
-      scrollContainer.removeEventListener("touchstart", handleInteraction);
-      scrollContainer.removeEventListener("mouseleave", handleInteractionEnd);
-      scrollContainer.removeEventListener("touchend", handleInteractionEnd);
+      scrollContainer?.removeEventListener("mouseenter", handleInteraction);
+      scrollContainer?.removeEventListener("touchstart", handleInteraction);
+      scrollContainer?.removeEventListener("mouseleave", handleInteractionEnd);
+      scrollContainer?.removeEventListener("touchend", handleInteractionEnd);
     };
   }, [visibleMovies]);
 
   return (
-    <section id="movies" className="py-20 bg-gradient-to-b from-yassin-dark to-yassin-darkest">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="movies" className="py-20 bg-gradient-to-b from-yassin-dark to-yassin-darkest relative">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 z-0">
+        <div className="film-reel-1"></div>
+        <div className="film-reel-2"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-4xl font-bold mb-4 fade-in-up">
             <TypedText
               text="Unlimited Movies & Series"
               className="text-gradient"
               delay={100}
             />
           </h2>
-          <p className="text-xl text-white/70">
-            Explore our vast library of movies and TV shows
+          <p className="text-xl text-white/70 fade-in-up" style={{transitionDelay: "0.2s"}}>
+            Explore our vast library of <span className="text-yassin-neon-purple">40,000+</span> movies and TV shows
           </p>
         </div>
 
         {/* Genre Filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+        <div className="flex flex-wrap justify-center gap-2 mb-10 fade-in-up" style={{transitionDelay: "0.3s"}}>
           {genres.map((genre) => (
             <button
               key={genre}
               onClick={() => setSelectedGenre(genre)}
               className={`px-4 py-2 rounded-full transition-all ${
                 selectedGenre === genre
-                  ? "bg-yassin-neon-pink text-white"
+                  ? "bg-yassin-neon-pink text-white shadow-[0_0_15px_rgba(217,70,239,0.4)]"
                   : "bg-white/10 text-white/70 hover:bg-white/20"
               }`}
             >
@@ -175,12 +205,17 @@ export function MovieShowcase() {
         {/* Scrolling Movie Display */}
         <div 
           ref={scrollContainerRef}
-          className="overflow-x-auto pb-6 hide-scrollbar"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className="overflow-x-auto pb-6 hide-scrollbar fade-in-up"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none", transitionDelay: "0.4s" }}
         >
           <div className="flex gap-6" style={{ minWidth: "max-content" }}>
             {visibleMovies.map((movie) => (
-              <div key={movie.id} className="w-[200px]">
+              <div 
+                key={movie.id} 
+                className="w-[200px]"
+                onMouseEnter={() => setHoveredMovie(movie.id)}
+                onMouseLeave={() => setHoveredMovie(null)}
+              >
                 <GlassCard 
                   className="p-0 overflow-hidden relative group h-[300px]"
                   glowOnHover
@@ -191,11 +226,22 @@ export function MovieShowcase() {
                       src={movie.image} 
                       alt={movie.title} 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-lg font-bold">{movie.title}</h3>
+                    <h3 className="text-lg font-bold">
+                      {hoveredMovie === movie.id ? (
+                        <TypedText
+                          text={movie.title}
+                          typingSpeed={20}
+                          showCursor={false}
+                        />
+                      ) : (
+                        movie.title
+                      )}
+                    </h3>
                     <div className="flex justify-between items-center mt-2">
                       <span className="text-xs text-white/70">{movie.year}</span>
                       <div className="flex items-center">
@@ -214,7 +260,7 @@ export function MovieShowcase() {
           </div>
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 fade-in-up" style={{transitionDelay: "0.5s"}}>
           <p className="text-white/60 mb-4">40,000+ movies and episodes in our collection</p>
           <a href="#pricing" className="btn-primary">
             Access Full Library
