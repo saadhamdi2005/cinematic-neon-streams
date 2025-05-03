@@ -4,6 +4,10 @@ import { Bot, Send, X } from "lucide-react";
 import TypedText from "@/components/ui/TypedText";
 import GlassCard from "@/components/ui/GlassCard";
 
+interface AIChatbotProps {
+  className?: string;
+}
+
 interface Message {
   id: number;
   text: string;
@@ -11,7 +15,7 @@ interface Message {
   completed?: boolean;
 }
 
-export function AIChatbot() {
+export function AIChatbot({ className }: AIChatbotProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, text: "Hi there! 👋 I'm YassinBot, your IPTV assistant. How can I help you today?", isBot: true, completed: true }
@@ -19,6 +23,20 @@ export function AIChatbot() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState(0);
+
+  // Animation for floating effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPosition(prev => {
+        // Create a subtle floating effect by oscillating between values
+        // We're using a different phase than WhatsAppButton to avoid synchronized movement
+        return Math.sin((Date.now() / 1000) + Math.PI) * 3;
+      });
+    }, 50);
+    
+    return () => clearInterval(interval);
+  }, []);
 
   // Auto responses based on keywords
   const autoResponses: Record<string, string> = {
@@ -85,22 +103,30 @@ export function AIChatbot() {
       {/* Chat button */}
       <button 
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-yassin-neon-purple shadow-lg hover:shadow-[0_0_15px_rgba(139,92,246,0.6)] transition-all duration-300"
+        style={{ transform: `translateY(${position}px)` }}
+        className={`fixed bottom-24 left-6 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue shadow-lg hover:shadow-[0_0_15px_rgba(139,92,246,0.6)] transition-all duration-300 ${className || ""}`}
       >
         <Bot className="text-white" size={24} />
+        
+        {/* Pulsing effect to attract attention */}
+        <span className="absolute -inset-1 rounded-full bg-yassin-neon-purple/20 animate-ping"></span>
       </button>
       
       {/* Chat window */}
       {isOpen && (
         <GlassCard 
-          className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 max-h-[500px] p-0 overflow-hidden flex flex-col shadow-2xl border-yassin-neon-purple/30"
+          className="fixed bottom-24 left-6 z-50 w-80 sm:w-96 max-h-[500px] p-0 overflow-hidden flex flex-col shadow-2xl border-yassin-neon-purple/30"
           neonColor="purple"
           glowOnHover
+          tiltEffect
         >
           {/* Header */}
           <div className="flex items-center justify-between bg-gradient-to-r from-yassin-neon-purple/80 to-yassin-neon-blue/80 p-4 text-white">
             <div className="flex items-center gap-2">
-              <Bot size={20} />
+              <div className="relative">
+                <Bot size={20} />
+                <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"></span>
+              </div>
               <h3 className="font-bold">YassinIPTV Assistant</h3>
             </div>
             <button onClick={() => setIsOpen(false)} className="hover:bg-white/20 rounded-full p-1 transition-colors">
@@ -109,7 +135,7 @@ export function AIChatbot() {
           </div>
           
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 max-h-80">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 max-h-80 bg-black/40">
             {messages.map(message => (
               <div 
                 key={message.id} 
@@ -118,8 +144,8 @@ export function AIChatbot() {
                 <div 
                   className={`max-w-[80%] rounded-xl p-3 ${
                     message.isBot 
-                      ? "bg-black/40 text-white" 
-                      : "bg-yassin-neon-purple/90 text-white"
+                      ? "bg-black/40 text-white border border-yassin-neon-purple/20" 
+                      : "bg-gradient-to-r from-yassin-neon-purple/90 to-yassin-neon-blue/90 text-white"
                   }`}
                 >
                   {message.isBot && !message.completed ? (
@@ -142,7 +168,7 @@ export function AIChatbot() {
             ))}
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-black/40 rounded-xl p-3 text-white">
+                <div className="bg-black/40 rounded-xl p-3 text-white border border-yassin-neon-purple/20">
                   <div className="flex space-x-1">
                     <div className="h-2 w-2 bg-white/70 rounded-full animate-bounce" style={{animationDelay: "0ms"}}></div>
                     <div className="h-2 w-2 bg-white/70 rounded-full animate-bounce" style={{animationDelay: "150ms"}}></div>
@@ -155,7 +181,7 @@ export function AIChatbot() {
           </div>
           
           {/* Input */}
-          <div className="border-t border-white/10 p-3 flex items-center gap-2">
+          <div className="border-t border-white/10 p-3 flex items-center gap-2 bg-black/60">
             <input
               type="text"
               value={input}
@@ -167,7 +193,7 @@ export function AIChatbot() {
             <button
               onClick={handleSend}
               disabled={input.trim() === ""}
-              className="bg-yassin-neon-purple/80 hover:bg-yassin-neon-purple text-white rounded-full p-2 focus:outline-none disabled:opacity-50 transition-colors"
+              className="bg-gradient-to-r from-yassin-neon-purple/80 to-yassin-neon-blue/80 hover:from-yassin-neon-purple hover:to-yassin-neon-blue text-white rounded-full p-2 focus:outline-none disabled:opacity-50 transition-colors"
             >
               <Send size={18} />
             </button>

@@ -1,5 +1,6 @@
 
 import { cn } from "@/lib/utils";
+import { useRef, useEffect } from "react";
 
 interface GlassCardProps {
   children: React.ReactNode;
@@ -8,6 +9,7 @@ interface GlassCardProps {
   neonColor?: "purple" | "pink" | "blue" | "green";
   glowIntensity?: "low" | "medium" | "high";
   pulsate?: boolean;
+  tiltEffect?: boolean;
 }
 
 export function GlassCard({ 
@@ -16,7 +18,8 @@ export function GlassCard({
   glowOnHover = false,
   neonColor = "purple",
   glowIntensity = "medium",
-  pulsate = false
+  pulsate = false,
+  tiltEffect = false
 }: GlassCardProps) {
   // Map neon color to actual color class
   const neonColorMap = {
@@ -44,9 +47,55 @@ export function GlassCard({
 
   const pulsateClass = pulsate ? "animate-pulse-glow" : "";
   const hoverClass = glowOnHover ? `transition-all duration-300 ${neonColorMap[neonColor][glowIntensity]}` : "";
+  
+  // Ref for tilt effect
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    if (!tiltEffect || !cardRef.current) return;
+    
+    const card = cardRef.current;
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left; // x position within the element
+      const y = e.clientY - rect.top;  // y position within the element
+      
+      // Calculate percentage position within element (0 to 1)
+      const xPercent = x / rect.width;
+      const yPercent = y / rect.height;
+      
+      // Calculate tilt angle (maximum of 10 degrees)
+      const tiltX = (0.5 - yPercent) * 8;
+      const tiltY = (xPercent - 0.5) * 8;
+      
+      card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+    };
+    
+    const handleMouseLeave = () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    };
+    
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+    
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [tiltEffect]);
 
   return (
-    <div className={cn("glass-card", hoverClass, pulsateClass, className)}>
+    <div 
+      ref={cardRef}
+      className={cn(
+        "glass-card transition-transform duration-300", 
+        hoverClass, 
+        pulsateClass, 
+        tiltEffect && "transform-gpu",
+        className
+      )}
+    >
       {children}
     </div>
   );

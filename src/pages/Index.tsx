@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import NavBar from "@/components/NavBar";
 import Hero from "@/components/Hero";
@@ -9,6 +10,8 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ParticleBackground from "@/components/ParticleBackground";
 import AIChatbot from "@/components/AIChatbot";
+import FeedbackSection from "@/components/FeedbackSection";
+import DeveloperDashboard from "@/components/DeveloperDashboard";
 
 const Index = () => {
   // Add scroll animation observer
@@ -29,10 +32,20 @@ const Index = () => {
       observer.observe(element);
     });
 
+    // Disable right-click context menu
+    const disableRightClick = (e: MouseEvent) => {
+      e.preventDefault();
+    };
+    document.addEventListener("contextmenu", disableRightClick);
+
+    // Smooth scroll behavior
+    document.documentElement.style.scrollBehavior = "smooth";
+
     return () => {
       fadeElements.forEach((element) => {
         observer.unobserve(element);
       });
+      document.removeEventListener("contextmenu", disableRightClick);
     };
   }, []);
 
@@ -260,6 +273,14 @@ const Index = () => {
         </div>
         
         <InstallGuide />
+        
+        <div className="section-divider"></div>
+        
+        <DeveloperDashboard />
+        
+        <div className="section-divider"></div>
+        
+        <FeedbackSection />
       </main>
 
       {/* Footer */}
@@ -272,7 +293,7 @@ const Index = () => {
         className="fixed bottom-6 right-6 z-50"
       />
       
-      <AIChatbot className="fixed bottom-6 left-6 z-50" />
+      <AIChatbot />
     </div>
   );
 };

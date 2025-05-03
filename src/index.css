@@ -35,15 +35,18 @@
   
   body {
     @apply bg-yassin-darkest text-foreground antialiased overflow-x-hidden font-space;
-    cursor: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="none" stroke="%238B5CF6" stroke-width="1.5" opacity="0.8"/></svg>') 8 8, auto;
+    /* Enhanced cursor */
+    cursor: none;
   }
 
   a, button, [role="button"] {
-    cursor: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="%23D946EF" stroke-width="1.5" opacity="0.9"/></svg>') 10 10, pointer;
+    cursor: none;
   }
 
   html {
     @apply scroll-smooth;
+    scrollbar-color: rgba(139, 92, 246, 0.5) rgba(15, 23, 42, 0.1);
+    scrollbar-width: thin;
   }
 }
 
@@ -89,7 +92,7 @@
   }
   
   .section-divider {
-    @apply w-full h-px bg-gradient-to-r from-transparent via-yassin-neon-purple/30 to-transparent my-8;
+    @apply w-full h-px bg-gradient-to-r from-transparent via-yassin-neon-purple/30 to-transparent my-12;
   }
   
   .logo-text {
@@ -221,11 +224,11 @@
   to { width: 100% }
 }
 
-/* Scroll animations */
+/* Enhanced Scroll animations */
 .fade-in-up {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.8s cubic-bezier(0.13, 0.82, 0.31, 1), transform 0.8s cubic-bezier(0.13, 0.82, 0.31, 1);
 }
 
 .fade-in-up.visible {
@@ -262,7 +265,7 @@
   scrollbar-width: none;
 }
 
-/* Pulse effect for important elements */
+/* Enhanced Pulse effect for important elements */
 @keyframes pulse-shadow {
   0% {
     box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.5);
@@ -284,11 +287,30 @@
   height: 6px;
   width: 100%;
   background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.7), transparent);
-  margin: 2rem 0;
+  margin: 3rem 0;
   border-radius: 3px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Typing animation for all sections */
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shineEffect 3s infinite;
+}
+
+@keyframes shineEffect {
+  to {
+    left: 150%;
+  }
+}
+
+/* Enhanced typing animation for all sections */
 .typing-animation {
   display: inline-block;
   overflow: hidden;
@@ -335,26 +357,43 @@
   transform: scaleX(1);
 }
 
-/* Neon cursor effect */
+/* Enhanced Neon cursor effect */
 .neon-cursor {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: transparent;
-  border: 2px solid #8B5CF6;
-  box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+  border: 2px solid;
+  border-color: #8B5CF6;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.7), 0 0 20px rgba(139, 92, 246, 0.4), inset 0 0 8px rgba(139, 92, 246, 0.3);
   position: fixed;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, border-color 0.2s;
+  transition: width 0.2s, height 0.2s, border-color 0.2s, background-color 0.2s, mix-blend-mode 0.2s;
+  backdrop-filter: blur(2px);
+  mix-blend-mode: difference;
+}
+
+.neon-cursor::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
 .neon-cursor.hovering {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(217, 70, 239, 0.1);
   border-color: #D946EF;
-  box-shadow: 0 0 12px rgba(217, 70, 239, 0.7);
+  box-shadow: 0 0 15px rgba(217, 70, 239, 0.8), 0 0 30px rgba(217, 70, 239, 0.4), inset 0 0 12px rgba(217, 70, 239, 0.3);
 }
 
 /* Language selector styles */
@@ -395,7 +434,7 @@
   }
 }
 
-/* Floating animations for UI elements */
+/* Enhanced Floating animations for UI elements */
 @keyframes float {
   0%, 100% {
     transform: translateY(0);
@@ -409,16 +448,137 @@
   animation: float 6s ease-in-out infinite;
 }
 
-/* Glow pulse animation */
+/* Enhanced Glow pulse animation */
 @keyframes pulse-glow {
   0%, 100% {
     box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+    transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.4);
+    transform: scale(1.03);
   }
 }
 
 .animate-pulse-glow {
   animation: pulse-glow 2s infinite;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth !important;
+}
+
+/* Enhanced section transitions */
+section {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Advanced scroll-triggered animations */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Channel and movie card animations */
+.channel-card, .movie-card {
+  transition: all 0.3s ease-out;
+}
+
+.channel-card:hover, .movie-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  z-index: 10;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 
+              0 0 15px rgba(139, 92, 246, 0.5);
+}
+
+/* Center the main navigation items */
+.center-nav {
+  @apply absolute left-1/2 transform -translate-x-1/2 space-x-8;
+}
+
+/* Enhanced text centering for all sections */
+.text-center-all {
+  text-align: center;
+}
+
+/* Movie hover effect */
+.movie-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.movie-hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.movie-hover:hover::before {
+  opacity: 1;
+}
+
+.movie-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.movie-hover:hover .movie-info {
+  transform: translateY(0);
+}
+
+/* Fix for images in movies and channels */
+.channel-image, .movie-image {
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Neon text effect */
+.neon-text {
+  color: #fff;
+  text-shadow:
+    0 0 5px rgba(255, 255, 255, 0.8),
+    0 0 10px rgba(139, 92, 246, 0.8),
+    0 0 20px rgba(139, 92, 246, 0.5),
+    0 0 40px rgba(139, 92, 246, 0.3);
+}
+
+/* Clip path animations */
+.clip-path-animate {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.clip-path-animate:hover {
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+}
+
+/* Prevent right-click context menu */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
