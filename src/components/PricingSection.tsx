@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import GlassCard from "@/components/ui/GlassCard";
 import TypedText from "@/components/ui/TypedText";
-import { Check } from "lucide-react";
+import { Check, Zap, Shield, Timer } from "lucide-react";
 
 // Pricing plans
 const plans = [
@@ -106,6 +106,30 @@ export function PricingSection() {
           </p>
         </div>
 
+        {/* Free Trial Section - Now at the top */}
+        <div id="trial" className="mb-16 max-w-3xl mx-auto animate-float">
+          <GlassCard className="p-8 text-center" tiltEffect glowOnHover neonColor="green">
+            <div className="flex justify-center mb-3">
+              <Zap className="w-12 h-12 text-yassin-neon-green animate-pulse" />
+            </div>
+            <h3 className="text-3xl font-bold mb-3 text-gradient">Try our Free 24h Trial</h3>
+            <p className="mb-6 text-white/70 text-lg">
+              Experience our premium service with no commitment. Get access to all our channels and features for 24 hours.
+            </p>
+            <a
+              href="https://wa.me/212657263966?text=I'd like to try the free 24h trial"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-accent inline-block transform transition-transform hover:scale-105 animate-pulse-glow"
+            >
+              <span className="flex items-center">
+                <Timer className="mr-2" />
+                Get Free Trial Now
+              </span>
+            </a>
+          </GlassCard>
+        </div>
+
         {/* Currency selector */}
         <div className="flex justify-center mb-10">
           <div className="bg-white/10 rounded-full p-1 inline-flex">
@@ -153,6 +177,7 @@ export function PricingSection() {
                   glowOnHover
                   neonColor={neonColor}
                   tiltEffect
+                  floatingEffect
                 >
                   <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
                   <div className="mb-5">
@@ -177,7 +202,7 @@ export function PricingSection() {
                     href={`https://wa.me/212657263966?text=I'm interested in the ${plan.name} plan`}
                     target="_blank"
                     rel="noopener noreferrer" 
-                    className={`w-full text-center py-2 rounded-lg transition-all ${
+                    className={`w-full text-center py-2 rounded-lg transition-all transform hover:scale-105 ${
                       isPopular 
                         ? "bg-yassin-neon-purple hover:bg-yassin-neon-purple/80 text-white" 
                         : "bg-white/10 hover:bg-white/20 text-white"
@@ -191,21 +216,34 @@ export function PricingSection() {
           })}
         </div>
 
-        {/* Free Trial Section */}
-        <div id="trial" className="mt-16 max-w-3xl mx-auto">
-          <GlassCard className="p-8 text-center" tiltEffect>
-            <h3 className="text-2xl font-bold mb-3">Not sure yet? Try our Free 24h Trial</h3>
-            <p className="mb-6 text-white/70">
-              Experience our premium service with no commitment. Get access to all our channels and features for 24 hours.
+        {/* Security information */}
+        <div className="mt-20 max-w-4xl mx-auto">
+          <GlassCard className="p-8" glowOnHover neonColor="blue">
+            <div className="flex items-center justify-center mb-6">
+              <Shield className="w-10 h-10 text-yassin-neon-blue mr-3" />
+              <h3 className="text-2xl font-bold">Secure Streaming Experience</h3>
+            </div>
+            <p className="mb-6 text-white/70 text-center">
+              We take your security seriously. Our platform implements multiple protection layers to ensure your data and streaming experience remain secure.
             </p>
-            <a
-              href="https://wa.me/212657263966?text=I'd like to try the free 24h trial"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-accent inline-block"
-            >
-              Get Free Trial
-            </a>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white/5 p-4 rounded-lg">
+                <h4 className="font-bold mb-2 text-yassin-neon-blue">Encrypted Connections</h4>
+                <p className="text-sm text-white/70">All data transmitted between your device and our servers is encrypted using industry-standard protocols.</p>
+              </div>
+              <div className="bg-white/5 p-4 rounded-lg">
+                <h4 className="font-bold mb-2 text-yassin-neon-blue">Secure Authentication</h4>
+                <p className="text-sm text-white/70">Multi-factor authentication available for all accounts to prevent unauthorized access.</p>
+              </div>
+              <div className="bg-white/5 p-4 rounded-lg">
+                <h4 className="font-bold mb-2 text-yassin-neon-blue">DDoS Protection</h4>
+                <p className="text-sm text-white/70">Our infrastructure is protected against distributed denial-of-service attacks to ensure uptime.</p>
+              </div>
+              <div className="bg-white/5 p-4 rounded-lg">
+                <h4 className="font-bold mb-2 text-yassin-neon-blue">Regular Security Audits</h4>
+                <p className="text-sm text-white/70">We continuously test our systems for vulnerabilities to stay ahead of potential threats.</p>
+              </div>
+            </div>
           </GlassCard>
         </div>
       </div>

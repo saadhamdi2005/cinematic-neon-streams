@@ -1,6 +1,5 @@
 
 import { useRef, useState, useEffect } from "react";
-import GlassCard from "@/components/ui/GlassCard";
 import TypedText from "@/components/ui/TypedText";
 
 // Channel data with the logos you provided
@@ -109,6 +108,7 @@ const categories = ["All", "News", "Sports", "Documentary", "Business", "Cultura
 export function ChannelShowcase() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [visibleChannels, setVisibleChannels] = useState(channels);
+  const [hoveredChannel, setHoveredChannel] = useState<number | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Filter channels based on category
@@ -193,7 +193,7 @@ export function ChannelShowcase() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full transition-all ${
+              className={`px-4 py-2 rounded-full transition-all transform hover:scale-105 ${
                 selectedCategory === category
                   ? "bg-yassin-neon-purple text-white"
                   : "bg-white/10 text-white/70 hover:bg-white/20"
@@ -204,30 +204,27 @@ export function ChannelShowcase() {
           ))}
         </div>
 
-        {/* Scrolling Channel Display */}
-        <div 
-          ref={scrollContainerRef}
-          className="overflow-x-auto pb-6 hide-scrollbar"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-        >
-          <div className="flex gap-6" style={{ minWidth: "max-content" }}>
-            {visibleChannels.map((channel) => (
-              <GlassCard 
-                key={channel.id} 
-                className="w-[250px] p-5 flex flex-col items-center justify-center h-[180px]"
-                glowOnHover
-              >
-                <div className="relative mb-4 h-20 flex items-center justify-center">
+        {/* Modern Channel Grid Display instead of scrolling cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
+          {visibleChannels.map((channel) => (
+            <div 
+              key={channel.id}
+              className="relative group"
+              onMouseEnter={() => setHoveredChannel(channel.id)}
+              onMouseLeave={() => setHoveredChannel(null)}
+            >
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-4 transition-all duration-300 hover:border-yassin-neon-blue/50 hover:shadow-[0_0_15px_rgba(30,174,219,0.3)] transform hover:-translate-y-2">
+                <div className="relative mb-3 h-16 flex items-center justify-center">
                   <img 
                     src={channel.logo} 
                     alt={channel.name} 
-                    className="max-h-20 max-w-full object-contain"
+                    className="max-h-16 max-w-full object-contain"
                   />
                 </div>
-                <h3 className="text-lg font-medium mb-1">{channel.name}</h3>
-                <div className="flex items-center gap-2 mt-2">
+                <h3 className="text-center font-medium mb-2 truncate">{channel.name}</h3>
+                <div className="flex flex-wrap justify-center gap-1 mt-2">
                   {channel.hd && (
-                    <span className="px-1.5 py-0.5 bg-yassin-neon-blue/30 text-yassin-neon-blue text-xs rounded">
+                    <span className="px-1.5 py-0.5 bg-yassin-neon-blue/20 text-yassin-neon-blue text-xs rounded">
                       HD
                     </span>
                   )}
@@ -235,17 +232,35 @@ export function ChannelShowcase() {
                     {channel.category}
                   </span>
                 </div>
-              </GlassCard>
-            ))}
-          </div>
+                
+                {hoveredChannel === channel.id && (
+                  <div className="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="text-yassin-neon-blue text-sm font-medium px-3 py-1 border border-yassin-neon-blue/50 rounded-full animate-pulse">
+                      Watch Now
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 reveal-animation">
           <p className="text-white/60 mb-4">And 10,000+ more channels available in our package</p>
-          <a href="#pricing" className="btn-primary">
+          <a href="#pricing" className="btn-primary inline-block transform transition-transform hover:scale-105">
             Get Access Now
           </a>
         </div>
+      </div>
+      
+      {/* Modern glowing grid lines in the background */}
+      <div className="absolute inset-0 grid grid-cols-6 pointer-events-none z-0 opacity-10">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="border-r border-yassin-neon-blue/30 h-full"></div>
+        ))}
+        {[...Array(6)].map((_, i) => (
+          <div key={i+"row"} className="border-b border-yassin-neon-blue/30 w-full"></div>
+        ))}
       </div>
     </section>
   );

@@ -10,6 +10,7 @@ interface GlassCardProps {
   glowIntensity?: "low" | "medium" | "high";
   pulsate?: boolean;
   tiltEffect?: boolean;
+  floatingEffect?: boolean;
 }
 
 export function GlassCard({ 
@@ -19,7 +20,8 @@ export function GlassCard({
   neonColor = "purple",
   glowIntensity = "medium",
   pulsate = false,
-  tiltEffect = false
+  tiltEffect = false,
+  floatingEffect = false
 }: GlassCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   
@@ -58,6 +60,7 @@ export function GlassCard({
   const pulsateClass = pulsate ? "animate-pulse-glow" : "";
   const hoverClass = glowOnHover ? `transition-all duration-300 ${neonColorMap[neonColor][glowIntensity]}` : "";
   const activeGlowClass = isHovered && glowOnHover ? activeNeonMap[neonColor] : "";
+  const floatingClass = floatingEffect ? "animate-float" : "";
   
   // Ref for tilt effect
   const cardRef = useRef<HTMLDivElement>(null);
@@ -111,6 +114,7 @@ export function GlassCard({
         hoverClass, 
         pulsateClass, 
         activeGlowClass,
+        floatingClass,
         tiltEffect && "transform-gpu",
         className
       )}

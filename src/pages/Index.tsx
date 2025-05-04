@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import ChannelShowcase from "@/components/ChannelShowcase";
 import MovieShowcase from "@/components/MovieShowcase";
 import PricingSection from "@/components/PricingSection";
+import ResellerSection from "@/components/ResellerSection";
 import InstallGuide from "@/components/InstallGuide";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -26,25 +27,84 @@ const Index = () => {
       rootMargin: '0px 0px -10% 0px' // Slightly before the element enters the viewport
     });
 
-    const fadeElements = document.querySelectorAll(".fade-in-up");
+    const fadeElements = document.querySelectorAll(".fade-in-up, .reveal-animation");
     fadeElements.forEach((element) => {
       observer.observe(element);
     });
 
-    // Disable right-click context menu
+    // Disable right-click context menu (security measure)
     const disableRightClick = (e: MouseEvent) => {
       e.preventDefault();
+      return false;
     };
     document.addEventListener("contextmenu", disableRightClick);
 
+    // Disable F12 key (security measure)
+    const disableF12 = (e: KeyboardEvent) => {
+      if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")) {
+        e.preventDefault();
+        return false;
+      }
+    };
+    document.addEventListener("keydown", disableF12);
+
+    // Disable view source (security measure)
+    const disableViewSource = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.key === "u") {
+        e.preventDefault();
+        return false;
+      }
+    };
+    document.addEventListener("keydown", disableViewSource);
+
+    // Disable selection (security measure)
+    const disableSelection = () => {
+      return false;
+    };
+    document.onselectstart = disableSelection;
+
     // Smooth scroll behavior
     document.documentElement.style.scrollBehavior = "smooth";
+
+    // Initialize cursor effect
+    const cursorInit = () => {
+      const cursor = document.createElement('div');
+      cursor.className = "neon-cursor";
+      document.body.appendChild(cursor);
+      
+      const moveCursor = (e: MouseEvent) => {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+      };
+      
+      const activateCursor = () => {
+        cursor.classList.add("hovering");
+      };
+      
+      const deactivateCursor = () => {
+        cursor.classList.remove("hovering");
+      };
+      
+      document.addEventListener('mousemove', moveCursor);
+      
+      const interactiveElements = document.querySelectorAll('a, button, input, select, textarea');
+      interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', activateCursor);
+        el.addEventListener('mouseleave', deactivateCursor);
+      });
+    };
+    
+    // Call cursor init with a slight delay to ensure DOM is ready
+    setTimeout(cursorInit, 100);
 
     return () => {
       fadeElements.forEach((element) => {
         observer.unobserve(element);
       });
       document.removeEventListener("contextmenu", disableRightClick);
+      document.removeEventListener("keydown", disableF12);
+      document.removeEventListener("keydown", disableViewSource);
+      document.onselectstart = null;
     };
   }, []);
 
@@ -276,6 +336,16 @@ const Index = () => {
           </svg>
         </div>
         
+        <ResellerSection />
+        
+        <div className="section-divider"></div>
+        
+        <div className="divider">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto">
+            <path fill="currentColor" d="M0,96L80,80C160,64,320,32,480,32C640,32,800,64,960,69.3C1120,75,1280,53,1360,42.7L1440,32L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" className="text-yassin-dark"></path>
+          </svg>
+        </div>
+        
         <InstallGuide />
         
         <div className="section-divider"></div>
@@ -290,10 +360,10 @@ const Index = () => {
       <WhatsAppButton 
         phoneNumber="212657263966"
         text="Chat on WhatsApp"
-        className="fixed bottom-6 right-6 z-50"
+        className="fixed bottom-6 right-6 z-50 animate-float"
       />
       
-      <AIChatbot />
+      <AIChatbot className="fixed bottom-6 left-6 z-50 animate-float" />
     </div>
   );
 };
