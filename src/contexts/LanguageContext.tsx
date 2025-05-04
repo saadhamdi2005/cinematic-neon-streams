@@ -1,6 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { LanguageCode, TranslationKey, getTranslation } from '@/lib/translations';
+import { detectBrowserLanguage, setDocumentLanguageAttributes } from '@/utils/languageDetector';
 
 interface LanguageContextType {
   language: LanguageCode;
@@ -18,6 +19,7 @@ export const LanguageContext = createContext<LanguageContextType>({
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<LanguageCode>('en');
+  const [isInitialized, setIsInitialized] = useState(false);
   
   // Get the direction based on language
   const dir = language === 'ar' ? 'rtl' : 'ltr';
@@ -29,8 +31,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   
   // Update HTML dir attribute and lang when language changes
   useEffect(() => {
-    document.documentElement.dir = dir;
-    document.documentElement.lang = language;
+    setDocumentLanguageAttributes(language);
     
     // Add RTL specific styles when Arabic is selected
     if (language === 'ar') {
@@ -40,15 +41,25 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
     
     // Save language preference to localStorage
-    localStorage.setItem('preferredLanguage', language);
-  }, [language, dir]);
+    if (isInitialized) {
+      localStorage.setItem('preferredLanguage', language);
+    }
+  }, [language, isInitialized]);
   
-  // Load user's preferred language from localStorage
+  // Load user's preferred language from localStorage or detect from browser
   useEffect(() => {
+    // First try to get from localStorage
     const savedLanguage = localStorage.getItem('preferredLanguage');
+    
     if (savedLanguage && ['en', 'fr', 'ar', 'es'].includes(savedLanguage)) {
       setLanguage(savedLanguage as LanguageCode);
+    } else {
+      // If not in localStorage, auto-detect
+      const detectedLanguage = detectBrowserLanguage();
+      setLanguage(detectedLanguage);
     }
+    
+    setIsInitialized(true);
   }, []);
   
   return (

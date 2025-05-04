@@ -10,9 +10,10 @@ import InstallGuide from "@/components/InstallGuide";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ParticleBackground from "@/components/ParticleBackground";
-import AIChatbot from "@/components/AIChatbot";
 import FeedbackSection from "@/components/FeedbackSection";
 import FAQSection from "@/components/FAQSection";
+import LanguageNotice from "@/components/LanguageNotice";
+import "@/styles/loadingStyles.css";
 
 const Index = () => {
   // Add scroll animation observer
@@ -67,7 +68,7 @@ const Index = () => {
     // Smooth scroll behavior
     document.documentElement.style.scrollBehavior = "smooth";
 
-    // Initialize cursor effect
+    // Initialize enhanced cursor effect
     const cursorInit = () => {
       const cursor = document.createElement('div');
       cursor.className = "neon-cursor";
@@ -100,6 +101,25 @@ const Index = () => {
       interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', activateCursor);
         el.addEventListener('mouseleave', deactivateCursor);
+      });
+      
+      // Create futuristic trail effect
+      document.addEventListener('mousemove', (e) => {
+        // Throttle to avoid performance issues
+        if (Math.random() > 0.8) {
+          const trail = document.createElement('div');
+          trail.className = 'cursor-trail';
+          trail.style.left = `${e.clientX}px`;
+          trail.style.top = `${e.clientY}px`;
+          document.body.appendChild(trail);
+          
+          // Remove trail after animation completes
+          setTimeout(() => {
+            if (document.body.contains(trail)) {
+              document.body.removeChild(trail);
+            }
+          }, 600);
+        }
       });
     };
     
@@ -294,10 +314,13 @@ const Index = () => {
       </div>
       <ParticleBackground />
       
-      {/* Cyberpunk Light Beams */}
+      {/* Enhanced Cyberpunk Light Beams */}
       <div className="light-beam light-beam-1"></div>
       <div className="light-beam light-beam-2"></div>
       <div className="light-beam light-beam-3"></div>
+      
+      {/* Neural Network Grid Effect */}
+      <div className="neural-grid"></div>
 
       {/* Navigation */}
       <div id="home"></div>
@@ -359,7 +382,7 @@ const Index = () => {
         
         <div className="section-divider"></div>
         
-        {/* Added FAQ Section */}
+        {/* Enhanced FAQ Section */}
         <FAQSection />
         
         <div className="section-divider"></div>
@@ -377,7 +400,8 @@ const Index = () => {
         className="fixed bottom-6 right-6 z-50 animate-float"
       />
       
-      <AIChatbot className="fixed bottom-6 left-6 z-50 animate-float" />
+      {/* Language Notice */}
+      <LanguageNotice />
     </div>
   );
 };

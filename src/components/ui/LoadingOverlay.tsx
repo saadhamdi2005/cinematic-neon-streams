@@ -31,11 +31,27 @@ const LoadingOverlay = ({
   return (
     <div className={cn(containerStyles, "transition-all duration-300", className)}>
       <div className="flex flex-col items-center p-8 rounded-2xl bg-black/40 border border-white/10 animate-fadeIn">
-        <LoadingSpinner size="lg" variant={variant} />
-        <p className="mt-4 text-white font-medium text-center">
+        <div className="relative">
+          <div className="absolute inset-0 rounded-full blur-xl bg-yassin-neon-purple/20"></div>
+          <LoadingSpinner size="lg" variant={variant} />
+        </div>
+        
+        <p className="mt-6 text-white font-medium text-center loading-text">
           {message || t("loading")}
         </p>
+        
         <p className="text-white/60 text-sm mt-2">{t("please_wait")}</p>
+        
+        <div className="mt-4 w-full max-w-xs">
+          <div className="cyber-progress"></div>
+          
+          <div className="mt-4 loading-dots">
+            <div className="dot"></div>
+            <div className="dot"></div>
+            <div className="dot"></div>
+            <div className="dot"></div>
+          </div>
+        </div>
       </div>
     </div>
   );

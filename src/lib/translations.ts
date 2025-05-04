@@ -32,10 +32,12 @@ export type TranslationKey =
   | "faq_title" | "faq_subtitle"
   | "faq_q1" | "faq_a1" | "faq_q2" | "faq_a2" | "faq_q3" | "faq_a3" 
   | "faq_q4" | "faq_a4" | "faq_q5" | "faq_a5" | "faq_q6" | "faq_a6"
+  | "faq_q7" | "faq_a7" | "faq_q8" | "faq_a8"
   // Footer
   | "footer_rights" | "footer_privacy" | "footer_terms" | "footer_contact"
   // Chat
   | "chat_title" | "chat_placeholder" | "chat_send" | "chat_welcome"
+  | "auto_detect" | "language_notice"
   // Loading
   | "loading" | "please_wait";
 
@@ -128,6 +130,10 @@ export const translations: Record<LanguageCode, Record<TranslationKey, string>> 
     faq_a5: "We accept various payment methods including credit cards, PayPal, and cryptocurrency for your convenience.",
     faq_q6: "What if I'm not satisfied with the service?",
     faq_a6: "We offer a 7-day money-back guarantee if you're not completely satisfied with our service.",
+    faq_q7: "Do you offer worldwide channels?",
+    faq_a7: "Yes, we provide channels from over 50 countries including USA, UK, France, Spain, Italy, Germany, Middle East, and many more regions.",
+    faq_q8: "Is the service legal?",
+    faq_a8: "Our service operates under licensing agreements with content providers. Always check the laws in your country regarding IPTV services.",
     // Footer
     footer_rights: "All Rights Reserved",
     footer_privacy: "Privacy Policy",
@@ -138,6 +144,8 @@ export const translations: Record<LanguageCode, Record<TranslationKey, string>> 
     chat_placeholder: "Type your message...",
     chat_send: "Send",
     chat_welcome: "Hello! How can I help you today?",
+    auto_detect: "Auto-detect language",
+    language_notice: "This website is available in English, العربية, Français, and Español. Language is detected automatically, or you can choose manually below.",
     // Loading
     loading: "Loading",
     please_wait: "Please wait..."
@@ -229,6 +237,10 @@ export const translations: Record<LanguageCode, Record<TranslationKey, string>> 
     faq_a5: "Nous acceptons différentes méthodes de paiement, notamment les cartes de crédit, PayPal et les cryptomonnaies pour votre commodité.",
     faq_q6: "Que se passe-t-il si je ne suis pas satisfait du service?",
     faq_a6: "Nous offrons une garantie de remboursement de 7 jours si vous n'êtes pas entièrement satisfait de notre service.",
+    faq_q7: "Offrez-vous des chaînes internationales?",
+    faq_a7: "Oui, nous proposons des chaînes de plus de 50 pays, notamment des États-Unis, du Royaume-Uni, de la France, de l'Espagne, de l'Italie, de l'Allemagne, du Moyen-Orient et de nombreuses autres régions.",
+    faq_q8: "Le service est-il légal?",
+    faq_a8: "Notre service fonctionne dans le cadre d'accords de licence avec les fournisseurs de contenu. Vérifiez toujours les lois de votre pays concernant les services IPTV.",
     // Footer
     footer_rights: "Tous Droits Réservés",
     footer_privacy: "Politique de Confidentialité",
@@ -239,6 +251,8 @@ export const translations: Record<LanguageCode, Record<TranslationKey, string>> 
     chat_placeholder: "Tapez votre message...",
     chat_send: "Envoyer",
     chat_welcome: "Bonjour! Comment puis-je vous aider aujourd'hui?",
+    auto_detect: "Détection automatique de la langue",
+    language_notice: "Ce site est disponible en anglais, arabe, français et espagnol. La langue est détectée automatiquement, ou vous pouvez choisir manuellement ci-dessous.",
     // Loading
     loading: "Chargement",
     please_wait: "Veuillez patienter..."
@@ -330,6 +344,10 @@ export const translations: Record<LanguageCode, Record<TranslationKey, string>> 
     faq_a5: "نحن نقبل وسائل دفع متنوعة بما في ذلك بطاقات الائتمان وباي بال والعملات المشفرة لراحتك.",
     faq_q6: "ماذا لو لم أكن راضياً عن الخدمة؟",
     faq_a6: "نحن نقدم ضمان استرداد الأموال لمدة 7 أيام إذا لم تكن راضياً تماماً عن خدمتنا.",
+    faq_q7: "هل توفرون قنوات عالمية؟",
+    faq_a7: "نعم، نقدم قنوات من أكثر من 50 دولة بما في ذلك الولايات المتحدة والمملكة المتحدة وفرنسا وإسبانيا وإيطاليا وألمانيا والشرق الأوسط والعديد من المناطق الأخرى.",
+    faq_q8: "هل الخدمة قانونية؟",
+    faq_a8: "تعمل خدمتنا بموجب اتفاقيات ترخيص مع مزودي المحتوى. تحقق دائماً من القوانين في بلدك بخصوص خدمات IPTV.",
     // Footer
     footer_rights: "جميع الحقوق محفوظة",
     footer_privacy: "سياسة الخصوصية",
@@ -340,6 +358,8 @@ export const translations: Record<LanguageCode, Record<TranslationKey, string>> 
     chat_placeholder: "اكتب رسالتك...",
     chat_send: "إرسال",
     chat_welcome: "مرحباً! كيف يمكنني مساعدتك اليوم؟",
+    auto_detect: "الكشف التلقائي عن اللغة",
+    language_notice: "هذا الموقع متاح باللغات الإنجليزية والعربية والفرنسية والإسبانية. يتم اكتشاف اللغة تلقائياً، أو يمكنك الاختيار يدوياً أدناه.",
     // Loading
     loading: "جاري التحميل",
     please_wait: "يرجى الانتظار..."
@@ -431,6 +451,10 @@ export const translations: Record<LanguageCode, Record<TranslationKey, string>> 
     faq_a5: "Aceptamos varios métodos de pago, incluyendo tarjetas de crédito, PayPal y criptomonedas para tu conveniencia.",
     faq_q6: "¿Qué pasa si no estoy satisfecho con el servicio?",
     faq_a6: "Ofrecemos una garantía de devolución de dinero de 7 días si no estás completamente satisfecho con nuestro servicio.",
+    faq_q7: "¿Ofrecen canales internacionales?",
+    faq_a7: "Sí, proporcionamos canales de más de 50 países, incluyendo EE.UU., Reino Unido, Francia, España, Italia, Alemania, Oriente Medio y muchas más regiones.",
+    faq_q8: "¿El servicio es legal?",
+    faq_a8: "Nuestro servicio opera bajo acuerdos de licencia con proveedores de contenido. Siempre verifica las leyes en tu país con respecto a los servicios IPTV.",
     // Footer
     footer_rights: "Todos los Derechos Reservados",
     footer_privacy: "Política de Privacidad",
@@ -441,6 +465,8 @@ export const translations: Record<LanguageCode, Record<TranslationKey, string>> 
     chat_placeholder: "Escribe tu mensaje...",
     chat_send: "Enviar",
     chat_welcome: "¡Hola! ¿Cómo puedo ayudarte hoy?",
+    auto_detect: "Detectar idioma automáticamente",
+    language_notice: "Este sitio está disponible en inglés, árabe, francés y español. El idioma se detecta automáticamente, o puedes elegir manualmente a continuación.",
     // Loading
     loading: "Cargando",
     please_wait: "Por favor espera..."
