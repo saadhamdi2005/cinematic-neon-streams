@@ -1,17 +1,26 @@
+
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Menu, X, Globe } from "lucide-react";
 import TypedText from "@/components/ui/TypedText";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageCode } from "@/lib/translations";
 
-const NavLinks = [
-  { name: "Home", url: "/" },
-  { name: "Channels", url: "#channels" },
-  { name: "Movies", url: "#movies" },
-  { name: "Pricing", url: "#pricing" },
-  { name: "Reseller", url: "#reseller" },
-  { name: "Installation", url: "#install" },
-  { name: "FAQ", url: "#faq" },
+// Define nav link structure
+interface NavLink {
+  translationKey: 'home' | 'channels' | 'movies' | 'pricing' | 'reseller' | 'installation' | 'faq';
+  url: string;
+}
+
+const NavLinks: NavLink[] = [
+  { translationKey: "home", url: "/" },
+  { translationKey: "channels", url: "#channels" },
+  { translationKey: "movies", url: "#movies" },
+  { translationKey: "pricing", url: "#pricing" },
+  { translationKey: "reseller", url: "#reseller" },
+  { translationKey: "installation", url: "#install" },
+  { translationKey: "faq", url: "#faq" },
 ];
 
 const languages = [
@@ -22,20 +31,11 @@ const languages = [
 ];
 
 export function NavBar() {
+  const { language, setLanguage, t, dir } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("Home");
-  const [currentLanguage, setCurrentLanguage] = useState("en");
+  const [activeSection, setActiveSection] = useState("home");
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
-
-  // Detect browser language on mount
-  useEffect(() => {
-    const browserLang = navigator.language.split('-')[0];
-    const supportedLang = languages.find(lang => lang.code === browserLang);
-    if (supportedLang) {
-      setCurrentLanguage(supportedLang.code);
-    }
-  }, []);
 
   // Handle scroll
   useEffect(() => {
@@ -56,7 +56,7 @@ export function NavBar() {
         if (sectionTop < window.innerHeight / 2 && sectionTop > -window.innerHeight / 2) {
           const navLink = NavLinks.find(link => link.url === `#${sectionId}` || (link.url === "/" && sectionId === "home"));
           if (navLink) {
-            setActiveSection(navLink.name);
+            setActiveSection(navLink.translationKey);
           }
         }
       });
@@ -104,12 +104,19 @@ export function NavBar() {
   }, []);
 
   // Get language name from code
-  const getLanguageName = (code) => {
+  const getLanguageName = (code: string) => {
     return languages.find(lang => lang.code === code)?.name || 'English';
   };
 
   const toggleLanguageMenu = () => {
     setLanguageMenuOpen(!languageMenuOpen);
+  };
+
+  const handleLanguageChange = (langCode: string) => {
+    if (['en', 'fr', 'ar', 'es'].includes(langCode)) {
+      setLanguage(langCode as LanguageCode);
+      setLanguageMenuOpen(false);
+    }
   };
 
   return (
@@ -118,6 +125,7 @@ export function NavBar() {
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-4",
         isScrolled ? "bg-black/80 backdrop-blur-xl shadow-lg shadow-black/10" : "bg-transparent"
       )}
+      dir={dir}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
@@ -137,14 +145,14 @@ export function NavBar() {
           <div className="hidden md:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 space-x-8">
             {NavLinks.map((link) => (
               <a
-                key={link.name}
+                key={link.translationKey}
                 href={link.url}
                 className={cn(
                   "text-white/80 hover:text-white transition-colors duration-200 font-medium relative",
-                  activeSection === link.name && "text-white after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-0.5 after:bg-yassin-neon-purple"
+                  activeSection === link.translationKey && "text-white after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-0.5 after:bg-yassin-neon-purple"
                 )}
               >
-                {link.name}
+                {t(link.translationKey)}
               </a>
             ))}
           </div>
@@ -158,7 +166,7 @@ export function NavBar() {
                 className="language-selector group"
               >
                 <Globe className="w-4 h-4 text-yassin-neon-purple" />
-                <span>{getLanguageName(currentLanguage)}</span>
+                <span>{getLanguageName(language)}</span>
               </button>
               
               {languageMenuOpen && (
@@ -166,11 +174,8 @@ export function NavBar() {
                   {languages.map(lang => (
                     <button
                       key={lang.code}
-                      onClick={() => {
-                        setCurrentLanguage(lang.code);
-                        setLanguageMenuOpen(false);
-                      }}
-                      className={`language-option ${currentLanguage === lang.code ? 'bg-white/10' : ''}`}
+                      onClick={() => handleLanguageChange(lang.code)}
+                      className={`language-option ${language === lang.code ? 'bg-white/10' : ''}`}
                     >
                       {lang.name}
                     </button>
@@ -180,7 +185,7 @@ export function NavBar() {
             </div>
             
             <a href="#trial" className="btn-primary">
-              Free Trial
+              {t('freeTrial')}
             </a>
           </div>
 
@@ -203,15 +208,15 @@ export function NavBar() {
             <div className="flex flex-col space-y-4 px-6 py-2">
               {NavLinks.map((link) => (
                 <a
-                  key={link.name}
+                  key={link.translationKey}
                   href={link.url}
                   className={cn(
                     "text-white/80 hover:text-white py-2 transition-colors duration-200 font-medium text-center",
-                    activeSection === link.name && "text-white border-l-2 border-yassin-neon-purple pl-2"
+                    activeSection === link.translationKey && "text-white border-l-2 border-yassin-neon-purple pl-2"
                   )}
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <TypedText text={link.name} typingSpeed={50} delay={100 * NavLinks.indexOf(link)} showCursor={false} />
+                  <TypedText text={t(link.translationKey)} typingSpeed={50} delay={100 * NavLinks.indexOf(link)} showCursor={false} />
                 </a>
               ))}
               
@@ -221,9 +226,9 @@ export function NavBar() {
                   {languages.map(lang => (
                     <button
                       key={lang.code}
-                      onClick={() => setCurrentLanguage(lang.code)}
+                      onClick={() => handleLanguageChange(lang.code)}
                       className={`px-3 py-1 rounded ${
-                        currentLanguage === lang.code 
+                        language === lang.code 
                           ? 'bg-yassin-neon-purple/20 text-white' 
                           : 'text-white/60 hover:text-white'
                       }`}
@@ -235,7 +240,7 @@ export function NavBar() {
               </div>
               
               <a href="#trial" className="btn-primary text-center mt-2">
-                Free Trial
+                {t('freeTrial')}
               </a>
             </div>
           </div>
