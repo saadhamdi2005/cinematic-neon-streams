@@ -1,9 +1,9 @@
 
-import { useState, useRef, useEffect, useContext } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Bot, Send, X, MessageSquare } from "lucide-react";
 import TypedText from "@/components/ui/TypedText";
 import GlassCard from "@/components/ui/GlassCard";
-import { LanguageContext } from "@/contexts/LanguageContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import LoadingSpinner from "./ui/LoadingSpinner";
 
 interface AIChatbotProps {
@@ -18,7 +18,7 @@ interface Message {
 }
 
 export function AIChatbot({ className }: AIChatbotProps) {
-  const { t, language } = useContext(LanguageContext);
+  const { t, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");

@@ -2,7 +2,6 @@
 import { useContext } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { LanguageContext } from "@/contexts/LanguageContext";
-import { TranslationKey } from "@/lib/translations";
 import GlassCard from "./ui/GlassCard";
 
 const FAQSection = () => {

@@ -1,6 +1,6 @@
 
 // Define all available languages
-export type Language = "en" | "fr" | "ar";
+export type LanguageCode = "en" | "fr" | "ar" | "es";
 
 // Define translation key types for type safety
 export type TranslationKey = 
@@ -18,8 +18,10 @@ export type TranslationKey =
   // Pricing section
   | "pricing_title" | "pricing_subtitle" 
   | "basic_plan" | "standard_plan" | "premium_plan" | "most_popular"
-  | "month" | "devices" | "channels" | "movies" | "support_247" | "hd_quality" | "ultra_hd"
-  | "select_plan" | "includes_vat"
+  | "month" | "devices" | "channel_count" | "movie_count" | "support_247" | "hd_quality" | "ultra_hd"
+  | "select_plan" | "includes_vat" | "buy_now" | "free_trial"
+  // Pricing Plans
+  | "monthly" | "quarterly" | "yearly"
   // Reseller section
   | "reseller_title" | "reseller_subtitle" | "reseller_cta"
   | "reseller_feature1" | "reseller_feature2" | "reseller_feature3"
@@ -38,7 +40,7 @@ export type TranslationKey =
   | "loading" | "please_wait";
 
 // Define translations for all languages
-export const translations: Record<Language, Record<TranslationKey, string>> = {
+export const translations: Record<LanguageCode, Record<TranslationKey, string>> = {
   en: {
     // Navigation
     home: "Home",
@@ -81,13 +83,18 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     most_popular: "Most Popular",
     month: "month",
     devices: "Devices",
-    channels: "Channels",
-    movies: "Movies",
+    channel_count: "Channels",
+    movie_count: "Movies",
     support_247: "24/7 Support",
     hd_quality: "HD Quality",
     ultra_hd: "Ultra HD (4K)",
     select_plan: "Select Plan",
     includes_vat: "Includes VAT",
+    buy_now: "Buy Now",
+    // Pricing plans
+    monthly: "Monthly",
+    quarterly: "Quarterly",
+    yearly: "Yearly",
     // Reseller section
     reseller_title: "Become a Reseller",
     reseller_subtitle: "Start your own IPTV business with our reseller program",
@@ -177,13 +184,18 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     most_popular: "Le Plus Populaire",
     month: "mois",
     devices: "Appareils",
-    channels: "Chaînes",
-    movies: "Films",
+    channel_count: "Chaînes",
+    movie_count: "Films",
     support_247: "Support 24/7",
     hd_quality: "Qualité HD",
     ultra_hd: "Ultra HD (4K)",
     select_plan: "Sélectionner",
     includes_vat: "TVA incluse",
+    buy_now: "Acheter",
+    // Pricing plans
+    monthly: "Mensuel",
+    quarterly: "Trimestriel",
+    yearly: "Annuel",
     // Reseller section
     reseller_title: "Devenez Revendeur",
     reseller_subtitle: "Lancez votre propre entreprise IPTV avec notre programme de revendeur",
@@ -273,13 +285,18 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     most_popular: "الأكثر شعبية",
     month: "شهر",
     devices: "الأجهزة",
-    channels: "القنوات",
-    movies: "الأفلام",
+    channel_count: "القنوات",
+    movie_count: "الأفلام",
     support_247: "دعم على مدار الساعة",
     hd_quality: "جودة عالية الدقة",
     ultra_hd: "جودة فائقة الدقة (4K)",
     select_plan: "اختر الخطة",
     includes_vat: "شامل ضريبة القيمة المضافة",
+    buy_now: "اشتر الآن",
+    // Pricing plans
+    monthly: "شهري",
+    quarterly: "ربع سنوي",
+    yearly: "سنوي",
     // Reseller section
     reseller_title: "كن موزعاً",
     reseller_subtitle: "ابدأ عملك الخاص في IPTV مع برنامج الموزعين",
@@ -326,5 +343,116 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     // Loading
     loading: "جاري التحميل",
     please_wait: "يرجى الانتظار..."
+  },
+  es: {
+    // Navigation
+    home: "Inicio",
+    channels: "Canales",
+    movies: "Películas",
+    pricing: "Precios",
+    reseller: "Distribuidor",
+    installation: "Instalación",
+    faq: "Preguntas Frecuentes",
+    language: "Idioma",
+    login: "Iniciar Sesión",
+    signup: "Registrarse",
+    free_trial: "Prueba Gratuita",
+    support: "Soporte",
+    // Hero section
+    hero_title: "Servicio IPTV Premium",
+    hero_subtitle: "Accede a más de 10.000 canales y 40.000 películas en cualquier dispositivo",
+    hero_cta: "Comenzar",
+    hero_secondary_cta: "Saber más",
+    // Features section
+    features_title: "¿Por qué elegir YassinIPTV?",
+    channels_count: "Más de 10.000 canales",
+    movies_count: "Más de 40.000 películas y series",
+    devices_support: "Compatible con todos los dispositivos",
+    countries: "Cobertura mundial",
+    // Channels section
+    channels_title: "Explora Nuestros Canales",
+    channels_subtitle: "Accede a canales premium de todo el mundo",
+    channels_cta: "Ver todos los canales",
+    // Movies section
+    movies_title: "Últimas Películas y Series",
+    movies_subtitle: "Mira los últimos estrenos y clásicos de siempre",
+    movies_cta: "Explorar Biblioteca",
+    // Pricing section
+    pricing_title: "Precios Simples y Transparentes",
+    pricing_subtitle: "Elige el plan que funcione para ti",
+    basic_plan: "Básico",
+    standard_plan: "Estándar",
+    premium_plan: "Premium",
+    most_popular: "Más Popular",
+    month: "mes",
+    devices: "Dispositivos",
+    channel_count: "Canales",
+    movie_count: "Películas",
+    support_247: "Soporte 24/7",
+    hd_quality: "Calidad HD",
+    ultra_hd: "Ultra HD (4K)",
+    select_plan: "Seleccionar Plan",
+    includes_vat: "IVA incluido",
+    buy_now: "Comprar Ahora",
+    // Pricing plans
+    monthly: "Mensual",
+    quarterly: "Trimestral",
+    yearly: "Anual",
+    // Reseller section
+    reseller_title: "Conviértete en Distribuidor",
+    reseller_subtitle: "Inicia tu propio negocio IPTV con nuestro programa de distribución",
+    reseller_cta: "Únete Ahora",
+    reseller_feature1: "Precios Competitivos",
+    reseller_feature2: "Acceso al Panel de Administración",
+    reseller_feature3: "Soporte Técnico",
+    // Installation section
+    install_title: "Instalación Fácil",
+    install_subtitle: "Comienza en minutos con nuestro sencillo proceso de configuración",
+    install_step1: "Suscríbete a un plan",
+    install_step2: "Descarga nuestra aplicación",
+    install_step3: "Ingresa tus credenciales y disfruta",
+    device_android: "Android",
+    device_ios: "iOS",
+    device_windows: "Windows",
+    device_mac: "Mac",
+    device_smarttv: "Smart TV",
+    // FAQ section
+    faq_title: "Preguntas Frecuentes",
+    faq_subtitle: "Encuentra respuestas a preguntas comunes sobre nuestro servicio",
+    faq_q1: "¿Qué es IPTV?",
+    faq_a1: "IPTV (Televisión por Protocolo de Internet) ofrece contenido televisivo a través de redes de internet en lugar de formatos tradicionales como satélite o cable.",
+    faq_q2: "¿Qué dispositivos son compatibles?",
+    faq_a2: "Soportamos todos los dispositivos principales incluyendo Smart TVs, Android, iOS, Windows, Mac, Firestick, Roku y más.",
+    faq_q3: "¿Cuántos dispositivos puedo usar simultáneamente?",
+    faq_a3: "Dependiendo de tu plan de suscripción, puedes usar de 1 a 4 dispositivos simultáneamente.",
+    faq_q4: "¿Ofrecen una prueba gratuita?",
+    faq_a4: "Sí, ofrecemos una prueba gratuita de 24 horas para que puedas probar nuestro servicio antes de comprometerte.",
+    faq_q5: "¿Cómo puedo pagar por el servicio?",
+    faq_a5: "Aceptamos varios métodos de pago, incluyendo tarjetas de crédito, PayPal y criptomonedas para tu conveniencia.",
+    faq_q6: "¿Qué pasa si no estoy satisfecho con el servicio?",
+    faq_a6: "Ofrecemos una garantía de devolución de dinero de 7 días si no estás completamente satisfecho con nuestro servicio.",
+    // Footer
+    footer_rights: "Todos los Derechos Reservados",
+    footer_privacy: "Política de Privacidad",
+    footer_terms: "Términos de Servicio",
+    footer_contact: "Contáctanos",
+    // Chat
+    chat_title: "Chat con Soporte",
+    chat_placeholder: "Escribe tu mensaje...",
+    chat_send: "Enviar",
+    chat_welcome: "¡Hola! ¿Cómo puedo ayudarte hoy?",
+    // Loading
+    loading: "Cargando",
+    please_wait: "Por favor espera..."
   }
 };
+
+// Add the getTranslation function
+export function getTranslation(language: LanguageCode, key: TranslationKey): string {
+  try {
+    return translations[language][key] || key;
+  } catch (error) {
+    console.error(`Translation not found for key: ${key} in language: ${language}`);
+    return key;
+  }
+}

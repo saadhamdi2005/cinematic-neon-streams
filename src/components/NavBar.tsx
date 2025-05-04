@@ -185,7 +185,7 @@ export function NavBar() {
             </div>
             
             <a href="#trial" className="btn-primary">
-              {t('freeTrial')}
+              {t("free_trial")}
             </a>
           </div>
 
@@ -240,7 +240,7 @@ export function NavBar() {
               </div>
               
               <a href="#trial" className="btn-primary text-center mt-2">
-                {t('freeTrial')}
+                {t("free_trial")}
               </a>
             </div>
           </div>

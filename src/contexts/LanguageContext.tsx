@@ -9,7 +9,12 @@ interface LanguageContextType {
   dir: 'ltr' | 'rtl';
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+export const LanguageContext = createContext<LanguageContextType>({
+  language: 'en',
+  setLanguage: () => {},
+  t: (key) => key,
+  dir: 'ltr'
+});
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<LanguageCode>('en');
@@ -41,7 +46,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   // Load user's preferred language from localStorage
   useEffect(() => {
     const savedLanguage = localStorage.getItem('preferredLanguage');
-    if (savedLanguage && ['en', 'fr', 'ar'].includes(savedLanguage)) {
+    if (savedLanguage && ['en', 'fr', 'ar', 'es'].includes(savedLanguage)) {
       setLanguage(savedLanguage as LanguageCode);
     }
   }, []);

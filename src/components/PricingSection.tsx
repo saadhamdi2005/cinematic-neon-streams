@@ -98,13 +98,13 @@ export function PricingSection() {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">
             <TypedText
-              text={t("pricingTitle")}
+              text={t("pricing_title")}
               className="text-gradient"
               delay={100}
             />
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            {t("pricingSubtitle")}
+            {t("pricing_subtitle")}
           </p>
         </div>
 
@@ -126,7 +126,7 @@ export function PricingSection() {
             >
               <span className="flex items-center">
                 <Timer className="mr-2" />
-                {t("freeTrial")}
+                {t("free_trial")}
               </span>
             </a>
           </GlassCard>
@@ -181,7 +181,7 @@ export function PricingSection() {
                   tiltEffect
                   floatingEffect
                 >
-                  <h3 className="text-xl font-bold mb-2">{t(plan.id as TranslationKey)}</h3>
+                  <h3 className="text-xl font-bold mb-2">{t(plan.id)}</h3>
                   <div className="mb-5">
                     <span className="text-4xl font-bold">
                       {selectedCurrency.symbol}{getPrice(plan.price)}
@@ -210,7 +210,7 @@ export function PricingSection() {
                         : "bg-white/10 hover:bg-white/20 text-white"
                     }`}
                   >
-                    {t("buyNow")}
+                    {t("buy_now")}
                   </a>
                 </GlassCard>
               </div>
