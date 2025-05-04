@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import GlassCard from "@/components/ui/GlassCard";
 import TypedText from "@/components/ui/TypedText";
 import { Check, Zap, Shield, Timer } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Pricing plans
 const plans = [
@@ -61,16 +62,17 @@ const currencies = [
 ];
 
 export function PricingSection() {
+  const { t } = useLanguage();
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
   const [floatOffsets, setFloatOffsets] = useState([0, 0, 0]);
   
-  // Floating animation effect
+  // Enhanced floating animation effect with better randomization
   useEffect(() => {
     const interval = setInterval(() => {
       setFloatOffsets([
-        Math.sin(Date.now() / 2000) * 8,
-        Math.sin((Date.now() / 2000) + Math.PI * 0.6) * 8,
-        Math.sin((Date.now() / 2000) + Math.PI * 1.2) * 8
+        Math.sin(Date.now() / 2000) * 10,
+        Math.sin((Date.now() / 2000) + Math.PI * 0.6) * 10,
+        Math.sin((Date.now() / 2000) + Math.PI * 1.2) * 10
       ]);
     }, 50);
     
@@ -96,13 +98,13 @@ export function PricingSection() {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">
             <TypedText
-              text="Simple Pricing Plans"
+              text={t("pricingTitle")}
               className="text-gradient"
               delay={100}
             />
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Choose the plan that's right for you and start streaming right away with our industry-leading IPTV service
+            {t("pricingSubtitle")}
           </p>
         </div>
 
@@ -124,7 +126,7 @@ export function PricingSection() {
             >
               <span className="flex items-center">
                 <Timer className="mr-2" />
-                Get Free Trial Now
+                {t("freeTrial")}
               </span>
             </a>
           </GlassCard>
@@ -158,28 +160,28 @@ export function PricingSection() {
             return (
               <div 
                 key={plan.id} 
-                className={`relative ${isPopular ? "md:-mt-4" : ""}`}
+                className={`relative ${isPopular ? "md:-mt-6" : ""}`}
                 style={{
                   transform: `translateY(${floatOffsets[index]}px)`,
                   transition: "transform 0.5s ease"
                 }}
               >
                 {isPopular && (
-                  <div className="absolute -top-4 inset-x-0 flex justify-center">
-                    <span className="bg-yassin-neon-purple px-4 py-1 rounded-full text-sm font-medium animate-pulse-glow">
+                  <div className="absolute -top-6 inset-x-0 flex justify-center z-10">
+                    <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 px-6 py-2 rounded-full text-base font-bold shadow-lg animate-pulse-slow">
                       Most Popular
                     </span>
                   </div>
                 )}
                 
                 <GlassCard
-                  className={`p-6 flex flex-col h-full ${isPopular ? "border-yassin-neon-purple" : ""}`}
+                  className={`p-6 flex flex-col h-full ${isPopular ? "border-yassin-neon-purple shadow-xl shadow-yassin-neon-purple/20" : ""}`}
                   glowOnHover
                   neonColor={neonColor}
                   tiltEffect
                   floatingEffect
                 >
-                  <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+                  <h3 className="text-xl font-bold mb-2">{t(plan.id as TranslationKey)}</h3>
                   <div className="mb-5">
                     <span className="text-4xl font-bold">
                       {selectedCurrency.symbol}{getPrice(plan.price)}
@@ -208,7 +210,7 @@ export function PricingSection() {
                         : "bg-white/10 hover:bg-white/20 text-white"
                     }`}
                   >
-                    Select Plan
+                    {t("buyNow")}
                   </a>
                 </GlassCard>
               </div>

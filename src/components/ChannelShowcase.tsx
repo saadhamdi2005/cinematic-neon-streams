@@ -1,6 +1,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import TypedText from "@/components/ui/TypedText";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Channel data with the logos you provided
 const channels = [
@@ -106,10 +107,17 @@ const channels = [
 const categories = ["All", "News", "Sports", "Documentary", "Business", "Cultural"];
 
 export function ChannelShowcase() {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [visibleChannels, setVisibleChannels] = useState(channels);
   const [hoveredChannel, setHoveredChannel] = useState<number | null>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  
+  // Auto-scroll settings
+  const [autoScroll, setAutoScroll] = useState(true);
+  const [scrollSpeed, setScrollSpeed] = useState(0.5);
+  const scrollPosRef = useRef(0);
+  const requestIdRef = useRef<number | null>(null);
 
   // Filter channels based on category
   useEffect(() => {
@@ -120,70 +128,74 @@ export function ChannelShowcase() {
     }
   }, [selectedCategory]);
 
-  // Auto-scroll effect
+  // Auto-scroll animation
   useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (!scrollContainer) return;
-
-    let animationId: number;
-    let scrollPosition = 0;
-    const scrollSpeed = 0.5;
-
-    const scroll = () => {
-      scrollPosition += scrollSpeed;
+    if (!autoScroll || !carouselRef.current) return;
+    
+    const animateScroll = () => {
+      if (!carouselRef.current) return;
       
-      // Reset scroll position when it reaches the end
-      if (scrollPosition >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
-        scrollPosition = 0;
+      // Increment scroll position
+      scrollPosRef.current += scrollSpeed;
+      
+      // Calculate max scroll width
+      const container = carouselRef.current;
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      
+      // Reset when reaching the end
+      if (scrollPosRef.current >= maxScroll) {
+        // Jump back to start with smooth transition
+        scrollPosRef.current = 0;
+        container.scrollTo({ left: 0, behavior: 'auto' });
+      } else {
+        // Smooth scrolling
+        container.scrollTo({ left: scrollPosRef.current, behavior: 'auto' });
       }
       
-      scrollContainer.scrollLeft = scrollPosition;
-      animationId = requestAnimationFrame(scroll);
+      // Continue animation
+      requestIdRef.current = requestAnimationFrame(animateScroll);
     };
-
-    // Start auto-scrolling animation
-    animationId = requestAnimationFrame(scroll);
-
-    // Pause scrolling when user interacts with the container
-    const handleInteraction = () => {
-      cancelAnimationFrame(animationId);
-    };
-
-    scrollContainer.addEventListener("mouseenter", handleInteraction);
-    scrollContainer.addEventListener("touchstart", handleInteraction);
-
-    // Resume scrolling when user stops interacting
-    const handleInteractionEnd = () => {
-      // Update scroll position based on current scroll
-      scrollPosition = scrollContainer.scrollLeft;
-      animationId = requestAnimationFrame(scroll);
-    };
-
-    scrollContainer.addEventListener("mouseleave", handleInteractionEnd);
-    scrollContainer.addEventListener("touchend", handleInteractionEnd);
-
+    
+    // Start animation
+    requestIdRef.current = requestAnimationFrame(animateScroll);
+    
+    // Clean up on unmount
     return () => {
-      cancelAnimationFrame(animationId);
-      scrollContainer.removeEventListener("mouseenter", handleInteraction);
-      scrollContainer.removeEventListener("touchstart", handleInteraction);
-      scrollContainer.removeEventListener("mouseleave", handleInteractionEnd);
-      scrollContainer.removeEventListener("touchend", handleInteractionEnd);
+      if (requestIdRef.current) {
+        cancelAnimationFrame(requestIdRef.current);
+      }
     };
-  }, [visibleChannels]);
+  }, [autoScroll, scrollSpeed, visibleChannels]);
+
+  // Handle user interaction with carousel
+  const handleInteractionStart = () => {
+    setAutoScroll(false);
+    if (requestIdRef.current) {
+      cancelAnimationFrame(requestIdRef.current);
+      requestIdRef.current = null;
+    }
+  };
+
+  const handleInteractionEnd = () => {
+    if (carouselRef.current) {
+      scrollPosRef.current = carouselRef.current.scrollLeft;
+    }
+    setAutoScroll(true);
+  };
 
   return (
-    <section id="channels" className="py-20">
+    <section id="channels" className="py-20 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">
             <TypedText
-              text="Explore Premium Channels"
+              text={t("channelsTitle")}
               className="text-gradient"
               delay={100}
             />
           </h2>
           <p className="text-xl text-white/70">
-            Browse through our extensive collection of live channels from around the world
+            {t("channelsSubtitle")}
           </p>
         </div>
 
@@ -204,45 +216,78 @@ export function ChannelShowcase() {
           ))}
         </div>
 
-        {/* Modern Channel Grid Display instead of scrolling cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
-          {visibleChannels.map((channel) => (
-            <div 
-              key={channel.id}
-              className="relative group"
-              onMouseEnter={() => setHoveredChannel(channel.id)}
-              onMouseLeave={() => setHoveredChannel(null)}
-            >
-              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-4 transition-all duration-300 hover:border-yassin-neon-blue/50 hover:shadow-[0_0_15px_rgba(30,174,219,0.3)] transform hover:-translate-y-2">
-                <div className="relative mb-3 h-16 flex items-center justify-center">
-                  <img 
-                    src={channel.logo} 
-                    alt={channel.name} 
-                    className="max-h-16 max-w-full object-contain"
-                  />
-                </div>
-                <h3 className="text-center font-medium mb-2 truncate">{channel.name}</h3>
-                <div className="flex flex-wrap justify-center gap-1 mt-2">
-                  {channel.hd && (
-                    <span className="px-1.5 py-0.5 bg-yassin-neon-blue/20 text-yassin-neon-blue text-xs rounded">
-                      HD
-                    </span>
-                  )}
-                  <span className="px-1.5 py-0.5 bg-white/10 text-white/70 text-xs rounded">
-                    {channel.category}
-                  </span>
-                </div>
-                
-                {hoveredChannel === channel.id && (
-                  <div className="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-yassin-neon-blue text-sm font-medium px-3 py-1 border border-yassin-neon-blue/50 rounded-full animate-pulse">
-                      Watch Now
+        {/* Auto-scrolling Carousel */}
+        <div 
+          className="relative pb-8 overflow-hidden" 
+          onMouseEnter={handleInteractionStart}
+          onTouchStart={handleInteractionStart}
+          onMouseLeave={handleInteractionEnd}
+          onTouchEnd={handleInteractionEnd}
+        >
+          <div 
+            ref={carouselRef}
+            className="flex gap-6 py-4 overflow-x-auto scrollbar-hide scroll-smooth"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {visibleChannels.map((channel) => (
+              <div 
+                key={channel.id}
+                className="relative flex-shrink-0 w-[180px]"
+                onMouseEnter={() => setHoveredChannel(channel.id)}
+                onMouseLeave={() => setHoveredChannel(null)}
+              >
+                <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-4 transition-all duration-300 hover:border-yassin-neon-blue/50 hover:shadow-[0_0_15px_rgba(30,174,219,0.3)] transform hover:-translate-y-2 h-[180px] flex flex-col items-center justify-between">
+                  <div className="relative mb-3 h-16 flex items-center justify-center">
+                    <img 
+                      src={channel.logo} 
+                      alt={channel.name} 
+                      className="max-h-16 max-w-full object-contain"
+                    />
+                  </div>
+                  <h3 className="text-center font-medium mb-2 truncate w-full">{channel.name}</h3>
+                  <div className="flex flex-wrap justify-center gap-1 mt-2">
+                    {channel.hd && (
+                      <span className="px-1.5 py-0.5 bg-yassin-neon-blue/20 text-yassin-neon-blue text-xs rounded">
+                        HD
+                      </span>
+                    )}
+                    <span className="px-1.5 py-0.5 bg-white/10 text-white/70 text-xs rounded">
+                      {channel.category}
                     </span>
                   </div>
-                )}
+                  
+                  {hoveredChannel === channel.id && (
+                    <div className="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                      <span className="text-yassin-neon-blue text-sm font-medium px-3 py-1 border border-yassin-neon-blue/50 rounded-full animate-pulse">
+                        Watch Now
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Scroll indicators */}
+          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-24 h-full bg-gradient-to-r from-yassin-darkest to-transparent pointer-events-none"></div>
+          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-24 h-full bg-gradient-to-l from-yassin-darkest to-transparent pointer-events-none"></div>
+
+          {/* Scroll control pills */}
+          <div className="flex justify-center gap-2 mt-4">
+            <button 
+              className={`w-2 h-2 rounded-full ${autoScroll ? 'bg-yassin-neon-blue' : 'bg-white/30'}`}
+              onClick={() => setAutoScroll(!autoScroll)}
+              aria-label={autoScroll ? "Pause scrolling" : "Resume scrolling"}
+            ></button>
+            {[0.2, 0.5, 1].map((speed) => (
+              <button
+                key={speed}
+                className={`w-2 h-2 rounded-full ${scrollSpeed === speed ? 'bg-yassin-neon-purple' : 'bg-white/30'}`}
+                onClick={() => setScrollSpeed(speed)}
+                aria-label={`Set scroll speed to ${speed}`}
+              ></button>
+            ))}
+          </div>
         </div>
 
         <div className="text-center mt-12 reveal-animation">

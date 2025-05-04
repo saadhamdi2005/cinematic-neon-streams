@@ -32,9 +32,9 @@ export const translations = {
     quarterly: "3 Months",
     yearly: "12 Months",
     devices: "Devices",
-    channels: "Channels",
+    channelsCount: "Channels", // renamed from channels to avoid duplicate
     vod: "VOD",
-    support: "Support",
+    supportFeature: "Support", // renamed from support to avoid duplicate
     buyNow: "Buy Now",
     
     // Reseller section
@@ -51,7 +51,7 @@ export const translations = {
     
     // Footer
     contactUs: "Contact Us",
-    support: "Support",
+    supportLink: "Support", // renamed from support to avoid duplicate
     termsOfService: "Terms of Service",
     privacyPolicy: "Privacy Policy",
     copyright: "© 2025 YassinIPTV. All rights reserved.",
@@ -88,9 +88,9 @@ export const translations = {
     quarterly: "3 Mois",
     yearly: "12 Mois",
     devices: "Appareils",
-    channels: "Chaînes",
+    channelsCount: "Chaînes", // renamed from channels to avoid duplicate
     vod: "VOD",
-    support: "Support",
+    supportFeature: "Support", // renamed from support to avoid duplicate
     buyNow: "Acheter",
     
     // Reseller section
@@ -107,7 +107,7 @@ export const translations = {
     
     // Footer
     contactUs: "Contactez-Nous",
-    support: "Support",
+    supportLink: "Support", // renamed from support to avoid duplicate
     termsOfService: "Conditions d'Utilisation",
     privacyPolicy: "Politique de Confidentialité",
     copyright: "© 2025 YassinIPTV. Tous droits réservés.",
@@ -144,9 +144,9 @@ export const translations = {
     quarterly: "3 أشهر",
     yearly: "12 شهر",
     devices: "الأجهزة",
-    channels: "القنوات",
+    channelsCount: "القنوات", // renamed from channels to avoid duplicate
     vod: "VOD",
-    support: "الدعم",
+    supportFeature: "الدعم", // renamed from support to avoid duplicate
     buyNow: "اشترِ الآن",
     
     // Reseller section
@@ -163,7 +163,7 @@ export const translations = {
     
     // Footer
     contactUs: "اتصل بنا",
-    support: "الدعم",
+    supportLink: "الدعم", // renamed from support to avoid duplicate
     termsOfService: "شروط الخدمة",
     privacyPolicy: "سياسة الخصوصية",
     copyright: "© 2025 YassinIPTV. جميع الحقوق محفوظة.",
