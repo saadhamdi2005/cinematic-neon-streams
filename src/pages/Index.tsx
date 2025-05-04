@@ -12,6 +12,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import ParticleBackground from "@/components/ParticleBackground";
 import AIChatbot from "@/components/AIChatbot";
 import FeedbackSection from "@/components/FeedbackSection";
+import FAQSection from "@/components/FAQSection";
 
 const Index = () => {
   // Add scroll animation observer
@@ -77,12 +78,20 @@ const Index = () => {
         cursor.style.top = `${e.clientY}px`;
       };
       
-      const activateCursor = () => {
+      const activateCursor = (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
         cursor.classList.add("hovering");
+        
+        // Special styling based on element type
+        if (target.tagName === 'BUTTON' || target.closest('button')) {
+          cursor.classList.add("hovering-button");
+        } else if (target.tagName === 'A' || target.closest('a')) {
+          cursor.classList.add("hovering-link");
+        }
       };
       
       const deactivateCursor = () => {
-        cursor.classList.remove("hovering");
+        cursor.classList.remove("hovering", "hovering-button", "hovering-link");
       };
       
       document.addEventListener('mousemove', moveCursor);
@@ -347,6 +356,11 @@ const Index = () => {
         </div>
         
         <InstallGuide />
+        
+        <div className="section-divider"></div>
+        
+        {/* Added FAQ Section */}
+        <FAQSection />
         
         <div className="section-divider"></div>
         
