@@ -1,10 +1,9 @@
 
-import { Facebook, Instagram, Twitter, Youtube, ArrowUp } from "lucide-react";
+import { Facebook, Instagram, Twitter, Youtube, ArrowUp, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TypedText from "./ui/TypedText";
 import GlassCard from "./ui/GlassCard";
-import { Whatsapp } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -136,7 +135,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-yassin-neon-pink transition-colors flex items-center gap-2"
                 >
-                  <Whatsapp className="w-5 h-5 text-green-500" />
+                  <MessageCircle className="w-5 h-5 text-green-500" />
                   <span>WhatsApp Support</span>
                 </a>
               </li>

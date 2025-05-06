@@ -1,7 +1,7 @@
 
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
-import { Whatsapp } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 interface WhatsAppButtonProps {
   phoneNumber: string;
@@ -43,13 +43,13 @@ export function WhatsAppButton({
       onMouseLeave={() => setIsHovered(false)}
       style={{ transform: `translateY(${position}px)` }}
       className={cn(
-        "fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-5 rounded-full shadow-lg hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] transition-all duration-300 group",
+        "fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-5 rounded-full shadow-lg hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] transition-all duration-300 group",
         className
       )}
     >
       {/* Updated WhatsApp Icon */}
       <div className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-inner overflow-hidden">
-        <Whatsapp className="w-6 h-6 text-green-600" />
+        <MessageCircle className="w-6 h-6 text-green-600" />
       </div>
 
       {/* Text that appears with typing animation effect */}

@@ -119,7 +119,7 @@ export function PricingSection() {
               Experience our premium service with no commitment. Get access to all our channels and features for 24 hours.
             </p>
             <a
-              href="https://wa.me/212657263966?text=I'd like to try the free 24h trial"
+              href="https://wa.me/212643264633?text=I'd like to try the free 24h trial"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-accent inline-block transform transition-transform hover:scale-105 animate-pulse-glow"
@@ -181,7 +181,7 @@ export function PricingSection() {
                   tiltEffect
                   floatingEffect
                 >
-                  <h3 className="text-xl font-bold mb-2">{t(plan.id)}</h3>
+                  <h3 className="text-xl font-bold mb-2">{t(plan.id as any)}</h3>
                   <div className="mb-5">
                     <span className="text-4xl font-bold">
                       {selectedCurrency.symbol}{getPrice(plan.price)}
@@ -201,7 +201,7 @@ export function PricingSection() {
                   </ul>
                   
                   <a
-                    href={`https://wa.me/212657263966?text=I'm interested in the ${plan.name} plan`}
+                    href={`https://wa.me/212643264633?text=I'm interested in the ${plan.name} plan`}
                     target="_blank"
                     rel="noopener noreferrer" 
                     className={`w-full text-center py-2 rounded-lg transition-all transform hover:scale-105 ${
