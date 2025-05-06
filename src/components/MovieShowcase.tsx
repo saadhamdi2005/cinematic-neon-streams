@@ -58,33 +58,40 @@ export function MovieShowcase({ additionalMovies = [] }: MovieShowcaseProps) {
     ? allMovies.filter(movie => movie.genre === activeGenre)
     : allMovies;
   
-  // Set up auto scrolling for movie images
+  // Set up auto scrolling for movie images - Enhanced with faster speed
   useEffect(() => {
     let scrollPosition = 0;
     const scrollContainer = carouselRef.current;
     
-    // Start auto-scrolling
+    // Start auto-scrolling with increased speed
     const interval = window.setInterval(() => {
       if (scrollContainer) {
-        // Auto-scroll logic
-        scrollPosition += 1;
-        scrollContainer.scrollLeft += 1;
+        // Auto-scroll logic with faster scroll speed
+        scrollPosition += 1.5; // Increased from 1 to 1.5 for faster scrolling
+        scrollContainer.scrollLeft += 1.5;
         
         // Reset scroll position if we've reached the end
         const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-        if (scrollContainer.scrollLeft >= maxScroll - 1) {
+        if (scrollContainer.scrollLeft >= maxScroll - 2) {
+          // Use smooth scrolling for the reset
+          scrollContainer.style.scrollBehavior = 'smooth';
           scrollContainer.scrollLeft = 0;
           scrollPosition = 0;
+          
+          // Reset scroll behavior after the animation
+          setTimeout(() => {
+            scrollContainer.style.scrollBehavior = 'auto';
+          }, 500);
         }
       }
-    }, 30); // Adjust speed of scrolling here
+    }, 20); // Adjusted from 30 to 20 for smoother and faster scrolling
     
     setAutoScrollInterval(interval);
     
     // Cleanup function
     return () => {
-      if (autoScrollInterval) {
-        clearInterval(autoScrollInterval);
+      if (interval) {
+        clearInterval(interval);
       }
     };
   }, [filteredMovies]);
@@ -100,21 +107,21 @@ export function MovieShowcase({ additionalMovies = [] }: MovieShowcaseProps) {
         
         const interval = window.setInterval(() => {
           if (carouselRef.current) {
-            // Auto-scroll logic
-            scrollPosition += 1;
-            carouselRef.current.scrollLeft += 1;
+            // Auto-scroll logic with faster scroll speed
+            scrollPosition += 1.5;
+            carouselRef.current.scrollLeft += 1.5;
             
             // Reset scroll position if we've reached the end
             const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
-            if (carouselRef.current.scrollLeft >= maxScroll - 1) {
+            if (carouselRef.current.scrollLeft >= maxScroll - 2) {
               carouselRef.current.scrollLeft = 0;
               scrollPosition = 0;
             }
           }
-        }, 30);
+        }, 20);
         
         setAutoScrollInterval(interval);
-      }, 5000); // Wait 5 seconds after manual interaction
+      }, 4000); // Wait 4 seconds after manual interaction (reduced from 5000)
       
       return () => clearTimeout(timeout);
     }
@@ -170,7 +177,7 @@ export function MovieShowcase({ additionalMovies = [] }: MovieShowcaseProps) {
           <div 
             ref={carouselRef} 
             className="flex gap-4 pb-6 overflow-x-auto scrollbar-hide"
-            style={{ scrollBehavior: 'smooth' }}
+            style={{ scrollBehavior: 'auto' }}
           >
             {filteredMovies.map((movie) => (
               <div 

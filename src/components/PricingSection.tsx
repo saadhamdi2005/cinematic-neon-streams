@@ -96,33 +96,33 @@ export function PricingSection() {
     <section id="pricing" className="py-20">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-4xl font-bold mb-4 hover:scale-110 transition-transform duration-300">
             <TypedText
               text={t("pricing_title")}
               className="text-gradient"
               delay={100}
             />
           </h2>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
+          <p className="text-xl text-white/70 max-w-2xl mx-auto hover:scale-105 transition-transform duration-300">
             {t("pricing_subtitle")}
           </p>
         </div>
 
-        {/* Free Trial Section - Now at the top */}
+        {/* Free Trial Section - Now at the top with zoom effects */}
         <div id="trial" className="mb-16 max-w-3xl mx-auto animate-float">
-          <GlassCard className="p-8 text-center" tiltEffect glowOnHover neonColor="green">
+          <GlassCard className="p-8 text-center hover:scale-105 transition-transform duration-300" tiltEffect glowOnHover neonColor="green">
             <div className="flex justify-center mb-3">
               <Zap className="w-12 h-12 text-yassin-neon-green animate-pulse" />
             </div>
-            <h3 className="text-3xl font-bold mb-3 text-gradient">Try our Free 24h Trial</h3>
-            <p className="mb-6 text-white/70 text-lg">
+            <h3 className="text-3xl font-bold mb-3 text-gradient hover:scale-110 transition-transform duration-300">Try our Free 24h Trial</h3>
+            <p className="mb-6 text-white/70 text-lg hover:scale-105 transition-transform duration-300">
               Experience our premium service with no commitment. Get access to all our channels and features for 24 hours.
             </p>
             <a
               href="https://wa.me/212643264633?text=I'd like to try the free 24h trial"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-accent inline-block transform transition-transform hover:scale-105 animate-pulse-glow"
+              className="btn-accent inline-block transform transition-transform hover:scale-110 animate-pulse-glow"
             >
               <span className="flex items-center">
                 <Timer className="mr-2" />
@@ -132,14 +132,14 @@ export function PricingSection() {
           </GlassCard>
         </div>
 
-        {/* Currency selector */}
+        {/* Currency selector with zoom effects */}
         <div className="flex justify-center mb-10">
-          <div className="bg-white/10 rounded-full p-1 inline-flex">
+          <div className="bg-white/10 rounded-full p-1 inline-flex hover:scale-105 transition-transform duration-300">
             {currencies.map((currency) => (
               <button
                 key={currency.id}
                 onClick={() => setSelectedCurrency(currency)}
-                className={`px-4 py-2 rounded-full transition-all ${
+                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                   selectedCurrency.id === currency.id
                     ? "bg-yassin-neon-purple text-white"
                     : "text-white/70 hover:text-white"
@@ -151,7 +151,7 @@ export function PricingSection() {
           </div>
         </div>
 
-        {/* Pricing Cards */}
+        {/* Pricing Cards with zoom effects */}
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {plans.map((plan, index) => {
             const neonColor = plan.color as "purple" | "pink" | "blue" | "green";
@@ -168,21 +168,21 @@ export function PricingSection() {
               >
                 {isPopular && (
                   <div className="absolute -top-6 inset-x-0 flex justify-center z-10">
-                    <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 px-6 py-2 rounded-full text-base font-bold shadow-lg animate-pulse-slow">
+                    <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 px-6 py-2 rounded-full text-base font-bold shadow-lg animate-pulse-slow hover:scale-110 transition-transform duration-300">
                       Most Popular
                     </span>
                   </div>
                 )}
                 
                 <GlassCard
-                  className={`p-6 flex flex-col h-full ${isPopular ? "border-yassin-neon-purple shadow-xl shadow-yassin-neon-purple/20" : ""}`}
+                  className={`p-6 flex flex-col h-full hover:scale-105 transition-transform duration-300 ${isPopular ? "border-yassin-neon-purple shadow-xl shadow-yassin-neon-purple/20" : ""}`}
                   glowOnHover
                   neonColor={neonColor}
                   tiltEffect
                   floatingEffect
                 >
-                  <h3 className="text-xl font-bold mb-2">{t(plan.id as any)}</h3>
-                  <div className="mb-5">
+                  <h3 className="text-xl font-bold mb-2 hover:scale-110 transition-transform duration-300">{t(plan.id as any)}</h3>
+                  <div className="mb-5 hover:scale-105 transition-transform duration-300">
                     <span className="text-4xl font-bold">
                       {selectedCurrency.symbol}{getPrice(plan.price)}
                     </span>
@@ -193,7 +193,7 @@ export function PricingSection() {
                   
                   <ul className="space-y-3 mb-6 flex-grow">
                     {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-center gap-2">
+                      <li key={index} className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
                         <Check className="w-5 h-5 text-yassin-neon-green" />
                         <span className="text-sm">{feature}</span>
                       </li>
@@ -204,7 +204,7 @@ export function PricingSection() {
                     href={`https://wa.me/212643264633?text=I'm interested in the ${plan.name} plan`}
                     target="_blank"
                     rel="noopener noreferrer" 
-                    className={`w-full text-center py-2 rounded-lg transition-all transform hover:scale-105 ${
+                    className={`w-full text-center py-2 rounded-lg transition-all transform hover:scale-110 ${
                       isPopular 
                         ? "bg-yassin-neon-purple hover:bg-yassin-neon-purple/80 text-white" 
                         : "bg-white/10 hover:bg-white/20 text-white"
@@ -218,30 +218,30 @@ export function PricingSection() {
           })}
         </div>
 
-        {/* Security information */}
+        {/* Security information with zoom effects */}
         <div className="mt-20 max-w-4xl mx-auto">
-          <GlassCard className="p-8" glowOnHover neonColor="blue">
+          <GlassCard className="p-8 hover:scale-105 transition-transform duration-300" glowOnHover neonColor="blue">
             <div className="flex items-center justify-center mb-6">
               <Shield className="w-10 h-10 text-yassin-neon-blue mr-3" />
-              <h3 className="text-2xl font-bold">Secure Streaming Experience</h3>
+              <h3 className="text-2xl font-bold hover:scale-110 transition-transform duration-300">Secure Streaming Experience</h3>
             </div>
-            <p className="mb-6 text-white/70 text-center">
+            <p className="mb-6 text-white/70 text-center hover:scale-105 transition-transform duration-300">
               We take your security seriously. Our platform implements multiple protection layers to ensure your data and streaming experience remain secure.
             </p>
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white/5 p-4 rounded-lg">
+              <div className="bg-white/5 p-4 rounded-lg hover:scale-105 transition-transform duration-300">
                 <h4 className="font-bold mb-2 text-yassin-neon-blue">Encrypted Connections</h4>
                 <p className="text-sm text-white/70">All data transmitted between your device and our servers is encrypted using industry-standard protocols.</p>
               </div>
-              <div className="bg-white/5 p-4 rounded-lg">
+              <div className="bg-white/5 p-4 rounded-lg hover:scale-105 transition-transform duration-300">
                 <h4 className="font-bold mb-2 text-yassin-neon-blue">Secure Authentication</h4>
                 <p className="text-sm text-white/70">Multi-factor authentication available for all accounts to prevent unauthorized access.</p>
               </div>
-              <div className="bg-white/5 p-4 rounded-lg">
+              <div className="bg-white/5 p-4 rounded-lg hover:scale-105 transition-transform duration-300">
                 <h4 className="font-bold mb-2 text-yassin-neon-blue">DDoS Protection</h4>
                 <p className="text-sm text-white/70">Our infrastructure is protected against distributed denial-of-service attacks to ensure uptime.</p>
               </div>
-              <div className="bg-white/5 p-4 rounded-lg">
+              <div className="bg-white/5 p-4 rounded-lg hover:scale-105 transition-transform duration-300">
                 <h4 className="font-bold mb-2 text-yassin-neon-blue">Regular Security Audits</h4>
                 <p className="text-sm text-white/70">We continuously test our systems for vulnerabilities to stay ahead of potential threats.</p>
               </div>

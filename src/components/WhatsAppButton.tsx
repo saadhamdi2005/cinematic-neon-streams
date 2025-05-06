@@ -47,9 +47,9 @@ export function WhatsAppButton({
         className
       )}
     >
-      {/* Updated WhatsApp Icon */}
-      <div className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-inner overflow-hidden">
-        <MessageCircle className="w-6 h-6 text-green-600" />
+      {/* Updated WhatsApp Icon - Reduced size */}
+      <div className="flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-inner overflow-hidden">
+        <MessageCircle className="w-5 h-5 text-green-600" />
       </div>
 
       {/* Text that appears with typing animation effect */}
