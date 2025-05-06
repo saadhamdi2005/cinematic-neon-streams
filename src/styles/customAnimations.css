@@ -116,7 +116,7 @@
   }
 }
 
-/* Advanced futuristic cursor effects */
+/* Enhanced Neon Cursor */
 .neon-cursor {
   position: fixed;
   width: 30px;
@@ -133,6 +133,22 @@
     0 0 30px rgba(139, 92, 246, 0.5),
     0 0 45px rgba(139, 92, 246, 0.3);
   filter: blur(1px);
+}
+
+/* Hide cursor on mobile */
+@media (max-width: 768px) {
+  .neon-cursor {
+    display: none;
+  }
+  
+  /* Reset normal cursor behavior on mobile */
+  a, button, input, textarea, select, [role="button"] {
+    cursor: pointer;
+  }
+  
+  body {
+    cursor: auto;
+  }
 }
 
 /* Cursor inner circle */
@@ -209,4 +225,44 @@
   pointer-events: none;
   z-index: 9998;
   animation: cursorTrail 0.8s ease-out forwards;
+}
+
+/* Mobile Responsiveness Improvements */
+@media (max-width: 640px) {
+  .btn-primary, .btn-secondary, .btn-accent {
+    @apply py-2 px-4 text-sm;
+  }
+  
+  h1 {
+    font-size: 2rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .cursor-trail {
+    display: none;
+  }
+}
+
+/* Improve loading animations */
+@keyframes loadingPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.loading-pulse {
+  animation: loadingPulse 1.5s infinite;
 }

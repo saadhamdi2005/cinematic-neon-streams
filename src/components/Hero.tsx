@@ -64,37 +64,29 @@ export function Hero() {
           </div>
           
           <div className="mt-16 px-4 fade-in-up" style={{transitionDelay: "1.3s"}}>
-            <GlassCard className="p-6 relative overflow-hidden" glowOnHover neonColor="purple" glowIntensity="high">
-              <div className="absolute inset-0 bg-gradient-radial from-yassin-neon-purple/10 to-transparent opacity-40"></div>
+            <GlassCard className="p-6 relative overflow-hidden">
               <h2 className="text-2xl font-bold mb-4 text-center-all">
                 <TypedText text="All-in-One Entertainment Solution" delay={3400} typingSpeed={30} />
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 <div className="p-4 scroll-reveal" style={{transitionDelay: "3600ms"}}>
-                  <p className="text-4xl font-bold text-yassin-neon-blue animate-pulse-glow">10,000+</p>
+                  <p className="text-4xl font-bold text-yassin-neon-blue">10,000+</p>
                   <p className="text-white/60">Live Channels</p>
                 </div>
                 <div className="p-4 scroll-reveal" style={{transitionDelay: "3800ms"}}>
-                  <p className="text-4xl font-bold text-yassin-neon-purple animate-pulse-glow">40,000+</p>
+                  <p className="text-4xl font-bold text-yassin-neon-purple">40,000+</p>
                   <p className="text-white/60">Movies & Series</p>
                 </div>
                 <div className="p-4 scroll-reveal" style={{transitionDelay: "4000ms"}}>
-                  <p className="text-4xl font-bold text-yassin-neon-pink animate-pulse-glow">99.9%</p>
+                  <p className="text-4xl font-bold text-yassin-neon-pink">99.9%</p>
                   <p className="text-white/60">Uptime</p>
                 </div>
                 <div className="p-4 scroll-reveal" style={{transitionDelay: "4200ms"}}>
-                  <p className="text-4xl font-bold text-yassin-neon-green animate-pulse-glow">24/7</p>
+                  <p className="text-4xl font-bold text-yassin-neon-green">24/7</p>
                   <p className="text-white/60">Support</p>
                 </div>
               </div>
             </GlassCard>
-          </div>
-          
-          <div className="mt-12 flex flex-wrap justify-center gap-8 fade-in-up" style={{transitionDelay: "1.5s"}}>
-            <img src="/lovable-uploads/6cd53962-48d0-4424-9b03-e32da4604648.png" alt="TV5 Monde" className="h-12 w-auto object-contain" />
-            <img src="/lovable-uploads/c75bc413-6c2a-4658-a485-91c15e68761e.png" alt="TSN" className="h-12 w-auto object-contain" />
-            <img src="/lovable-uploads/7f7caaed-046e-4c56-9691-77c579c38f8d.png" alt="TRT World" className="h-12 w-auto object-contain" />
-            <img src="/lovable-uploads/9d9fdc01-80ae-4fdd-a283-69f73a5343ea.png" alt="Viasat History" className="h-12 w-auto object-contain" />
           </div>
         </div>
       </div>

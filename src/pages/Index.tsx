@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import NavBar from "@/components/NavBar";
 import Hero from "@/components/Hero";
@@ -393,11 +392,11 @@ const Index = () => {
       {/* Footer */}
       <Footer />
 
-      {/* Floating Elements */}
+      {/* Floating WhatsApp Button - Positioned left side*/}
       <WhatsAppButton 
         phoneNumber="212657263966"
         text="Chat on WhatsApp"
-        className="fixed bottom-6 right-6 z-50 animate-float"
+        className="fixed bottom-6 left-6 z-50 animate-float"
       />
       
       {/* Language Notice */}
