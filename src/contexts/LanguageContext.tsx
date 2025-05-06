@@ -24,7 +24,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   // Get the direction based on language
   const dir = language === 'ar' ? 'rtl' : 'ltr';
   
-  // Translation function
+  // Translation function - fixed parameter order
   const t = (key: TranslationKey): string => {
     return getTranslation(key, language);
   };

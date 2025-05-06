@@ -54,7 +54,16 @@ export type TranslationKey =
   | 'pricing'
   | 'reseller'
   | 'installation'
-  | 'faq';
+  | 'faq'
+  | 'channels_showcase_title'
+  | 'channels_showcase_description'
+  | 'worldwide_channels'
+  | 'movie_showcase_title'
+  | 'movie_showcase_description'
+  | 'all_genres'
+  | 'chat_welcome'
+  | 'chat_title'
+  | 'chat_placeholder';
 
 // English translations (default)
 const en = {
@@ -109,7 +118,16 @@ const en = {
   pricing: "Pricing",
   reseller: "Reseller",
   installation: "Installation",
-  faq: "FAQ"
+  faq: "FAQ",
+  channels_showcase_title: "Thousands of Live Channels",
+  channels_showcase_description: "Enjoy premium TV channels from around the world",
+  worldwide_channels: "Worldwide Channels",
+  movie_showcase_title: "Extensive Movie Collection",
+  movie_showcase_description: "Stream the latest movies and classics from our vast library",
+  all_genres: "All Genres",
+  chat_welcome: "Welcome to our support chat",
+  chat_title: "Customer Support",
+  chat_placeholder: "Type your message here..."
 };
 
 // French translations
@@ -165,7 +183,16 @@ const fr = {
   pricing: "Tarifs",
   reseller: "Revendeur",
   installation: "Installation",
-  faq: "FAQ"
+  faq: "FAQ",
+  channels_showcase_title: "Des milliers de chaînes en direct",
+  channels_showcase_description: "Profitez des chaînes TV premium du monde entier",
+  worldwide_channels: "Chaînes du monde entier",
+  movie_showcase_title: "Collection de films extensive",
+  movie_showcase_description: "Diffusez les derniers films et les classiques de notre vaste bibliothèque",
+  all_genres: "Tous les genres",
+  chat_welcome: "Bienvenue sur notre chat de support",
+  chat_title: "Support client",
+  chat_placeholder: "Tapez votre message ici..."
 };
 
 // Arabic translations
@@ -221,7 +248,16 @@ const ar = {
   pricing: "التسعير",
   reseller: "موزع",
   installation: "التثبيت",
-  faq: "الأسئلة الشائعة"
+  faq: "الأسئلة الشائعة",
+  channels_showcase_title: "آلاف القنوات المباشرة",
+  channels_showcase_description: "استمتع بقنوات تلفزيونية متميزة من جميع أنحاء العالم",
+  worldwide_channels: "قنوات عالمية",
+  movie_showcase_title: "مجموعة أفلام واسعة",
+  movie_showcase_description: "شاهد أحدث الأفلام والكلاسيكيات من مكتبتنا الواسعة",
+  all_genres: "كل الأنواع",
+  chat_welcome: "مرحبًا بكم في دردشة الدعم الخاصة بنا",
+  chat_title: "دعم العملاء",
+  chat_placeholder: "اكتب رسالتك هنا..."
 };
 
 // Spanish translations
@@ -277,7 +313,16 @@ const es = {
   pricing: "Precios",
   reseller: "Revendedor",
   installation: "Instalación",
-  faq: "Preguntas frecuentes"
+  faq: "Preguntas frecuentes",
+  channels_showcase_title: "Miles de canales en vivo",
+  channels_showcase_description: "Disfrute de canales premium de todo el mundo",
+  worldwide_channels: "Canales mundiales",
+  movie_showcase_title: "Extensa colección de películas",
+  movie_showcase_description: "Transmita las últimas películas y clásicos de nuestra amplia biblioteca",
+  all_genres: "Todos los géneros",
+  chat_welcome: "Bienvenido a nuestro chat de soporte",
+  chat_title: "Atención al cliente",
+  chat_placeholder: "Escriba su mensaje aquí..."
 };
 
 // Map of all available translations
@@ -288,12 +333,13 @@ const translations = {
   es
 };
 
-// Fix the getTranslation function - parameters were in wrong order
+// Correct the getTranslation function - parameters were swapped
 export const getTranslation = (
-  language: LanguageCode,
-  key: TranslationKey
+  key: TranslationKey,
+  language: LanguageCode
 ): string => {
-  return translations[language][key] || translations.en[key] || key;
+  // Make sure we access translations in the correct order
+  return translations[language]?.[key] || translations.en[key] || key;
 };
 
 export default translations;
