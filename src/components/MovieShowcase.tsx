@@ -2,6 +2,7 @@
 import { useRef, useEffect, useState } from "react";
 import GlassCard from "@/components/ui/GlassCard";
 import TypedText from "@/components/ui/TypedText";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Base movie data
 const defaultMovies = [
@@ -88,6 +89,7 @@ interface MovieShowcaseProps {
 }
 
 export function MovieShowcase({ additionalMovies = [] }: MovieShowcaseProps) {
+  const { t } = useLanguage();
   // Combine default movies with additional movies
   const allMovies = [...additionalMovies, ...defaultMovies].slice(0, 20);
   
@@ -96,7 +98,9 @@ export function MovieShowcase({ additionalMovies = [] }: MovieShowcaseProps) {
   const [hoveredMovie, setHoveredMovie] = useState<number | null>(null);
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const autoScrollRef = useRef<boolean>(true);
+  const isAutoScrollEnabled = useRef<boolean>(true);
+  const scrollPositionRef = useRef<number>(0);
+  const animationFrameRef = useRef<number | null>(null);
 
   // Filter movies based on genre
   useEffect(() => {
@@ -107,68 +111,78 @@ export function MovieShowcase({ additionalMovies = [] }: MovieShowcaseProps) {
     }
   }, [selectedGenre, allMovies]);
 
-  // Auto-scroll effect
+  // Auto-scroll effect with improved performance
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
 
-    let animationId: number;
-    let scrollPosition = 0;
-    let scrollSpeed = 0.5;
+    let lastTimestamp: number | null = null;
+    const scrollSpeed = 0.6; // Pixels per millisecond
 
-    const scroll = () => {
-      if (!autoScrollRef.current) {
-        animationId = requestAnimationFrame(scroll);
+    const animateScroll = (timestamp: number) => {
+      if (!isAutoScrollEnabled.current) {
+        animationFrameRef.current = requestAnimationFrame(animateScroll);
         return;
       }
       
-      scrollPosition += scrollSpeed;
-      
-      // Reset scroll position when it reaches the end
-      if (scrollPosition >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
-        scrollPosition = 0;
+      if (lastTimestamp === null) {
+        lastTimestamp = timestamp;
+        animationFrameRef.current = requestAnimationFrame(animateScroll);
+        return;
       }
       
-      scrollContainer.scrollLeft = scrollPosition;
-      animationId = requestAnimationFrame(scroll);
+      const deltaTime = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
+      
+      scrollPositionRef.current += scrollSpeed * deltaTime;
+      
+      const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      
+      // Reset scroll position when it reaches the end
+      if (scrollPositionRef.current >= maxScroll) {
+        scrollPositionRef.current = 0;
+      }
+      
+      scrollContainer.scrollLeft = scrollPositionRef.current;
+      animationFrameRef.current = requestAnimationFrame(animateScroll);
     };
 
     // Start auto-scrolling animation
-    animationId = requestAnimationFrame(scroll);
+    animationFrameRef.current = requestAnimationFrame(animateScroll);
 
     // Pause scrolling when user interacts with the container
-    const handleInteraction = () => {
-      autoScrollRef.current = false;
+    const handleInteractionStart = () => {
+      isAutoScrollEnabled.current = false;
     };
-
-    scrollContainer.addEventListener("mouseenter", handleInteraction);
-    scrollContainer.addEventListener("touchstart", handleInteraction);
 
     // Resume scrolling when user stops interacting
     const handleInteractionEnd = () => {
-      // Update scroll position based on current scroll
-      scrollPosition = scrollContainer.scrollLeft;
-      autoScrollRef.current = true;
+      scrollPositionRef.current = scrollContainer.scrollLeft;
+      lastTimestamp = null;
+      isAutoScrollEnabled.current = true;
     };
 
+    scrollContainer.addEventListener("mouseenter", handleInteractionStart);
+    scrollContainer.addEventListener("touchstart", handleInteractionStart);
     scrollContainer.addEventListener("mouseleave", handleInteractionEnd);
     scrollContainer.addEventListener("touchend", handleInteractionEnd);
 
     return () => {
-      cancelAnimationFrame(animationId);
-      scrollContainer?.removeEventListener("mouseenter", handleInteraction);
-      scrollContainer?.removeEventListener("touchstart", handleInteraction);
-      scrollContainer?.removeEventListener("mouseleave", handleInteractionEnd);
-      scrollContainer?.removeEventListener("touchend", handleInteractionEnd);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      scrollContainer.removeEventListener("mouseenter", handleInteractionStart);
+      scrollContainer.removeEventListener("touchstart", handleInteractionStart);
+      scrollContainer.removeEventListener("mouseleave", handleInteractionEnd);
+      scrollContainer.removeEventListener("touchend", handleInteractionEnd);
     };
   }, [visibleMovies]);
 
   return (
     <section id="movies" className="py-20 bg-gradient-to-b from-yassin-dark to-yassin-darkest relative">
-      {/* Decorative elements */}
+      {/* Enhanced decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 z-0">
-        <div className="film-reel-1"></div>
-        <div className="film-reel-2"></div>
+        <div className="w-full h-full bg-[radial-gradient(circle_at_20%_20%,rgba(30,174,219,0.15),transparent),radial-gradient(circle_at_70%_60%,rgba(139,92,246,0.1),transparent)]"></div>
       </div>
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -176,12 +190,12 @@ export function MovieShowcase({ additionalMovies = [] }: MovieShowcaseProps) {
           <h2 className="text-4xl font-bold mb-4 fade-in-up">
             <TypedText
               text="Unlimited Movies & Series"
-              className="text-gradient"
+              className="holographic-text"
               delay={100}
             />
           </h2>
           <p className="text-xl text-white/70 fade-in-up" style={{transitionDelay: "0.2s"}}>
-            Explore our vast library of <span className="text-yassin-neon-purple">40,000+</span> movies and TV shows
+            Explore our vast library of <span className="text-yassin-neon-purple font-semibold">40,000+</span> movies and TV shows
           </p>
         </div>
 
@@ -191,10 +205,10 @@ export function MovieShowcase({ additionalMovies = [] }: MovieShowcaseProps) {
             <button
               key={genre}
               onClick={() => setSelectedGenre(genre)}
-              className={`px-4 py-2 rounded-full transition-all ${
+              className={`px-4 py-2 rounded-full transition-all transform hover:scale-105 ${
                 selectedGenre === genre
-                  ? "bg-yassin-neon-pink text-white shadow-[0_0_15px_rgba(217,70,239,0.4)]"
-                  : "bg-white/10 text-white/70 hover:bg-white/20"
+                  ? "bg-gradient-to-r from-yassin-neon-pink to-yassin-neon-purple text-white shadow-lg shadow-yassin-neon-pink/20"
+                  : "bg-black/30 text-white/70 border border-white/10 hover:border-white/20"
               }`}
             >
               {genre}
@@ -202,62 +216,79 @@ export function MovieShowcase({ additionalMovies = [] }: MovieShowcaseProps) {
           ))}
         </div>
 
-        {/* Scrolling Movie Display */}
-        <div 
-          ref={scrollContainerRef}
-          className="overflow-x-auto pb-6 hide-scrollbar fade-in-up"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none", transitionDelay: "0.4s" }}
-        >
-          <div className="flex gap-6" style={{ minWidth: "max-content" }}>
-            {visibleMovies.map((movie) => (
-              <div 
-                key={movie.id} 
-                className="w-[200px]"
-                onMouseEnter={() => setHoveredMovie(movie.id)}
-                onMouseLeave={() => setHoveredMovie(null)}
-              >
-                <GlassCard 
-                  className="p-0 overflow-hidden relative group h-[300px]"
-                  glowOnHover
-                  neonColor="pink"
+        {/* Enhanced Scrolling Movie Display */}
+        <div className="relative">
+          <div 
+            ref={scrollContainerRef}
+            className="overflow-x-auto pb-6 hide-scrollbar fade-in-up"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none", transitionDelay: "0.4s" }}
+          >
+            <div className="flex gap-6" style={{ minWidth: "max-content" }}>
+              {visibleMovies.map((movie) => (
+                <div 
+                  key={movie.id} 
+                  className="w-[200px]"
+                  onMouseEnter={() => setHoveredMovie(movie.id)}
+                  onMouseLeave={() => setHoveredMovie(null)}
                 >
-                  <div className="absolute inset-0">
-                    <img 
-                      src={movie.image} 
-                      alt={movie.title} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-lg font-bold">
-                      {hoveredMovie === movie.id ? (
-                        <TypedText
-                          text={movie.title}
-                          typingSpeed={20}
-                          showCursor={false}
+                  <div className="loading-border">
+                    <GlassCard 
+                      className="p-0 overflow-hidden relative h-[300px] border-none"
+                      glowOnHover
+                      neonColor="pink"
+                    >
+                      <div className="absolute inset-0">
+                        <img 
+                          src={movie.image} 
+                          alt={movie.title} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading="lazy"
                         />
-                      ) : (
-                        movie.title
-                      )}
-                    </h3>
-                    <div className="flex justify-between items-center mt-2">
-                      <span className="text-xs text-white/70">{movie.year}</span>
-                      <div className="flex items-center">
-                        <span className="text-xs bg-yassin-neon-pink/20 text-yassin-neon-pink px-2 py-0.5 rounded">
-                          ★ {movie.rating}
-                        </span>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
                       </div>
-                    </div>
-                    <span className="inline-block mt-2 px-2 py-0.5 bg-white/10 rounded text-xs">
-                      {movie.genre}
-                    </span>
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <h3 className="text-lg font-bold">
+                          {hoveredMovie === movie.id ? (
+                            <TypedText
+                              text={movie.title}
+                              typingSpeed={20}
+                              showCursor={false}
+                              className="text-white"
+                            />
+                          ) : (
+                            movie.title
+                          )}
+                        </h3>
+                        <div className="flex justify-between items-center mt-2">
+                          <span className="text-xs text-white/70">{movie.year}</span>
+                          <div className="flex items-center">
+                            <span className="text-xs bg-yassin-neon-pink/20 text-yassin-neon-pink px-2 py-0.5 rounded">
+                              ★ {movie.rating}
+                            </span>
+                          </div>
+                        </div>
+                        <span className="inline-block mt-2 px-2 py-0.5 bg-white/10 rounded text-xs">
+                          {movie.genre}
+                        </span>
+                        
+                        {hoveredMovie === movie.id && (
+                          <div className="absolute left-0 right-0 -bottom-12 transform translate-y-0 opacity-0 group-hover:opacity-100 group-hover:-translate-y-12 transition-all duration-300 flex justify-center">
+                            <button className="bg-yassin-neon-purple/80 hover:bg-yassin-neon-purple text-white px-4 py-1 rounded-full text-sm font-medium shadow-lg shadow-yassin-neon-purple/30">
+                              Watch Now
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </GlassCard>
                   </div>
-                </GlassCard>
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
+          
+          {/* Enhanced scroll indicators */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-yassin-darkest to-transparent pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-yassin-darkest to-transparent pointer-events-none"></div>
         </div>
 
         <div className="text-center mt-12 fade-in-up" style={{transitionDelay: "0.5s"}}>

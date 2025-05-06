@@ -207,7 +207,7 @@ export function ChannelShowcase() {
               onClick={() => setSelectedCategory(category)}
               className={`px-4 py-2 rounded-full transition-all transform hover:scale-105 ${
                 selectedCategory === category
-                  ? "bg-yassin-neon-purple text-white"
+                  ? "bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue text-white shadow-lg shadow-yassin-neon-purple/20"
                   : "bg-white/10 text-white/70 hover:bg-white/20"
               }`}
             >
@@ -236,33 +236,44 @@ export function ChannelShowcase() {
                 onMouseEnter={() => setHoveredChannel(channel.id)}
                 onMouseLeave={() => setHoveredChannel(null)}
               >
-                <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-4 transition-all duration-300 hover:border-yassin-neon-blue/50 hover:shadow-[0_0_15px_rgba(30,174,219,0.3)] transform hover:-translate-y-2 h-[180px] flex flex-col items-center justify-between">
-                  <div className="relative mb-3 h-16 flex items-center justify-center">
-                    <img 
-                      src={channel.logo} 
-                      alt={channel.name} 
-                      className="max-h-16 max-w-full object-contain"
-                    />
-                  </div>
-                  <h3 className="text-center font-medium mb-2 truncate w-full">{channel.name}</h3>
-                  <div className="flex flex-wrap justify-center gap-1 mt-2">
-                    {channel.hd && (
-                      <span className="px-1.5 py-0.5 bg-yassin-neon-blue/20 text-yassin-neon-blue text-xs rounded">
-                        HD
-                      </span>
-                    )}
-                    <span className="px-1.5 py-0.5 bg-white/10 text-white/70 text-xs rounded">
-                      {channel.category}
-                    </span>
-                  </div>
-                  
-                  {hoveredChannel === channel.id && (
-                    <div className="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                      <span className="text-yassin-neon-blue text-sm font-medium px-3 py-1 border border-yassin-neon-blue/50 rounded-full animate-pulse">
-                        Watch Now
+                <div className="loading-border">
+                  <div className="bg-gradient-to-b from-black/80 to-[#0c0f1f] backdrop-blur-md border border-white/10 rounded-lg p-4 transition-all duration-300 hover:border-yassin-neon-blue/50 hover:shadow-[0_0_20px_rgba(30,174,219,0.3)] transform hover:-translate-y-2 h-[180px] flex flex-col items-center justify-between">
+                    <div className="mb-3 h-16 flex items-center justify-center">
+                      <div className="flex items-center justify-center w-full h-full">
+                        {/* Apply CSS filter to remove image background */}
+                        <img 
+                          src={channel.logo} 
+                          alt={channel.name} 
+                          className="max-h-16 max-w-full object-contain filter drop-shadow-[0_0_3px_rgba(255,255,255,0.7)] brightness-110 contrast-110"
+                          style={{
+                            mixBlendMode: 'lighten', 
+                            WebkitFilter: 'brightness(1.1) contrast(1.1) drop-shadow(0 0 3px rgba(255,255,255,0.5))'
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <h3 className="text-center font-medium mb-2 truncate w-full text-white">
+                      {channel.name}
+                    </h3>
+                    <div className="flex flex-wrap justify-center gap-1 mt-2">
+                      {channel.hd && (
+                        <span className="px-1.5 py-0.5 bg-yassin-neon-blue/20 text-yassin-neon-blue text-xs rounded">
+                          HD
+                        </span>
+                      )}
+                      <span className="px-1.5 py-0.5 bg-white/10 text-white/70 text-xs rounded">
+                        {channel.category}
                       </span>
                     </div>
-                  )}
+                    
+                    {hoveredChannel === channel.id && (
+                      <div className="absolute inset-0 bg-black/80 rounded-lg flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                        <span className="holographic-text text-sm font-medium px-3 py-1 border border-yassin-neon-blue/50 rounded-full animate-pulse">
+                          Watch Now
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -301,10 +312,10 @@ export function ChannelShowcase() {
       {/* Modern glowing grid lines in the background */}
       <div className="absolute inset-0 grid grid-cols-6 pointer-events-none z-0 opacity-10">
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="border-r border-yassin-neon-blue/30 h-full"></div>
+          <div key={i} className="border-r border-yassin-neon-blue/40 h-full"></div>
         ))}
         {[...Array(6)].map((_, i) => (
-          <div key={i+"row"} className="border-b border-yassin-neon-blue/30 w-full"></div>
+          <div key={i+"row"} className="border-b border-yassin-neon-blue/40 w-full"></div>
         ))}
       </div>
     </section>

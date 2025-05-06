@@ -1,280 +1,170 @@
 
-/* Enhanced loading styles */
+/* Enhanced professional loading styles */
 
 /* Pulse Loading Animation */
 @keyframes pulse-glow {
   0%, 100% {
-    opacity: 0.6;
-    box-shadow: 0 0 10px var(--yassin-neon-purple);
+    opacity: 0.7;
+    box-shadow: 0 0 15px var(--yassin-neon-purple);
   }
   50% {
     opacity: 1;
-    box-shadow: 0 0 25px var(--yassin-neon-purple), 0 0 40px var(--yassin-neon-purple);
+    box-shadow: 0 0 35px var(--yassin-neon-purple), 0 0 50px var(--yassin-neon-purple);
   }
 }
 
 .loading-pulse {
-  animation: pulse-glow 1.5s infinite;
+  animation: pulse-glow 1.8s infinite cubic-bezier(0.4, 0, 0.6, 1);
 }
 
 /* Neon Loading Text */
 .loading-text {
-  font-family: 'Inter', sans-serif;
+  background-size: 200% auto;
+  background-position: 0% center;
+  animation: gradient-text 2s linear infinite;
   font-weight: 700;
-  color: #fff;
-  text-transform: uppercase;
-  text-shadow: 
-    0 0 5px var(--yassin-neon-purple),
+  letter-spacing: 0.5px;
+}
+
+@keyframes gradient-text {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Enhanced cyberpunk progress bar */
+.cyber-progress-bar {
+  height: 100%;
+  width: 50%;
+  background: linear-gradient(
+    90deg, 
+    var(--yassin-neon-blue), 
+    var(--yassin-neon-purple), 
+    var(--yassin-neon-pink),
+    var(--yassin-neon-blue)
+  );
+  background-size: 300% 100%;
+  border-radius: 2px;
+  animation: progress-animation 2.5s linear infinite;
+  box-shadow: 
     0 0 10px var(--yassin-neon-purple),
-    0 0 20px var(--yassin-neon-purple);
-  letter-spacing: 2px;
+    0 0 20px var(--yassin-neon-blue);
 }
 
-/* Loading progress bar */
-.loading-bar {
-  height: 3px;
-  background: linear-gradient(90deg, var(--yassin-neon-purple), var(--yassin-neon-blue));
-  border-radius: 3px;
-  box-shadow: 0 0 10px var(--yassin-neon-purple);
-  animation: loading-progress 2s ease-in-out infinite;
-}
-
-@keyframes loading-progress {
+@keyframes progress-animation {
   0% {
     width: 0%;
-    opacity: 1;
+    background-position: 100% 0%;
   }
   50% {
-    width: 100%;
-    opacity: 0.8;
+    width: 75%;
+    background-position: 0% 0%;
   }
   100% {
     width: 100%;
-    opacity: 0;
+    background-position: -100% 0%;
   }
 }
 
-/* Loading spinner with enhanced style */
-.loading-spinner {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  border-top-color: var(--yassin-neon-purple);
-  animation: spin 1s linear infinite;
-  box-shadow: 
-    0 0 10px var(--yassin-neon-purple),
-    0 0 20px var(--yassin-neon-purple);
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Futuristic loading dots */
+/* Professional futuristic loading dots */
 .loading-dots {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+  margin-top: 1rem;
 }
 
 .loading-dots .dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background-color: white;
-  animation: dot-flashing 1.2s infinite alternate;
+  animation: dot-flashing 1.5s infinite cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  filter: drop-shadow(0 0 2px white);
 }
 
-.loading-dots .dot:nth-child(2) {
-  animation-delay: 0.2s;
+.loading-dots .dot:nth-child(1) {
+  animation-delay: 0s;
   background-color: var(--yassin-neon-blue);
 }
 
-.loading-dots .dot:nth-child(3) {
-  animation-delay: 0.4s;
+.loading-dots .dot:nth-child(2) {
+  animation-delay: 0.25s;
   background-color: var(--yassin-neon-purple);
 }
 
-.loading-dots .dot:nth-child(4) {
-  animation-delay: 0.6s;
+.loading-dots .dot:nth-child(3) {
+  animation-delay: 0.5s;
   background-color: var(--yassin-neon-pink);
+}
+
+.loading-dots .dot:nth-child(4) {
+  animation-delay: 0.75s;
+  background-color: var(--yassin-neon-green);
 }
 
 @keyframes dot-flashing {
   0% {
-    opacity: 0.2;
+    opacity: 0.3;
     transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-}
-
-/* Cyberpunk progress indicator */
-.cyber-progress {
-  position: relative;
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-}
-
-.cyber-progress::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 50%;
-  background: linear-gradient(90deg, var(--yassin-neon-purple), var(--yassin-neon-blue));
-  animation: cyber-progress 1.5s ease-in-out infinite;
-}
-
-.cyber-progress::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 5px;
-  background: white;
-  animation: cyber-blink 0.8s linear infinite;
-}
-
-@keyframes cyber-progress {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(200%);
-  }
-}
-
-@keyframes cyber-blink {
-  0%, 100% {
-    opacity: 1;
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
   }
   50% {
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  }
+  100% {
     opacity: 0.3;
+    transform: scale(0.8);
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
   }
 }
 
-/* Enhanced futuristic cursor */
+/* Enhanced professional cursor */
 .neon-cursor {
-  width: 30px;
-  height: 30px;
+  position: fixed;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  border: 2px solid var(--yassin-neon-blue);
-  background-color: rgba(30, 174, 219, 0.1);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s cubic-bezier(0.215, 0.61, 0.355, 1), width 0.2s, height 0.2s;
+  background: rgba(139, 92, 246, 0.06);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(139, 92, 246, 0.3);
   box-shadow: 
-    0 0 15px rgba(30, 174, 219, 0.7),
-    0 0 30px rgba(30, 174, 219, 0.4),
-    inset 0 0 8px rgba(30, 174, 219, 0.5);
-  filter: blur(0.5px);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    0 0 15px rgba(139, 92, 246, 0.6),
+    0 0 30px rgba(139, 92, 246, 0.3),
+    inset 0 0 10px rgba(139, 92, 246, 0.2);
 }
 
 .neon-cursor::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 4px;
-  height: 4px;
-  background-color: white;
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 1);
-  z-index: 2;
-}
-
-.neon-cursor::after {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
-  border-radius: 50%;
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  animation: pulse-cursor 2s infinite;
-  opacity: 0.5;
-}
-
-@keyframes pulse-cursor {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.5;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(0.9);
-    opacity: 0.5;
-  }
-}
-
-.cursor-trail {
-  width: 10px;
-  height: 10px;
-  background-color: rgba(217, 70, 239, 0.2);
-  border-radius: 50%;
-  animation: trail-fade 0.6s forwards;
-  position: fixed;
-  z-index: 9999;
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-
-@keyframes trail-fade {
-  0% {
-    opacity: 0.8;
-    transform: scale(1);
-    box-shadow: 0 0 8px rgba(217, 70, 239, 0.8);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(2);
-    box-shadow: 0 0 0 rgba(217, 70, 239, 0);
-  }
-}
-
-/* Holographic element glow */
-.hologram {
-  position: relative;
-}
-
-.hologram::before {
-  content: '';
-  position: absolute;
   inset: -5px;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    rgba(139, 92, 246, 0.3) 25%,
-    rgba(217, 70, 239, 0.3) 50%,
-    rgba(30, 174, 219, 0.3) 75%,
-    transparent 100%
-  );
-  border-radius: inherit;
-  animation: holo-rotate 4s linear infinite;
+  border-radius: 50%;
   opacity: 0;
+  background: conic-gradient(
+    transparent,
+    rgba(139, 92, 246, 0.5),
+    transparent,
+    rgba(30, 174, 219, 0.5),
+    transparent
+  );
+  animation: cursor-rotate 4s linear infinite;
   transition: opacity 0.3s;
-  z-index: -1;
 }
 
-.hologram:hover::before {
+.neon-cursor:active::before,
+.neon-cursor.hovering::before {
   opacity: 1;
 }
 
-@keyframes holo-rotate {
+@keyframes cursor-rotate {
   from {
     transform: rotate(0deg);
   }
@@ -282,3 +172,111 @@
     transform: rotate(360deg);
   }
 }
+
+.neon-cursor::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+  filter: blur(0.5px);
+}
+
+.neon-cursor.hovering {
+  width: 48px;
+  height: 48px;
+  background: rgba(217, 70, 239, 0.08);
+  border-color: rgba(217, 70, 239, 0.4);
+  box-shadow: 
+    0 0 20px rgba(217, 70, 239, 0.7),
+    0 0 40px rgba(217, 70, 239, 0.4),
+    inset 0 0 15px rgba(217, 70, 239, 0.2);
+}
+
+/* Cursor trails with improved aesthetics */
+.cursor-trail {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, rgba(139, 92, 246, 0) 70%);
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: screen;
+  animation: cursor-trail-fade 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes cursor-trail-fade {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+
+/* Enhanced professional cyberpunk holographic elements */
+.holographic-text {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(139, 92, 246, 0.9),
+    rgba(30, 174, 219, 0.9),
+    rgba(255, 255, 255, 0.9)
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: holographic-shimmer 4s linear infinite;
+}
+
+@keyframes holographic-shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Professional animated loading border */
+.loading-border {
+  position: relative;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.loading-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    45deg,
+    var(--yassin-neon-purple),
+    var(--yassin-neon-blue),
+    var(--yassin-neon-pink),
+    var(--yassin-neon-purple)
+  );
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-rotate 5s linear infinite;
+}
+
+@keyframes border-rotate {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 300% 300%;
+  }
+}
+
+/* Keep existing code with the rest of the original CSS */
