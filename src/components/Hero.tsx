@@ -70,19 +70,19 @@ export function Hero() {
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 <div className="p-4 scroll-reveal" style={{transitionDelay: "3600ms"}}>
-                  <p className="text-4xl font-bold text-yassin-neon-blue">10,000+</p>
+                  <p className="text-4xl font-bold text-white">10,000+</p>
                   <p className="text-white/60">Live Channels</p>
                 </div>
                 <div className="p-4 scroll-reveal" style={{transitionDelay: "3800ms"}}>
-                  <p className="text-4xl font-bold text-yassin-neon-purple">40,000+</p>
+                  <p className="text-4xl font-bold text-white">40,000+</p>
                   <p className="text-white/60">Movies & Series</p>
                 </div>
                 <div className="p-4 scroll-reveal" style={{transitionDelay: "4000ms"}}>
-                  <p className="text-4xl font-bold text-yassin-neon-pink">99.9%</p>
+                  <p className="text-4xl font-bold text-white">99.9%</p>
                   <p className="text-white/60">Uptime</p>
                 </div>
                 <div className="p-4 scroll-reveal" style={{transitionDelay: "4200ms"}}>
-                  <p className="text-4xl font-bold text-yassin-neon-green">24/7</p>
+                  <p className="text-4xl font-bold text-white">24/7</p>
                   <p className="text-white/60">Support</p>
                 </div>
               </div>

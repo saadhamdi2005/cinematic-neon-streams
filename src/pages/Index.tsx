@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import NavBar from "@/components/NavBar";
 import Hero from "@/components/Hero";
@@ -337,6 +338,53 @@ const Index = () => {
           </svg>
         </div>
         
+        {/* SEO Content Section */}
+        <section className="py-12 px-4 bg-yassin-dark">
+          <div className="container mx-auto max-w-4xl">
+            <h2 className="text-3xl font-bold mb-6 text-white text-center">Welcome to Yassin IPTV - Your Gateway to Premium Entertainment</h2>
+            <div className="prose prose-invert max-w-none">
+              <p className="text-lg text-white/80 mb-6">
+                Looking to <a href="#pricing" className="text-yassin-neon-blue hover:text-yassin-neon-purple">buy IPTV</a>? 
+                Yassin IPTV offers the best <a href="#pricing" className="text-yassin-neon-blue hover:text-yassin-neon-purple">IPTV subscription</a> 
+                for global audiences. Experience the ultimate in entertainment with our premium HD channels and a vast library of movies. 
+                As a leading <a href="#reseller" className="text-yassin-neon-blue hover:text-yassin-neon-purple">IPTV reseller</a>, 
+                we provide reliable service, fast support, and unbeatable value.
+              </p>
+              
+              <h3 className="text-2xl font-bold mb-4 text-white">Why Choose Yassin IPTV?</h3>
+              <ul className="space-y-2 text-white/80">
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-blue">✓</span> 
+                  <span><b>HD Channels:</b> Enjoy crystal-clear HD quality on all your favorite channels.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-blue">✓</span> 
+                  <span><b>Extensive Movie Library:</b> Access thousands of movies on demand.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-blue">✓</span> 
+                  <span><b>Fast Support:</b> Our dedicated support team is here to assist you.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-blue">✓</span> 
+                  <span><b>Compatible Devices:</b> Works seamlessly on IPTV for Android, IPTV for Firestick, and more.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-blue">✓</span> 
+                  <span><b>Best IPTV 2025:</b> Stay ahead with the best IPTV service in 2025.</span>
+                </li>
+              </ul>
+              
+              <p className="text-lg text-white/80 mt-6">
+                Ready to get started? <a href="#pricing" className="text-yassin-neon-pink font-bold hover:text-yassin-neon-purple">
+                Buy IPTV</a> now and experience the difference! Contact us for more information.
+              </p>
+            </div>
+          </div>
+        </section>
+        
+        <div className="section-divider"></div>
+        
         <ChannelShowcase />
         
         <div className="section-divider"></div>
@@ -381,6 +429,97 @@ const Index = () => {
         
         <div className="section-divider"></div>
         
+        {/* Security Article Section */}
+        <section className="py-12 px-4 bg-yassin-dark">
+          <div className="container mx-auto max-w-4xl">
+            <h2 className="text-3xl font-bold mb-6 text-white text-center">How to Secure Your Website on Vercel or Netlify: A Complete Guide for 2025</h2>
+            <div className="prose prose-invert max-w-none">
+              <p className="text-lg text-white/80 mb-6">
+                In today's digital landscape, securing your website is more important than ever. This guide provides a comprehensive 
+                overview of how to protect your website, especially if you're using Vercel or Netlify for hosting. We'll cover essential 
+                security practices to keep your site safe from hackers.
+              </p>
+              
+              <h3 className="text-2xl font-bold mb-4 text-white">1. HTTPS: The Foundation of Security</h3>
+              <p className="text-white/80">
+                Ensure your website uses HTTPS. Both Vercel and Netlify provide free SSL certificates, making it easy to enable HTTPS. 
+                This encrypts data transmitted between your website and visitors' browsers.
+              </p>
+              
+              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">2. Security Headers: Adding an Extra Layer of Protection</h3>
+              <p className="text-white/80 mb-3">
+                Implement security headers to instruct browsers on how to behave. Common headers include:
+              </p>
+              <ul className="space-y-2 text-white/80">
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-green">✓</span> 
+                  <span><b>Content Security Policy (CSP):</b> Controls the resources the browser is allowed to load, reducing the risk of cross-site scripting (XSS) attacks.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-green">✓</span> 
+                  <span><b>X-Frame-Options:</b> Prevents clickjacking by controlling whether your site can be framed.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-green">✓</span> 
+                  <span><b>X-Content-Type-Options:</b> Prevents MIME-sniffing vulnerabilities.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-green">✓</span> 
+                  <span><b>Strict-Transport-Security (HSTS):</b> Enforces HTTPS connections.</span>
+                </li>
+              </ul>
+              
+              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">3. Input Sanitization: Protecting Against Injection Attacks</h3>
+              <p className="text-white/80">
+                Always sanitize user inputs to prevent injection attacks (e.g., SQL injection, XSS). Sanitize data on both the client-side and server-side.
+              </p>
+              
+              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">4. Environment Variables: Keeping Secrets Safe</h3>
+              <p className="text-white/80">
+                Store sensitive information (API keys, database credentials) as environment variables. Vercel and Netlify provide easy ways to manage these variables.
+              </p>
+              
+              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">5. Using Cloudflare (Optional but Recommended)</h3>
+              <p className="text-white/80">
+                Cloudflare offers a range of security features, including DDoS protection, a web application firewall (WAF), and bot management. 
+                Integrate Cloudflare for enhanced security.
+              </p>
+              
+              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">6. Form Protection with reCAPTCHA</h3>
+              <p className="text-white/80">
+                Protect your forms from bots and spam using reCAPTCHA. This helps prevent automated submissions and malicious activity.
+              </p>
+              
+              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">7. How Vercel and Netlify Handle Security by Default</h3>
+              <p className="text-white/80 mb-3">
+                Both Vercel and Netlify offer built-in security features, such as:
+              </p>
+              <ul className="space-y-2 text-white/80">
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-green">✓</span> 
+                  <span><b>Automatic SSL/TLS certificates.</b></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-green">✓</span> 
+                  <span><b>Protection against DDoS attacks.</b></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-yassin-neon-green">✓</span> 
+                  <span><b>Regular security updates.</b></span>
+                </li>
+              </ul>
+              
+              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">Conclusion</h3>
+              <p className="text-white/80">
+                By following these best practices, you can significantly enhance the security of your website on Vercel or Netlify. 
+                Stay vigilant, keep your software updated, and regularly review your security measures to protect your site from evolving threats.
+              </p>
+            </div>
+          </div>
+        </section>
+        
+        <div className="section-divider"></div>
+        
         {/* Enhanced FAQ Section */}
         <FAQSection />
         
@@ -392,9 +531,9 @@ const Index = () => {
       {/* Footer */}
       <Footer />
 
-      {/* Floating WhatsApp Button - Positioned left side*/}
+      {/* Floating WhatsApp Button - Moved to left side */}
       <WhatsAppButton 
-        phoneNumber="212657263966"
+        phoneNumber="212643264633"
         text="Chat on WhatsApp"
         className="fixed bottom-6 left-6 z-50 animate-float"
       />

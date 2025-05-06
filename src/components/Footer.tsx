@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TypedText from "./ui/TypedText";
 import GlassCard from "./ui/GlassCard";
+import { Whatsapp } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -27,7 +28,7 @@ export function Footer() {
   
   return (
     <footer className="py-16 relative overflow-hidden bg-gradient-to-b from-transparent to-black/40">
-      {/* Scroll to top button */}
+      {/* Scroll to top button - now on right side */}
       {showScrollTop && (
         <button 
           onClick={scrollToTop}
@@ -130,12 +131,12 @@ export function Footer() {
             <ul className="space-y-3 text-white/60">
               <li>
                 <a 
-                  href="https://wa.me/212657263966" 
+                  href="https://wa.me/212643264633" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-yassin-neon-pink transition-colors flex items-center gap-2"
                 >
-                  <WhatsappIcon className="w-5 h-5 text-green-500" />
+                  <Whatsapp className="w-5 h-5 text-green-500" />
                   <span>WhatsApp Support</span>
                 </a>
               </li>
@@ -206,15 +207,7 @@ export function Footer() {
   );
 }
 
-// Import at the top was cut off because of component preview
 // Adding these as local components to avoid errors
-const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/>
-    <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/>
-  </svg>
-);
-
 const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <rect width="20" height="16" x="2" y="4" rx="2"/>
