@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { LanguageContext } from "@/contexts/LanguageContext";
 import GlassCard from "./ui/GlassCard";
-import LoadingSpinner from "./ui/LoadingSpinner";
 
 const FAQSection = () => {
   const { t } = useContext(LanguageContext);

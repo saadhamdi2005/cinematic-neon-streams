@@ -20,7 +20,7 @@ export const detectBrowserLanguage = (): LanguageCode => {
       }
       
       // If specific browser language check fails, check for language families
-      const userLang = (navigator.language || navigator.userLanguage || 'en').slice(0, 2).toLowerCase();
+      const userLang = (navigator.language || 'en').slice(0, 2).toLowerCase();
       
       // Map similar languages to our supported ones
       const languageFamilies: Record<string, LanguageCode> = {

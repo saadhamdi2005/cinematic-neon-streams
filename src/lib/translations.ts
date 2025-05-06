@@ -41,7 +41,20 @@ export type TranslationKey =
   | 'faq_q4'
   | 'faq_a4'
   | 'faq_q5'
-  | 'faq_a5';
+  | 'faq_a5'
+  | 'faq_q6'
+  | 'faq_a6'
+  | 'faq_q7'
+  | 'faq_a7'
+  | 'faq_q8'
+  | 'faq_a8'
+  | 'free_trial'
+  | 'buy_now'
+  | 'home'
+  | 'pricing'
+  | 'reseller'
+  | 'installation'
+  | 'faq';
 
 // English translations (default)
 const en = {
@@ -83,7 +96,20 @@ const en = {
   faq_q4: "Do I need a fast internet connection?",
   faq_a4: "We recommend a minimum speed of 10 Mbps for SD content and 25 Mbps for HD/4K content. Our adaptive streaming technology adjusts quality based on your connection.",
   faq_q5: "Can I cancel my subscription anytime?",
-  faq_a5: "Yes, you can cancel your subscription at any time. No long-term contracts or hidden fees."
+  faq_a5: "Yes, you can cancel your subscription at any time. No long-term contracts or hidden fees.",
+  faq_q6: "What makes YassinIPTV different from other services?",
+  faq_a6: "YassinIPTV provides premium quality channels, reliable streams, excellent customer service, and multi-device compatibility, all at an affordable price.",
+  faq_q7: "How many devices can I use simultaneously?",
+  faq_a7: "Depending on your plan, you can stream on 1 to 4 devices simultaneously. Check your plan details for the exact number allowed.",
+  faq_q8: "Do you offer a free trial?",
+  faq_a8: "Yes, we offer a 24-hour free trial so you can experience our service before subscribing.",
+  free_trial: "Start Free Trial",
+  buy_now: "Buy Now",
+  home: "Home",
+  pricing: "Pricing",
+  reseller: "Reseller",
+  installation: "Installation",
+  faq: "FAQ"
 };
 
 // French translations
@@ -126,7 +152,20 @@ const fr = {
   faq_q4: "Ai-je besoin d'une connexion internet rapide?",
   faq_a4: "Nous recommandons une vitesse minimale de 10 Mbps pour le contenu SD et 25 Mbps pour le contenu HD/4K. Notre technologie de streaming adaptatif ajuste la qualité en fonction de votre connexion.",
   faq_q5: "Puis-je annuler mon abonnement à tout moment?",
-  faq_a5: "Oui, vous pouvez annuler votre abonnement à tout moment. Pas de contrats à long terme ni de frais cachés."
+  faq_a5: "Oui, vous pouvez annuler votre abonnement à tout moment. Pas de contrats à long terme ni de frais cachés.",
+  faq_q6: "Qu'est-ce qui distingue YassinIPTV des autres services?",
+  faq_a6: "YassinIPTV offre des chaînes de qualité premium, des flux fiables, un excellent service client et une compatibilité multi-appareils, le tout à un prix abordable.",
+  faq_q7: "Combien d'appareils puis-je utiliser simultanément?",
+  faq_a7: "Selon votre forfait, vous pouvez diffuser sur 1 à 4 appareils simultanément. Consultez les détails de votre forfait pour connaître le nombre exact autorisé.",
+  faq_q8: "Offrez-vous un essai gratuit?",
+  faq_a8: "Oui, nous offrons un essai gratuit de 24 heures pour que vous puissiez tester notre service avant de vous abonner.",
+  free_trial: "Essai gratuit",
+  buy_now: "Acheter maintenant",
+  home: "Accueil",
+  pricing: "Tarifs",
+  reseller: "Revendeur",
+  installation: "Installation",
+  faq: "FAQ"
 };
 
 // Arabic translations
@@ -169,7 +208,20 @@ const ar = {
   faq_q4: "هل أحتاج إلى اتصال إنترنت سريع؟",
   faq_a4: "نوصي بسرعة لا تقل عن 10 ميجابت في الثانية للمحتوى بدقة SD و25 ميجابت في الثانية للمحتوى بدقة HD/4K. تقوم تقنية البث المتكيفة لدينا بضبط الجودة بناءً على اتصالك.",
   faq_q5: "هل يمكنني إلغاء اشتراكي في أي وقت؟",
-  faq_a5: "نعم، يمكنك إلغاء اشتراكك في أي وقت. لا توجد عقود طويلة الأمد أو رسوم خفية."
+  faq_a5: "نعم، يمكنك إلغاء اشتراكك في أي وقت. لا توجد عقود طويلة الأمد أو رسوم خفية.",
+  faq_q6: "ما الذي يميز YassinIPTV عن الخدمات الأخرى؟",
+  faq_a6: "يوفر YassinIPTV قنوات ذات جودة متميزة، وبث موثوق، وخدمة عملاء ممتازة، وتوافق مع أجهزة متعددة، كل ذلك بسعر معقول.",
+  faq_q7: "كم عدد الأجهزة التي يمكنني استخدامها في وقت واحد؟",
+  faq_a7: "اعتمادًا على خطتك، يمكنك البث على 1 إلى 4 أجهزة في وقت واحد. تحقق من تفاصيل خطتك لمعرفة العدد المسموح به بالضبط.",
+  faq_q8: "هل تقدمون تجربة مجانية؟",
+  faq_a8: "نعم، نقدم تجربة مجانية لمدة 24 ساعة حتى تتمكن من تجربة خدمتنا قبل الاشتراك.",
+  free_trial: "ابدأ التجربة المجانية",
+  buy_now: "اشتر الآن",
+  home: "الرئيسية",
+  pricing: "التسعير",
+  reseller: "موزع",
+  installation: "التثبيت",
+  faq: "الأسئلة الشائعة"
 };
 
 // Spanish translations
@@ -212,7 +264,20 @@ const es = {
   faq_q4: "¿Necesito una conexión a Internet rápida?",
   faq_a4: "Recomendamos una velocidad mínima de 10 Mbps para contenido SD y 25 Mbps para contenido HD/4K. Nuestra tecnología de transmisión adaptativa ajusta la calidad según su conexión.",
   faq_q5: "¿Puedo cancelar mi suscripción en cualquier momento?",
-  faq_a5: "Sí, puede cancelar su suscripción en cualquier momento. No hay contratos a largo plazo ni tarifas ocultas."
+  faq_a5: "Sí, puede cancelar su suscripción en cualquier momento. No hay contratos a largo plazo ni tarifas ocultas.",
+  faq_q6: "¿Qué hace a YassinIPTV diferente de otros servicios?",
+  faq_a6: "YassinIPTV proporciona canales de calidad premium, transmisiones confiables, excelente servicio al cliente y compatibilidad con múltiples dispositivos, todo a un precio asequible.",
+  faq_q7: "¿Cuántos dispositivos puedo usar simultáneamente?",
+  faq_a7: "Dependiendo de su plan, puede transmitir en 1 a 4 dispositivos simultáneamente. Consulte los detalles de su plan para conocer el número exacto permitido.",
+  faq_q8: "¿Ofrecen una prueba gratuita?",
+  faq_a8: "Sí, ofrecemos una prueba gratuita de 24 horas para que pueda experimentar nuestro servicio antes de suscribirse.",
+  free_trial: "Iniciar prueba gratuita",
+  buy_now: "Comprar ahora",
+  home: "Inicio",
+  pricing: "Precios",
+  reseller: "Revendedor",
+  installation: "Instalación",
+  faq: "Preguntas frecuentes"
 };
 
 // Map of all available translations
@@ -223,10 +288,10 @@ const translations = {
   es
 };
 
-// Helper function to get translation
+// Fix the getTranslation function - parameters were in wrong order
 export const getTranslation = (
-  key: TranslationKey,
-  language: LanguageCode
+  language: LanguageCode,
+  key: TranslationKey
 ): string => {
   return translations[language][key] || translations.en[key] || key;
 };
