@@ -63,7 +63,18 @@ export type TranslationKey =
   | 'all_genres'
   | 'chat_welcome'
   | 'chat_title'
-  | 'chat_placeholder';
+  | 'chat_placeholder'
+  | 'customer_feedback'
+  | 'feedback_description'
+  | 'customers_say'
+  | 'share_experience'
+  | 'thank_you'
+  | 'feedback_submitted'
+  | 'name'
+  | 'email'
+  | 'rating'
+  | 'your_experience'
+  | 'submit_feedback';
 
 // English translations (default)
 const en = {
@@ -127,7 +138,18 @@ const en = {
   all_genres: "All Genres",
   chat_welcome: "Welcome to our support chat",
   chat_title: "Customer Support",
-  chat_placeholder: "Type your message here..."
+  chat_placeholder: "Type your message here...",
+  customer_feedback: "Customer Feedback",
+  feedback_description: "Join thousands of satisfied customers who love YassinIPTV. Share your experience or read what others have to say.",
+  customers_say: "What Our Customers Say",
+  share_experience: "Share Your Experience",
+  thank_you: "Thank You!",
+  feedback_submitted: "Your feedback has been submitted successfully.",
+  name: "Name",
+  email: "Email",
+  rating: "Rating",
+  your_experience: "Your Experience",
+  submit_feedback: "Submit Feedback"
 };
 
 // French translations
@@ -192,7 +214,18 @@ const fr = {
   all_genres: "Tous les genres",
   chat_welcome: "Bienvenue sur notre chat de support",
   chat_title: "Support client",
-  chat_placeholder: "Tapez votre message ici..."
+  chat_placeholder: "Tapez votre message ici...",
+  customer_feedback: "Avis clients",
+  feedback_description: "Rejoignez des milliers de clients satisfaits qui adorent YassinIPTV. Partagez votre expérience ou lisez ce que les autres ont à dire.",
+  customers_say: "Ce que disent nos clients",
+  share_experience: "Partagez votre expérience",
+  thank_you: "Merci !",
+  feedback_submitted: "Votre avis a été soumis avec succès.",
+  name: "Nom",
+  email: "Email",
+  rating: "Évaluation",
+  your_experience: "Votre expérience",
+  submit_feedback: "Soumettre l'avis"
 };
 
 // Arabic translations
@@ -257,7 +290,18 @@ const ar = {
   all_genres: "كل الأنواع",
   chat_welcome: "مرحبًا بكم في دردشة الدعم الخاصة بنا",
   chat_title: "دعم العملاء",
-  chat_placeholder: "اكتب رسالتك هنا..."
+  chat_placeholder: "اكتب رسالتك هنا...",
+  customer_feedback: "آراء العملاء",
+  feedback_description: "انضم إلى آلاف العملاء الراضين الذين يحبون YassinIPTV. شارك تجربتك أو اقرأ ما يقوله الآخرون.",
+  customers_say: "ما يقوله عملاؤنا",
+  share_experience: "شارك تجربتك",
+  thank_you: "شكرا لك!",
+  feedback_submitted: "تم إرسال رأيك بنجاح.",
+  name: "الاسم",
+  email: "البريد الإلكتروني",
+  rating: "التقييم",
+  your_experience: "تجربتك",
+  submit_feedback: "إرسال التعليق"
 };
 
 // Spanish translations
@@ -322,7 +366,18 @@ const es = {
   all_genres: "Todos los géneros",
   chat_welcome: "Bienvenido a nuestro chat de soporte",
   chat_title: "Atención al cliente",
-  chat_placeholder: "Escriba su mensaje aquí..."
+  chat_placeholder: "Escriba su mensaje aquí...",
+  customer_feedback: "Opiniones de clientes",
+  feedback_description: "Únase a miles de clientes satisfechos que aman YassinIPTV. Comparta su experiencia o lea lo que otros tienen que decir.",
+  customers_say: "Lo que dicen nuestros clientes",
+  share_experience: "Comparta su experiencia",
+  thank_you: "¡Gracias!",
+  feedback_submitted: "Su opinión ha sido enviada con éxito.",
+  name: "Nombre",
+  email: "Correo electrónico",
+  rating: "Calificación",
+  your_experience: "Su experiencia",
+  submit_feedback: "Enviar opinión"
 };
 
 // Map of all available translations

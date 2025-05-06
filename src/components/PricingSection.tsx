@@ -1,256 +1,386 @@
 
-import { useState, useEffect } from "react";
-import GlassCard from "@/components/ui/GlassCard";
-import TypedText from "@/components/ui/TypedText";
-import { Check, Zap, Shield, Timer } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useState, useRef } from 'react';
+import { CheckCircle2, XCircle } from "lucide-react";
+import { useLanguage } from '@/contexts/LanguageContext';
+import { motion } from 'framer-motion'; // Add framer-motion for zoom animations
 
-// Pricing plans
-const plans = [
-  {
-    id: "monthly",
-    name: "Monthly",
-    price: 15,
-    features: [
-      "10,000+ Live TV Channels",
-      "40,000+ Movies & Series",
-      "HD & 4K Quality",
-      "Multi-device support",
-      "24/7 Customer Support",
-      "Regular Content Updates",
-    ],
-    popular: false,
-    color: "blue",
-  },
-  {
-    id: "quarterly",
-    name: "Quarterly",
-    price: 35,
-    features: [
-      "Everything in Monthly",
-      "Premium Sports",
-      "VOD Categories",
-      "Lower cost per month",
-      "Anti-freeze technology",
-      "Premium TV Guide",
-    ],
-    popular: true,
-    color: "purple",
-  },
-  {
-    id: "yearly",
-    name: "Yearly",
-    price: 100,
-    features: [
-      "Everything in Quarterly",
-      "Guaranteed uptime",
-      "No buffering guarantee",
-      "Exclusive content",
-      "Priority Support",
-      "Lowest cost per month",
-    ],
-    popular: false,
-    color: "pink",
-  }
-];
+interface PlanFeature {
+  feature: string;
+  basic: boolean;
+  standard: boolean;
+  premium: boolean;
+}
 
-// Currency options
-const currencies = [
-  { id: "usd", symbol: "$", name: "USD" },
-  { id: "eur", symbol: "€", name: "EUR" },
-  { id: "gbp", symbol: "£", name: "GBP" }
-];
-
-export function PricingSection() {
+const PricingSection = () => {
   const { t } = useLanguage();
-  const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
-  const [floatOffsets, setFloatOffsets] = useState([0, 0, 0]);
+  const [isYearly, setIsYearly] = useState(false);
+  const basicRef = useRef<HTMLDivElement>(null);
+  const standardRef = useRef<HTMLDivElement>(null);
+  const premiumRef = useRef<HTMLDivElement>(null);
   
-  // Enhanced floating animation effect with better randomization
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFloatOffsets([
-        Math.sin(Date.now() / 2000) * 10,
-        Math.sin((Date.now() / 2000) + Math.PI * 0.6) * 10,
-        Math.sin((Date.now() / 2000) + Math.PI * 1.2) * 10
-      ]);
-    }, 50);
-    
-    return () => clearInterval(interval);
-  }, []);
-
-  // Simple currency conversion factors (just for demo)
-  const conversionRates = {
-    usd: 1,
-    eur: 0.85,
-    gbp: 0.75
+  // Animation variants for text zoom effects
+  const textVariants = {
+    initial: { scale: 0.9, opacity: 0 },
+    animate: { scale: 1, opacity: 1, transition: { duration: 0.5 } },
+    hover: { scale: 1.05, transition: { duration: 0.3 } }
+  };
+  
+  const priceVariants = {
+    initial: { scale: 0.8, opacity: 0 },
+    animate: { scale: 1, opacity: 1, transition: { duration: 0.7, delay: 0.2 } },
+    hover: { scale: 1.1, transition: { duration: 0.2 } }
   };
 
-  // Get price in selected currency
-  const getPrice = (basePrice: number) => {
-    const rate = conversionRates[selectedCurrency.id as keyof typeof conversionRates];
-    return Math.round(basePrice * rate);
+  // Define plan features
+  const planFeatures: PlanFeature[] = [
+    { feature: t('channels'), basic: true, standard: true, premium: true },
+    { feature: '100+ ' + t('movies'), basic: true, standard: true, premium: true },
+    { feature: t('tv_shows'), basic: false, standard: true, premium: true },
+    { feature: 'HD ' + t('quality'), basic: true, standard: true, premium: true },
+    { feature: '4K ' + t('quality'), basic: false, standard: false, premium: true },
+    { feature: '1 ' + t('devices'), basic: true, standard: false, premium: false },
+    { feature: '3 ' + t('devices'), basic: false, standard: true, premium: false },
+    { feature: '5 ' + t('devices'), basic: false, standard: false, premium: true },
+    { feature: '24/7 ' + t('support'), basic: false, standard: true, premium: true },
+  ];
+
+  // Calculate prices with yearly discount
+  const prices = {
+    basic: {
+      monthly: 9.99,
+      yearly: 7.99
+    },
+    standard: {
+      monthly: 19.99,
+      yearly: 15.99
+    },
+    premium: {
+      monthly: 29.99,
+      yearly: 23.99
+    }
+  };
+  
+  // Helper function to render a specific plan price
+  const getPlanPrice = (plan: 'basic' | 'standard' | 'premium') => {
+    const price = isYearly ? prices[plan].yearly : prices[plan].monthly;
+    return (
+      <motion.div 
+        variants={priceVariants}
+        initial="initial"
+        animate="animate"
+        whileHover="hover"
+        className="text-4xl font-bold"
+      >
+        {price}
+      </motion.div>
+    );
   };
 
   return (
-    <section id="pricing" className="py-20">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 hover:scale-110 transition-transform duration-300">
-            <TypedText
-              text={t("pricing_title")}
-              className="text-gradient"
-              delay={100}
-            />
-          </h2>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto hover:scale-105 transition-transform duration-300">
-            {t("pricing_subtitle")}
-          </p>
-        </div>
+    <section id="pricing" className="py-20 relative">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <motion.h2 
+            variants={textVariants}
+            initial="initial"
+            animate="animate"
+            whileHover="hover"
+            className="text-3xl md:text-4xl font-bold mb-4 text-gradient heading-glow"
+          >
+            {t('pricing_title')}
+          </motion.h2>
+          <motion.p 
+            variants={textVariants}
+            initial="initial"
+            animate="animate"
+            className="text-white/70 max-w-2xl mx-auto"
+          >
+            {t('pricing_subtitle')}
+          </motion.p>
 
-        {/* Free Trial Section - Now at the top with zoom effects */}
-        <div id="trial" className="mb-16 max-w-3xl mx-auto animate-float">
-          <GlassCard className="p-8 text-center hover:scale-105 transition-transform duration-300" tiltEffect glowOnHover neonColor="green">
-            <div className="flex justify-center mb-3">
-              <Zap className="w-12 h-12 text-yassin-neon-green animate-pulse" />
-            </div>
-            <h3 className="text-3xl font-bold mb-3 text-gradient hover:scale-110 transition-transform duration-300">Try our Free 24h Trial</h3>
-            <p className="mb-6 text-white/70 text-lg hover:scale-105 transition-transform duration-300">
-              Experience our premium service with no commitment. Get access to all our channels and features for 24 hours.
-            </p>
-            <a
-              href="https://wa.me/212643264633?text=I'd like to try the free 24h trial"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-accent inline-block transform transition-transform hover:scale-110 animate-pulse-glow"
+          {/* Toggle between monthly/yearly pricing */}
+          <div className="mt-10 inline-flex items-center bg-black/30 p-1 rounded-full border border-white/10 relative">
+            <button
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                !isYearly
+                  ? "bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-purple text-white shadow-lg"
+                  : "text-white/70 hover:text-white"
+              }`}
+              onClick={() => setIsYearly(false)}
             >
-              <span className="flex items-center">
-                <Timer className="mr-2" />
-                {t("free_trial")}
-              </span>
-            </a>
-          </GlassCard>
-        </div>
-
-        {/* Currency selector with zoom effects */}
-        <div className="flex justify-center mb-10">
-          <div className="bg-white/10 rounded-full p-1 inline-flex hover:scale-105 transition-transform duration-300">
-            {currencies.map((currency) => (
-              <button
-                key={currency.id}
-                onClick={() => setSelectedCurrency(currency)}
-                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
-                  selectedCurrency.id === currency.id
-                    ? "bg-yassin-neon-purple text-white"
-                    : "text-white/70 hover:text-white"
-                }`}
+              <motion.span
+                variants={textVariants} 
+                initial="initial"
+                animate="animate"
+                whileHover="hover"
               >
-                {currency.symbol} {currency.name}
-              </button>
-            ))}
+                {t('monthly')}
+              </motion.span>
+            </button>
+            <button
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                isYearly
+                  ? "bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-purple text-white shadow-lg"
+                  : "text-white/70 hover:text-white"
+              }`}
+              onClick={() => setIsYearly(true)}
+            >
+              <motion.span
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                whileHover="hover"
+                className="flex items-center"
+              >
+                {t('yearly')}
+                <span className="ml-2 text-xs bg-yassin-neon-green/90 text-black px-2 py-0.5 rounded-full whitespace-nowrap">
+                  {t('save')} 20%
+                </span>
+              </motion.span>
+            </button>
           </div>
         </div>
 
-        {/* Pricing Cards with zoom effects */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {plans.map((plan, index) => {
-            const neonColor = plan.color as "purple" | "pink" | "blue" | "green";
-            const isPopular = plan.popular;
-            
-            return (
-              <div 
-                key={plan.id} 
-                className={`relative ${isPopular ? "md:-mt-6" : ""}`}
-                style={{
-                  transform: `translateY(${floatOffsets[index]}px)`,
-                  transition: "transform 0.5s ease"
-                }}
+        {/* Pricing cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {/* Basic Plan */}
+          <motion.div
+            ref={basicRef}
+            whileHover={{ scale: 1.03 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            className="bg-gradient-to-b from-black/60 to-black/40 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden relative group"
+          >
+            <div className="p-8">
+              <motion.div
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                whileHover="hover" 
+                className="text-xl font-bold text-white mb-2"
               >
-                {isPopular && (
-                  <div className="absolute -top-6 inset-x-0 flex justify-center z-10">
-                    <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 px-6 py-2 rounded-full text-base font-bold shadow-lg animate-pulse-slow hover:scale-110 transition-transform duration-300">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-                
-                <GlassCard
-                  className={`p-6 flex flex-col h-full hover:scale-105 transition-transform duration-300 ${isPopular ? "border-yassin-neon-purple shadow-xl shadow-yassin-neon-purple/20" : ""}`}
-                  glowOnHover
-                  neonColor={neonColor}
-                  tiltEffect
-                  floatingEffect
-                >
-                  <h3 className="text-xl font-bold mb-2 hover:scale-110 transition-transform duration-300">{t(plan.id as any)}</h3>
-                  <div className="mb-5 hover:scale-105 transition-transform duration-300">
-                    <span className="text-4xl font-bold">
-                      {selectedCurrency.symbol}{getPrice(plan.price)}
-                    </span>
-                    <span className="text-white/60 ml-1">
-                      {plan.id === "monthly" ? "/month" : plan.id === "quarterly" ? "/3 months" : "/year"}
-                    </span>
-                  </div>
-                  
-                  <ul className="space-y-3 mb-6 flex-grow">
-                    {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
-                        <Check className="w-5 h-5 text-yassin-neon-green" />
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <a
-                    href={`https://wa.me/212643264633?text=I'm interested in the ${plan.name} plan`}
-                    target="_blank"
-                    rel="noopener noreferrer" 
-                    className={`w-full text-center py-2 rounded-lg transition-all transform hover:scale-110 ${
-                      isPopular 
-                        ? "bg-yassin-neon-purple hover:bg-yassin-neon-purple/80 text-white" 
-                        : "bg-white/10 hover:bg-white/20 text-white"
-                    }`}
-                  >
-                    {t("buy_now")}
-                  </a>
-                </GlassCard>
+                {t('basic_plan')}
+              </motion.div>
+              <motion.p
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                className="text-white/60 text-sm mb-6"
+              >
+                {t('basic_description')}
+              </motion.p>
+              
+              <div className="flex items-end mb-6">
+                {getPlanPrice('basic')}
+                <span className="text-white/60 ml-1 mb-1">
+                  {isYearly ? t('year') : t('month')}
+                </span>
               </div>
-            );
-          })}
-        </div>
 
-        {/* Security information with zoom effects */}
-        <div className="mt-20 max-w-4xl mx-auto">
-          <GlassCard className="p-8 hover:scale-105 transition-transform duration-300" glowOnHover neonColor="blue">
-            <div className="flex items-center justify-center mb-6">
-              <Shield className="w-10 h-10 text-yassin-neon-blue mr-3" />
-              <h3 className="text-2xl font-bold hover:scale-110 transition-transform duration-300">Secure Streaming Experience</h3>
+              <button className="w-full py-3 px-4 rounded-lg bg-white/10 hover:bg-yassin-neon-blue/20 text-white border border-yassin-neon-blue/50 transition-all duration-300 mb-6 backdrop-blur-sm">
+                <motion.span
+                  variants={textVariants}
+                  initial="initial"
+                  animate="animate"
+                  whileHover="hover"
+                >
+                  {t('get_started')}
+                </motion.span>
+              </button>
+
+              <motion.div
+                variants={textVariants}
+                initial="initial"
+                animate="animate" 
+                className="space-y-3 text-sm"
+              >
+                {planFeatures.map((feature, index) => (
+                  <div key={index} className="flex items-center">
+                    {feature.basic ? (
+                      <>
+                        <CheckCircle2 className="h-4 w-4 mr-2 text-yassin-neon-green" />
+                        <span className="text-white/80">{feature.feature}</span>
+                      </>
+                    ) : (
+                      <>
+                        <XCircle className="h-4 w-4 mr-2 text-white/40" />
+                        <span className="text-white/40">{feature.feature}</span>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </motion.div>
             </div>
-            <p className="mb-6 text-white/70 text-center hover:scale-105 transition-transform duration-300">
-              We take your security seriously. Our platform implements multiple protection layers to ensure your data and streaming experience remain secure.
-            </p>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white/5 p-4 rounded-lg hover:scale-105 transition-transform duration-300">
-                <h4 className="font-bold mb-2 text-yassin-neon-blue">Encrypted Connections</h4>
-                <p className="text-sm text-white/70">All data transmitted between your device and our servers is encrypted using industry-standard protocols.</p>
-              </div>
-              <div className="bg-white/5 p-4 rounded-lg hover:scale-105 transition-transform duration-300">
-                <h4 className="font-bold mb-2 text-yassin-neon-blue">Secure Authentication</h4>
-                <p className="text-sm text-white/70">Multi-factor authentication available for all accounts to prevent unauthorized access.</p>
-              </div>
-              <div className="bg-white/5 p-4 rounded-lg hover:scale-105 transition-transform duration-300">
-                <h4 className="font-bold mb-2 text-yassin-neon-blue">DDoS Protection</h4>
-                <p className="text-sm text-white/70">Our infrastructure is protected against distributed denial-of-service attacks to ensure uptime.</p>
-              </div>
-              <div className="bg-white/5 p-4 rounded-lg hover:scale-105 transition-transform duration-300">
-                <h4 className="font-bold mb-2 text-yassin-neon-blue">Regular Security Audits</h4>
-                <p className="text-sm text-white/70">We continuously test our systems for vulnerabilities to stay ahead of potential threats.</p>
+
+            {/* Bottom glow effect */}
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yassin-neon-blue/50 to-transparent"></div>
+          </motion.div>
+
+          {/* Standard Plan */}
+          <motion.div
+            ref={standardRef}
+            whileHover={{ scale: 1.03 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            className="bg-gradient-to-b from-black/60 to-black/40 backdrop-blur-sm border border-yassin-neon-blue/30 rounded-xl overflow-hidden relative group md:transform md:-translate-y-4"
+          >
+            {/* Popular Tag */}
+            <div className="absolute top-0 right-0">
+              <div className="bg-yassin-neon-purple text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                <motion.span
+                  variants={textVariants}
+                  initial="initial"
+                  animate="animate"
+                  whileHover="hover"
+                >
+                  {t('most_popular')}
+                </motion.span>
               </div>
             </div>
-          </GlassCard>
+            
+            <div className="p-8">
+              <motion.div
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                whileHover="hover"
+                className="text-xl font-bold text-white mb-2"
+              >
+                {t('standard_plan')}
+              </motion.div>
+              <motion.p 
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                className="text-white/60 text-sm mb-6"
+              >
+                {t('standard_description')}
+              </motion.p>
+              
+              <div className="flex items-end mb-6">
+                {getPlanPrice('standard')}
+                <span className="text-white/60 ml-1 mb-1">
+                  {isYearly ? t('year') : t('month')}
+                </span>
+              </div>
+
+              <button className="w-full py-3 px-4 rounded-lg bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-purple text-white transition-all duration-300 mb-6 shadow-lg hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] transform hover:scale-[1.02]">
+                <motion.span
+                  variants={textVariants}
+                  initial="initial"
+                  animate="animate"
+                  whileHover="hover"
+                >
+                  {t('get_started')}
+                </motion.span>
+              </button>
+
+              <motion.div 
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                className="space-y-3 text-sm"
+              >
+                {planFeatures.map((feature, index) => (
+                  <div key={index} className="flex items-center">
+                    {feature.standard ? (
+                      <>
+                        <CheckCircle2 className="h-4 w-4 mr-2 text-yassin-neon-green" />
+                        <span className="text-white/80">{feature.feature}</span>
+                      </>
+                    ) : (
+                      <>
+                        <XCircle className="h-4 w-4 mr-2 text-white/40" />
+                        <span className="text-white/40">{feature.feature}</span>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+            
+            {/* Glow effects */}
+            <div className="absolute inset-0 border border-yassin-neon-blue/20 rounded-xl blur-sm -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yassin-neon-blue to-transparent"></div>
+          </motion.div>
+
+          {/* Premium Plan */}
+          <motion.div
+            ref={premiumRef}
+            whileHover={{ scale: 1.03 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            className="bg-gradient-to-b from-black/60 to-black/40 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden relative group"
+          >
+            <div className="p-8">
+              <motion.div 
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                whileHover="hover"
+                className="text-xl font-bold text-white mb-2"
+              >
+                {t('premium_plan')}
+              </motion.div>
+              <motion.p
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                className="text-white/60 text-sm mb-6"
+              >
+                {t('premium_description')}
+              </motion.p>
+              
+              <div className="flex items-end mb-6">
+                {getPlanPrice('premium')}
+                <span className="text-white/60 ml-1 mb-1">
+                  {isYearly ? t('year') : t('month')}
+                </span>
+              </div>
+
+              <button className="w-full py-3 px-4 rounded-lg bg-white/10 hover:bg-yassin-neon-purple/20 text-white border border-yassin-neon-purple/50 transition-all duration-300 mb-6 backdrop-blur-sm">
+                <motion.span
+                  variants={textVariants}
+                  initial="initial"
+                  animate="animate"
+                  whileHover="hover"
+                >
+                  {t('get_started')}
+                </motion.span>
+              </button>
+
+              <motion.div 
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                className="space-y-3 text-sm"
+              >
+                {planFeatures.map((feature, index) => (
+                  <div key={index} className="flex items-center">
+                    {feature.premium ? (
+                      <>
+                        <CheckCircle2 className="h-4 w-4 mr-2 text-yassin-neon-green" />
+                        <span className="text-white/80">{feature.feature}</span>
+                      </>
+                    ) : (
+                      <>
+                        <XCircle className="h-4 w-4 mr-2 text-white/40" />
+                        <span className="text-white/40">{feature.feature}</span>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Bottom glow effect */}
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yassin-neon-purple/50 to-transparent"></div>
+          </motion.div>
         </div>
       </div>
+
+      {/* Decorative elements */}
+      <div className="absolute top-1/3 left-10 w-64 h-64 bg-yassin-neon-blue/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/3 right-10 w-64 h-64 bg-yassin-neon-purple/5 rounded-full blur-3xl"></div>
     </section>
   );
-}
+};
 
 export default PricingSection;

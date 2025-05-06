@@ -1,12 +1,9 @@
 
-import { useEffect, useRef, useState } from "react";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useLanguage } from "@/contexts/LanguageContext";
-import GlassCard from "@/components/ui/GlassCard";
-import { ChevronLeft, ChevronRight, Play, Star } from "lucide-react";
+import { useState, useEffect, useRef } from 'react';
+import { Movie } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-interface Movie {
+interface MoviePoster {
   id: number;
   title: string;
   genre: string;
@@ -16,240 +13,167 @@ interface Movie {
 }
 
 interface MovieShowcaseProps {
-  additionalMovies?: Movie[];
+  additionalMovies?: MoviePoster[];
 }
 
-export function MovieShowcase({ additionalMovies = [] }: MovieShowcaseProps) {
-  const { t } = useLanguage();
-  const isMobile = useIsMobile();
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [activeGenre, setActiveGenre] = useState<string | null>(null);
-  const [autoScrollInterval, setAutoScrollInterval] = useState<number | null>(null);
+const MovieShowcase = ({ additionalMovies = [] }: MovieShowcaseProps) => {
+  const { t, language } = useLanguage();
+  const [autoScroll, setAutoScroll] = useState(true);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   
-  // Sample movie data - combined with additionalMovies
-  const allMovies = [
-    ...additionalMovies,
-    // Sample movies if no additional movies provided
-    ...(additionalMovies.length === 0 ? [
-      {
-        id: 1,
-        title: "Dune",
-        genre: "Sci-Fi",
-        year: 2021,
-        rating: 8.0,
-        image: "/lovable-uploads/d32ccab7-637d-48c7-b9fd-3a214bdec3e3.png"
-      },
-      {
-        id: 2,
-        title: "The Batman",
-        genre: "Action",
-        year: 2022,
-        rating: 7.9,
-        image: "/lovable-uploads/3b5ea4b6-6a71-4e63-ba57-cb2b71a2f60a.png"
-      }
-    ] : [])
+  // Auto-scroll effect
+  useEffect(() => {
+    if (!autoScroll || !scrollContainerRef.current) return;
+    
+    const container = scrollContainerRef.current;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    let interval: NodeJS.Timeout;
+    
+    // Speed up the auto-scroll
+    const scrollSpeed = 1.5; // pixels per interval
+    const intervalDelay = 20; // milliseconds between each movement
+
+    if (scrollPosition < maxScroll) {
+      interval = setInterval(() => {
+        setScrollPosition(prev => {
+          const newPos = prev + scrollSpeed;
+          if (newPos >= maxScroll) {
+            // Reset with animation
+            setTimeout(() => {
+              // Use a smooth transition back to the start
+              container.style.scrollBehavior = 'auto';
+              setScrollPosition(0);
+              // After a brief moment, turn smooth scrolling back on
+              setTimeout(() => {
+                container.style.scrollBehavior = 'smooth';
+              }, 100);
+            }, 2000); // Pause at the end for 2 seconds before resetting
+            return maxScroll;
+          }
+          return newPos;
+        });
+      }, intervalDelay);
+    }
+
+    return () => clearInterval(interval);
+  }, [autoScroll, scrollPosition]);
+
+  // Apply scroll position to the container
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = scrollPosition;
+    }
+  }, [scrollPosition]);
+
+  // Pause auto-scroll on mouse enter, resume on mouse leave
+  const handleMouseEnter = () => setAutoScroll(false);
+  const handleMouseLeave = () => setAutoScroll(true);
+
+  const genres = [
+    "Action", "Comedy", "Drama", "Sci-Fi", "Horror", 
+    "Romance", "Thriller", "Fantasy", "Animation", "Adventure"
   ];
   
-  // Get unique genres from all movies
-  const genres = [...new Set(allMovies.map(movie => movie.genre))];
-  
-  // Filter movies by selected genre
-  const filteredMovies = activeGenre 
-    ? allMovies.filter(movie => movie.genre === activeGenre)
-    : allMovies;
-  
-  // Set up auto scrolling for movie images - Enhanced with faster speed
-  useEffect(() => {
-    let scrollPosition = 0;
-    const scrollContainer = carouselRef.current;
-    
-    // Start auto-scrolling with increased speed
-    const interval = window.setInterval(() => {
-      if (scrollContainer) {
-        // Auto-scroll logic with faster scroll speed
-        scrollPosition += 1.5; // Increased from 1 to 1.5 for faster scrolling
-        scrollContainer.scrollLeft += 1.5;
-        
-        // Reset scroll position if we've reached the end
-        const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-        if (scrollContainer.scrollLeft >= maxScroll - 2) {
-          // Use smooth scrolling for the reset
-          scrollContainer.style.scrollBehavior = 'smooth';
-          scrollContainer.scrollLeft = 0;
-          scrollPosition = 0;
-          
-          // Reset scroll behavior after the animation
-          setTimeout(() => {
-            scrollContainer.style.scrollBehavior = 'auto';
-          }, 500);
-        }
-      }
-    }, 20); // Adjusted from 30 to 20 for smoother and faster scrolling
-    
-    setAutoScrollInterval(interval);
-    
-    // Cleanup function
-    return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
+  // Get genre labels based on language
+  const getGenreLabel = (genre: string) => {
+    const genreMap: Record<string, Record<LanguageCode, string>> = {
+      "Action": { en: "Action", fr: "Action", es: "Acción", ar: "أكشن" },
+      "Comedy": { en: "Comedy", fr: "Comédie", es: "Comedia", ar: "كوميديا" },
+      "Drama": { en: "Drama", fr: "Drame", es: "Drama", ar: "دراما" },
+      "Sci-Fi": { en: "Sci-Fi", fr: "Science-Fiction", es: "Ciencia Ficción", ar: "خيال علمي" },
+      "Horror": { en: "Horror", fr: "Horreur", es: "Terror", ar: "رعب" },
+      "Romance": { en: "Romance", fr: "Romance", es: "Romance", ar: "رومانسي" },
+      "Thriller": { en: "Thriller", fr: "Thriller", es: "Suspense", ar: "إثارة" },
+      "Fantasy": { en: "Fantasy", fr: "Fantaisie", es: "Fantasía", ar: "خيال" },
+      "Animation": { en: "Animation", fr: "Animation", es: "Animación", ar: "رسوم متحركة" },
+      "Adventure": { en: "Adventure", fr: "Aventure", es: "Aventura", ar: "مغامرة" }
     };
-  }, [filteredMovies]);
-  
-  // Stop auto-scroll on manual interaction
-  const handleManualScroll = () => {
-    if (autoScrollInterval) {
-      clearInterval(autoScrollInterval);
-      
-      // Restart auto-scroll after a period of inactivity
-      const timeout = setTimeout(() => {
-        let scrollPosition = carouselRef.current?.scrollLeft || 0;
-        
-        const interval = window.setInterval(() => {
-          if (carouselRef.current) {
-            // Auto-scroll logic with faster scroll speed
-            scrollPosition += 1.5;
-            carouselRef.current.scrollLeft += 1.5;
-            
-            // Reset scroll position if we've reached the end
-            const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
-            if (carouselRef.current.scrollLeft >= maxScroll - 2) {
-              carouselRef.current.scrollLeft = 0;
-              scrollPosition = 0;
-            }
-          }
-        }, 20);
-        
-        setAutoScrollInterval(interval);
-      }, 4000); // Wait 4 seconds after manual interaction (reduced from 5000)
-      
-      return () => clearTimeout(timeout);
-    }
+    
+    return genreMap[genre]?.[language] || genre;
   };
-  
+
   return (
-    <section id="movies" className="py-16 md:py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="movies" className="py-20 relative overflow-hidden">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gradient reveal-animation">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient heading-glow">
             {t('movie_showcase_title')}
           </h2>
-          <p className="text-lg text-white/70 max-w-3xl mx-auto reveal-animation" data-delay="0.2s">
+          <p className="text-white/70 max-w-2xl mx-auto">
             {t('movie_showcase_description')}
           </p>
         </div>
-        
-        {/* Genre Filter */}
-        <div className="flex flex-wrap gap-2 justify-center mb-8 reveal-animation" data-delay="0.3s">
-          <button
-            className={`px-4 py-2 rounded-full transition-all ${
-              activeGenre === null
-                ? "bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue text-white"
-                : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
-            }`}
-            onClick={() => setActiveGenre(null)}
-          >
-            {t('all_genres')}
-          </button>
+
+        {/* Genre Carousel */}
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold mb-4 flex items-center">
+            <Movie className="mr-2 text-yassin-neon-blue" />
+            <span className="text-gradient">{t('all_genres')}</span>
+          </h3>
           
-          {genres.map((genre) => (
-            <button
-              key={genre}
-              className={`px-4 py-2 rounded-full transition-all ${
-                activeGenre === genre
-                  ? "bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue text-white"
-                  : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
-              }`}
-              onClick={() => setActiveGenre(genre)}
-            >
-              {genre}
-            </button>
-          ))}
-        </div>
-        
-        {/* Movie Carousel - Auto-scrolling */}
-        <div 
-          className="w-full overflow-hidden reveal-animation"
-          data-delay="0.4s"
-          onMouseDown={handleManualScroll}
-          onTouchStart={handleManualScroll}
-        >
-          <div 
-            ref={carouselRef} 
-            className="flex gap-4 pb-6 overflow-x-auto scrollbar-hide"
-            style={{ scrollBehavior: 'auto' }}
-          >
-            {filteredMovies.map((movie) => (
-              <div 
-                key={movie.id} 
-                className="flex-none w-[280px] transition-transform duration-300 hover:scale-105"
+          <div className="flex flex-wrap gap-2 md:gap-4">
+            {genres.map((genre) => (
+              <button 
+                key={genre}
+                className="bg-black/30 border border-yassin-neon-blue/30 rounded-full px-4 py-2 text-sm 
+                         text-white/70 hover:bg-yassin-neon-blue/20 hover:text-white transition-all duration-300
+                         hover:shadow-[0_0_10px_rgba(59,130,246,0.5)]"
               >
-                <GlassCard className="h-full overflow-hidden" neonColor={activeGenre === movie.genre ? "purple" : undefined}>
-                  <div className="relative h-[400px] group">
-                    {/* Poster Image */}
-                    <img 
-                      src={movie.image || '/placeholder.svg'} 
-                      alt={movie.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                      {/* Play Button */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <button className="w-16 h-16 rounded-full bg-yassin-neon-purple/80 flex items-center justify-center transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                          <Play className="w-8 h-8 text-white fill-white" />
-                        </button>
-                      </div>
-                      
-                      {/* Movie Info */}
-                      <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                        <h3 className="text-xl font-bold text-white mb-1">{movie.title}</h3>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-white/70">{movie.genre} • {movie.year}</span>
-                          <div className="flex items-center">
-                            <Star className="w-4 h-4 text-yellow-500 fill-yellow-500 mr-1" />
-                            <span className="text-white/90">{movie.rating}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </GlassCard>
-              </div>
+                {getGenreLabel(genre)}
+              </button>
             ))}
           </div>
         </div>
-        
-        {/* Navigation Arrows */}
-        <div className="flex justify-center mt-8 gap-4 reveal-animation" data-delay="0.5s">
-          <button 
-            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-            onClick={() => {
-              if (carouselRef.current) {
-                carouselRef.current.scrollLeft -= 600;
-                handleManualScroll();
-              }
-            }}
+
+        {/* Movie Posters with Auto-Scroll */}
+        <div 
+          className="relative mt-8 py-4"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div 
+            ref={scrollContainerRef}
+            className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth pb-6"
+            style={{ scrollBehavior: 'smooth' }}
           >
-            <ChevronLeft className="w-6 h-6 text-white" />
-          </button>
+            {additionalMovies.map((movie) => (
+              <div 
+                key={movie.id}
+                className="flex-shrink-0 w-48 transition-all duration-300 transform hover:scale-105"
+              >
+                <div className="group relative rounded-lg overflow-hidden shadow-[0_0_15px_rgba(0,0,0,0.5)] h-72">
+                  <img 
+                    src={movie.image} 
+                    alt={movie.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                    <h4 className="text-white font-semibold truncate">{movie.title}</h4>
+                    <div className="text-sm flex justify-between items-center mt-1">
+                      <span className="text-yassin-neon-blue">{movie.year}</span>
+                      <span className="bg-yellow-500/90 text-black px-2 py-0.5 rounded-sm text-xs font-bold">
+                        {movie.rating.toFixed(1)}
+                      </span>
+                    </div>
+                    <p className="text-white/60 text-xs mt-1">{getGenreLabel(movie.genre)}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
           
-          <button 
-            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-            onClick={() => {
-              if (carouselRef.current) {
-                carouselRef.current.scrollLeft += 600;
-                handleManualScroll();
-              }
-            }}
-          >
-            <ChevronRight className="w-6 h-6 text-white" />
-          </button>
+          {/* Left and right gradients for scroll indication */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-yassin-darkest to-transparent pointer-events-none z-10"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-yassin-darkest to-transparent pointer-events-none z-10"></div>
         </div>
       </div>
+
+      {/* Decorative glow effects */}
+      <div className="absolute -top-40 -left-40 w-80 h-80 bg-yassin-neon-blue/10 rounded-full blur-3xl"></div>
+      <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-yassin-neon-purple/10 rounded-full blur-3xl"></div>
     </section>
   );
-}
+};
 
 export default MovieShowcase;

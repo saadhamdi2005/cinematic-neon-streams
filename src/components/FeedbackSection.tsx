@@ -1,33 +1,19 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StarIcon, Send } from 'lucide-react';
 import TypedText from './ui/TypedText';
 import GlassCard from './ui/GlassCard';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export function FeedbackSection() {
+  const { t } = useLanguage();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [submitted, setSubmitted] = useState(false);
-  
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log({ name, email, message, rating });
-    setSubmitted(true);
-    // Reset form
-    setName('');
-    setEmail('');
-    setMessage('');
-    setRating(0);
-    
-    // Reset submitted state after a delay
-    setTimeout(() => setSubmitted(false), 5000);
-  };
-  
-  // Testimonials data
-  const testimonials = [
+  const [testimonials, setTestimonials] = useState([
     {
       id: 1,
       name: "Alex M.",
@@ -56,18 +42,68 @@ export function FeedbackSection() {
       rating: 5,
       comment: "All sports channels I need plus VOD content. Excellent value for money!"
     }
-  ];
+  ]);
+  
+  // Load saved testimonials from localStorage on initial render
+  useEffect(() => {
+    const savedTestimonials = localStorage.getItem('userTestimonials');
+    if (savedTestimonials) {
+      try {
+        const parsedTestimonials = JSON.parse(savedTestimonials);
+        setTestimonials(prev => [...prev, ...parsedTestimonials]);
+      } catch (e) {
+        console.error('Error parsing testimonials from localStorage:', e);
+      }
+    }
+  }, []);
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Create a new testimonial from the form data
+    const newTestimonial = {
+      id: Date.now(), // Use timestamp as unique ID
+      name,
+      country: "Customer", // Default display for user submissions
+      rating,
+      comment: message
+    };
+    
+    // Add to testimonials state
+    setTestimonials(prev => [...prev, newTestimonial]);
+    
+    // Save to localStorage
+    try {
+      const savedTestimonials = localStorage.getItem('userTestimonials');
+      const existingTestimonials = savedTestimonials ? JSON.parse(savedTestimonials) : [];
+      localStorage.setItem('userTestimonials', JSON.stringify([...existingTestimonials, newTestimonial]));
+    } catch (e) {
+      console.error('Error saving testimonial to localStorage:', e);
+    }
+    
+    console.log({ name, email, message, rating });
+    setSubmitted(true);
+    
+    // Reset form
+    setName('');
+    setEmail('');
+    setMessage('');
+    setRating(0);
+    
+    // Reset submitted state after a delay
+    setTimeout(() => setSubmitted(false), 5000);
+  };
   
   return (
     <section id="feedback" className="py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient heading-glow">
-            <TypedText text="Customer Feedback" delay={300} typingSpeed={40} />
+            <TypedText text={t('customer_feedback')} delay={300} typingSpeed={40} />
           </h2>
           <p className="text-white/70 max-w-2xl mx-auto">
             <TypedText 
-              text="Join thousands of satisfied customers who love YassinIPTV. Share your experience or read what others have to say." 
+              text={t('feedback_description')}
               delay={1000}
               typingSpeed={20}
             />
@@ -78,7 +114,7 @@ export function FeedbackSection() {
           {/* Testimonials */}
           <div className="space-y-6">
             <h3 className="text-xl font-semibold mb-6 text-yassin-neon-blue">
-              <TypedText text="What Our Customers Say" typingSpeed={30} />
+              <TypedText text={t('customers_say')} typingSpeed={30} />
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -114,7 +150,7 @@ export function FeedbackSection() {
           {/* Feedback Form */}
           <GlassCard className="p-6" glowOnHover neonColor="pink" tiltEffect>
             <h3 className="text-xl font-semibold mb-6 text-yassin-neon-pink">
-              <TypedText text="Share Your Experience" typingSpeed={30} />
+              <TypedText text={t('share_experience')} typingSpeed={30} />
             </h3>
             
             {submitted ? (
@@ -124,13 +160,13 @@ export function FeedbackSection() {
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <h4 className="text-xl font-medium text-white mb-2">Thank You!</h4>
-                <p className="text-white/70">Your feedback has been submitted successfully.</p>
+                <h4 className="text-xl font-medium text-white mb-2">{t('thank_you')}</h4>
+                <p className="text-white/70">{t('feedback_submitted')}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-white/70 mb-1 text-sm">Name</label>
+                  <label htmlFor="name" className="block text-white/70 mb-1 text-sm">{t('name')}</label>
                   <input
                     type="text"
                     id="name"
@@ -142,7 +178,7 @@ export function FeedbackSection() {
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-white/70 mb-1 text-sm">Email</label>
+                  <label htmlFor="email" className="block text-white/70 mb-1 text-sm">{t('email')}</label>
                   <input
                     type="email"
                     id="email"
@@ -154,7 +190,7 @@ export function FeedbackSection() {
                 </div>
                 
                 <div>
-                  <label className="block text-white/70 mb-1 text-sm">Rating</label>
+                  <label className="block text-white/70 mb-1 text-sm">{t('rating')}</label>
                   <div className="flex space-x-1">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <button
@@ -180,7 +216,7 @@ export function FeedbackSection() {
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-white/70 mb-1 text-sm">Your Experience</label>
+                  <label htmlFor="message" className="block text-white/70 mb-1 text-sm">{t('your_experience')}</label>
                   <textarea
                     id="message"
                     value={message}
@@ -195,7 +231,7 @@ export function FeedbackSection() {
                   type="submit"
                   className="w-full bg-gradient-to-r from-yassin-neon-pink to-yassin-neon-purple text-white py-3 rounded-md flex items-center justify-center gap-2 hover:shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all duration-300"
                 >
-                  <span>Submit Feedback</span>
+                  <span>{t('submit_feedback')}</span>
                   <Send size={18} />
                 </button>
               </form>

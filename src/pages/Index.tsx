@@ -34,37 +34,6 @@ const Index = () => {
       observer.observe(element);
     });
 
-    // Disable right-click context menu (security measure)
-    const disableRightClick = (e: MouseEvent) => {
-      e.preventDefault();
-      return false;
-    };
-    document.addEventListener("contextmenu", disableRightClick);
-
-    // Disable F12 key (security measure)
-    const disableF12 = (e: KeyboardEvent) => {
-      if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")) {
-        e.preventDefault();
-        return false;
-      }
-    };
-    document.addEventListener("keydown", disableF12);
-
-    // Disable view source (security measure)
-    const disableViewSource = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.key === "u") {
-        e.preventDefault();
-        return false;
-      }
-    };
-    document.addEventListener("keydown", disableViewSource);
-
-    // Disable selection (security measure)
-    const disableSelection = () => {
-      return false;
-    };
-    document.onselectstart = disableSelection;
-
     // Smooth scroll behavior
     document.documentElement.style.scrollBehavior = "smooth";
 
@@ -130,10 +99,6 @@ const Index = () => {
       fadeElements.forEach((element) => {
         observer.unobserve(element);
       });
-      document.removeEventListener("contextmenu", disableRightClick);
-      document.removeEventListener("keydown", disableF12);
-      document.removeEventListener("keydown", disableViewSource);
-      document.onselectstart = null;
     };
   }, []);
 
@@ -428,98 +393,7 @@ const Index = () => {
         <InstallGuide />
         
         <div className="section-divider"></div>
-        
-        {/* Security Article Section */}
-        <section className="py-12 px-4 bg-yassin-dark">
-          <div className="container mx-auto max-w-4xl">
-            <h2 className="text-3xl font-bold mb-6 text-white text-center">How to Secure Your Website on Vercel or Netlify: A Complete Guide for 2025</h2>
-            <div className="prose prose-invert max-w-none">
-              <p className="text-lg text-white/80 mb-6">
-                In today's digital landscape, securing your website is more important than ever. This guide provides a comprehensive 
-                overview of how to protect your website, especially if you're using Vercel or Netlify for hosting. We'll cover essential 
-                security practices to keep your site safe from hackers.
-              </p>
-              
-              <h3 className="text-2xl font-bold mb-4 text-white">1. HTTPS: The Foundation of Security</h3>
-              <p className="text-white/80">
-                Ensure your website uses HTTPS. Both Vercel and Netlify provide free SSL certificates, making it easy to enable HTTPS. 
-                This encrypts data transmitted between your website and visitors' browsers.
-              </p>
-              
-              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">2. Security Headers: Adding an Extra Layer of Protection</h3>
-              <p className="text-white/80 mb-3">
-                Implement security headers to instruct browsers on how to behave. Common headers include:
-              </p>
-              <ul className="space-y-2 text-white/80">
-                <li className="flex items-start gap-2">
-                  <span className="text-yassin-neon-green">✓</span> 
-                  <span><b>Content Security Policy (CSP):</b> Controls the resources the browser is allowed to load, reducing the risk of cross-site scripting (XSS) attacks.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-yassin-neon-green">✓</span> 
-                  <span><b>X-Frame-Options:</b> Prevents clickjacking by controlling whether your site can be framed.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-yassin-neon-green">✓</span> 
-                  <span><b>X-Content-Type-Options:</b> Prevents MIME-sniffing vulnerabilities.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-yassin-neon-green">✓</span> 
-                  <span><b>Strict-Transport-Security (HSTS):</b> Enforces HTTPS connections.</span>
-                </li>
-              </ul>
-              
-              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">3. Input Sanitization: Protecting Against Injection Attacks</h3>
-              <p className="text-white/80">
-                Always sanitize user inputs to prevent injection attacks (e.g., SQL injection, XSS). Sanitize data on both the client-side and server-side.
-              </p>
-              
-              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">4. Environment Variables: Keeping Secrets Safe</h3>
-              <p className="text-white/80">
-                Store sensitive information (API keys, database credentials) as environment variables. Vercel and Netlify provide easy ways to manage these variables.
-              </p>
-              
-              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">5. Using Cloudflare (Optional but Recommended)</h3>
-              <p className="text-white/80">
-                Cloudflare offers a range of security features, including DDoS protection, a web application firewall (WAF), and bot management. 
-                Integrate Cloudflare for enhanced security.
-              </p>
-              
-              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">6. Form Protection with reCAPTCHA</h3>
-              <p className="text-white/80">
-                Protect your forms from bots and spam using reCAPTCHA. This helps prevent automated submissions and malicious activity.
-              </p>
-              
-              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">7. How Vercel and Netlify Handle Security by Default</h3>
-              <p className="text-white/80 mb-3">
-                Both Vercel and Netlify offer built-in security features, such as:
-              </p>
-              <ul className="space-y-2 text-white/80">
-                <li className="flex items-start gap-2">
-                  <span className="text-yassin-neon-green">✓</span> 
-                  <span><b>Automatic SSL/TLS certificates.</b></span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-yassin-neon-green">✓</span> 
-                  <span><b>Protection against DDoS attacks.</b></span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-yassin-neon-green">✓</span> 
-                  <span><b>Regular security updates.</b></span>
-                </li>
-              </ul>
-              
-              <h3 className="text-2xl font-bold mb-4 mt-6 text-white">Conclusion</h3>
-              <p className="text-white/80">
-                By following these best practices, you can significantly enhance the security of your website on Vercel or Netlify. 
-                Stay vigilant, keep your software updated, and regularly review your security measures to protect your site from evolving threats.
-              </p>
-            </div>
-          </div>
-        </section>
-        
-        <div className="section-divider"></div>
-        
+                
         {/* Enhanced FAQ Section */}
         <FAQSection />
         

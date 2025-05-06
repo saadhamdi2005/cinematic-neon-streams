@@ -1,7 +1,7 @@
 
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
-import { MessageCircle } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 
 interface WhatsAppButtonProps {
   phoneNumber: string;
@@ -47,9 +47,9 @@ export function WhatsAppButton({
         className
       )}
     >
-      {/* Updated WhatsApp Icon - Reduced size */}
-      <div className="flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-inner overflow-hidden">
-        <MessageCircle className="w-5 h-5 text-green-600" />
+      {/* WhatsApp Icon - Use the proper WhatsApp-like icon */}
+      <div className="flex items-center justify-center w-7 h-7 bg-white rounded-full shadow-inner overflow-hidden">
+        <MessageSquare className="w-4 h-4 text-green-600" />
       </div>
 
       {/* Text that appears with typing animation effect */}
