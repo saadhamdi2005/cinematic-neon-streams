@@ -2,3 +2,11 @@
 User-agent: *
 Allow: /
 Sitemap: https://yassiniptv.com/sitemap.xml
+
+# Search engines crawling rules
+Disallow: /assets/
+Disallow: /api/
+Disallow: /admin/
+
+# Crawl delay to avoid server overload
+Crawl-delay: 10

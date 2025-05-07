@@ -67,6 +67,15 @@ export function WhatsAppButton({
       {isHovered && (
         <div className="absolute inset-0 -z-10 bg-green-500/20 blur-xl rounded-full"></div>
       )}
+      
+      {/* Pulsating ring effect */}
+      <div className={`absolute inset-0 -z-10 rounded-full ${isHovered ? 'animate-ping' : ''}`} 
+        style={{
+          border: '2px solid rgba(34, 197, 94, 0.5)',
+          opacity: isHovered ? 0.7 : 0,
+          transition: 'opacity 0.3s ease'
+        }}
+      ></div>
     </a>
   );
 }

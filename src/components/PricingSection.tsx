@@ -76,6 +76,7 @@ const PricingSection = () => {
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-yassin-neon-purple/10 filter blur-[100px] animate-pulse-slow"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-yassin-neon-blue/10 filter blur-[100px] animate-pulse-slow" style={{animationDelay: "2s"}}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br from-yassin-neon-blue/5 to-yassin-neon-purple/5 rounded-full blur-3xl"></div>
       </div>
       
       <div className="container mx-auto max-w-6xl relative z-10">
@@ -152,7 +153,7 @@ const PricingSection = () => {
               
               {plan.name === 'gold' && (
                 <div className="absolute -right-10 top-6 transform rotate-45 bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue px-12 py-1 text-xs font-semibold text-white shadow-lg animate-pulse-glow">
-                  {t('most_popular' as any)}
+                  {t('most_popular')}
                 </div>
               )}
               
@@ -187,7 +188,7 @@ const PricingSection = () => {
                   {...textAnimation}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                 >
-                  {t('connections_count' as any).replace('{count}', plan.connections.toString())}
+                  {t('connections_count').replace('{count}', plan.connections.toString())}
                 </motion.div>
                 
                 <motion.ul 
@@ -221,10 +222,10 @@ const PricingSection = () => {
                     className={`w-full py-3 px-6 rounded-lg block text-center transition-all duration-300 ${
                       plan.name === 'gold'
                         ? 'bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-purple text-white hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] hover:scale-105 transform transition-transform'
-                        : 'border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 hover:border-white/30'
+                        : 'border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 hover:border-white/30 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]'
                     }`}
                   >
-                    {plan.name === 'gold' ? t('get_started' as any) : t('select' as any)}
+                    {plan.name === 'gold' ? t('get_started') : t('select')}
                   </a>
                 </motion.div>
                 
@@ -257,7 +258,7 @@ const PricingSection = () => {
             {...textAnimation}
             transition={{ duration: 0.4, delay: 0.2 }}
           >
-            {t('free_trial_title' as any)}
+            {t('free_trial_title')}
           </motion.h3>
           
           <motion.p 
@@ -265,7 +266,7 @@ const PricingSection = () => {
             {...textAnimation}
             transition={{ duration: 0.4, delay: 0.3 }}
           >
-            {t('free_trial_subtitle' as any)}
+            {t('free_trial_subtitle')}
           </motion.p>
           
           <motion.div
@@ -276,9 +277,13 @@ const PricingSection = () => {
               href="#contact"
               className="btn-primary py-3 px-8 text-lg relative overflow-hidden group"
             >
-              {/* Glow effect on hover */}
+              {/* Enhanced neon glow effect on hover */}
               <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-purple opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300"></span>
-              <span className="relative z-10">{t('free_trial_button' as any)}</span>
+              <span className="relative z-10">{t('free_trial_button')}</span>
+              {/* Animated neon border */}
+              <span className="absolute inset-0 border border-yassin-neon-blue/50 rounded-full group-hover:border-yassin-neon-purple/70 transition-colors duration-300"></span>
+              {/* Moving glow effect */}
+              <span className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform translate-x-[-150%] group-hover:animate-shine"></span>
             </a>
           </motion.div>
         </motion.div>

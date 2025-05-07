@@ -34,9 +34,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   // Get the direction based on language
   const dir = language === 'ar' ? 'rtl' : 'ltr';
   
-  // Translation function
+  // Translation function with improved error handling
   const t = (key: TranslationKey): string => {
-    return getTranslation(key, language);
+    const translation = getTranslation(key, language);
+    // If the translation is the same as the key, it likely means it's missing
+    return translation || key;
   };
 
   // Set language with notification
