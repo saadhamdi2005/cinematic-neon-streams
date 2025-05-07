@@ -2,31 +2,57 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { LanguageCode, TranslationKey, getTranslation } from '@/lib/translations';
 import { detectBrowserLanguage, setDocumentLanguageAttributes } from '@/utils/languageDetector';
+import { toast } from "sonner";
 
 interface LanguageContextType {
   language: LanguageCode;
   setLanguage: (language: LanguageCode) => void;
   t: (key: TranslationKey) => string;
   dir: 'ltr' | 'rtl';
+  availableLanguages: Array<{code: LanguageCode, name: string}>;
 }
+
+export const availableLanguages = [
+  { code: 'en' as LanguageCode, name: 'English' },
+  { code: 'fr' as LanguageCode, name: 'Français' },
+  { code: 'ar' as LanguageCode, name: 'العربية' },
+  { code: 'es' as LanguageCode, name: 'Español' }
+];
 
 export const LanguageContext = createContext<LanguageContextType>({
   language: 'en',
   setLanguage: () => {},
   t: (key) => key,
-  dir: 'ltr'
+  dir: 'ltr',
+  availableLanguages: availableLanguages
 });
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<LanguageCode>('en');
+  const [language, setLanguageState] = useState<LanguageCode>('en');
   const [isInitialized, setIsInitialized] = useState(false);
   
   // Get the direction based on language
   const dir = language === 'ar' ? 'rtl' : 'ltr';
   
-  // Translation function - fixed parameter order
+  // Translation function
   const t = (key: TranslationKey): string => {
     return getTranslation(key, language);
+  };
+
+  // Set language with notification
+  const setLanguage = (newLanguage: LanguageCode) => {
+    if (newLanguage !== language) {
+      setLanguageState(newLanguage);
+      
+      // Show a toast notification when language changes (except on initial load)
+      if (isInitialized) {
+        const languageName = availableLanguages.find(lang => lang.code === newLanguage)?.name || newLanguage;
+        toast.success(`Language changed to ${languageName}`, {
+          position: "bottom-center",
+          duration: 2000
+        });
+      }
+    }
   };
   
   // Update HTML dir attribute and lang when language changes
@@ -52,18 +78,24 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const savedLanguage = localStorage.getItem('preferredLanguage');
     
     if (savedLanguage && ['en', 'fr', 'ar', 'es'].includes(savedLanguage)) {
-      setLanguage(savedLanguage as LanguageCode);
+      setLanguageState(savedLanguage as LanguageCode);
     } else {
       // If not in localStorage, auto-detect
       const detectedLanguage = detectBrowserLanguage();
-      setLanguage(detectedLanguage);
+      setLanguageState(detectedLanguage);
     }
     
     setIsInitialized(true);
   }, []);
   
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t, dir }}>
+    <LanguageContext.Provider value={{ 
+      language, 
+      setLanguage, 
+      t, 
+      dir,
+      availableLanguages 
+    }}>
       {children}
     </LanguageContext.Provider>
   );

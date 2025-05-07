@@ -3,8 +3,10 @@ import { useState } from "react";
 import TypedText from "@/components/ui/TypedText";
 import GlassCard from "@/components/ui/GlassCard";
 import { Zap, Shield, Star } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function ResellerSection() {
+  const { t } = useLanguage();
   const [isHovered, setIsHovered] = useState({
     card1: false,
     card2: false,
@@ -13,63 +15,63 @@ export function ResellerSection() {
 
   const features = [
     {
-      title: "Competitive Pricing",
-      description: "Get access to our services at wholesale rates, allowing you to set your own margins and maximize profits.",
+      title: "reseller_competitive_pricing",
+      description: "reseller_competitive_pricing_desc",
       icon: <Zap className="w-8 h-8 text-yassin-neon-purple" />
     },
     {
-      title: "White-Label Solution",
-      description: "Rebrand our service under your own name with our complete white-label solution.",
+      title: "reseller_white_label",
+      description: "reseller_white_label_desc",
       icon: <Star className="w-8 h-8 text-yassin-neon-blue" />
     },
     {
-      title: "24/7 Support",
-      description: "Dedicated support team to help you and your customers at any time of the day.",
+      title: "reseller_support",
+      description: "reseller_support_desc",
       icon: <Shield className="w-8 h-8 text-yassin-neon-green" />
     },
   ];
 
   const plans = [
     {
-      title: "Starter Reseller",
+      title: "reseller_starter",
       credits: 10,
       price: 100,
       features: [
-        "10 account credits",
-        "Basic reseller panel",
-        "Email support",
-        "White label solution"
+        "reseller_feature_credits_10",
+        "reseller_feature_basic_panel",
+        "reseller_feature_email_support",
+        "reseller_feature_white_label"
       ],
       color: "blue"
     },
     {
-      title: "Pro Reseller",
+      title: "reseller_pro",
       credits: 25,
       price: 200,
       features: [
-        "25 account credits",
-        "Advanced reseller panel",
-        "Priority support",
-        "White label solution",
-        "Custom domain option",
-        "Marketing materials"
+        "reseller_feature_credits_25",
+        "reseller_feature_advanced_panel",
+        "reseller_feature_priority_support",
+        "reseller_feature_white_label",
+        "reseller_feature_custom_domain",
+        "reseller_feature_marketing"
       ],
       color: "purple",
       popular: true
     },
     {
-      title: "Enterprise Reseller",
+      title: "reseller_enterprise",
       credits: 100,
       price: 600,
       features: [
-        "100 account credits",
-        "Premium reseller panel",
-        "24/7 VIP support",
-        "White label solution",
-        "Custom domain included",
-        "Marketing materials",
-        "Dedicated account manager",
-        "Custom API access"
+        "reseller_feature_credits_100",
+        "reseller_feature_premium_panel",
+        "reseller_feature_vip_support",
+        "reseller_feature_white_label",
+        "reseller_feature_custom_domain_included",
+        "reseller_feature_marketing",
+        "reseller_feature_account_manager",
+        "reseller_feature_api_access"
       ],
       color: "pink"
     }
@@ -77,19 +79,20 @@ export function ResellerSection() {
 
   return (
     <section id="reseller" className="py-20 relative overflow-hidden">
-      {/* Animated background element */}
+      {/* Enhanced animated background element */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-yassin-neon-purple/10 blur-[100px] rounded-full animate-pulse"></div>
-        <div className="absolute bottom-1/3 left-1/3 w-[400px] h-[400px] bg-yassin-neon-blue/10 blur-[80px] rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+        <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-yassin-neon-purple/10 blur-[120px] rounded-full animate-pulse"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-[500px] h-[500px] bg-yassin-neon-blue/10 blur-[100px] rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+        <div className="absolute top-2/3 right-1/3 w-[400px] h-[400px] bg-yassin-neon-green/5 blur-[80px] rounded-full animate-pulse" style={{ animationDelay: "2s" }}></div>
       </div>
 
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12 reveal-animation">
           <h2 className="text-4xl font-bold mb-4">
-            <TypedText text="Become a Reseller" className="text-gradient" delay={100} />
+            <TypedText text={t('reseller_title')} className="text-gradient" delay={100} />
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Start your own IPTV business with our comprehensive reseller program and earn substantial profits
+            {t('reseller_subtitle')}
           </p>
         </div>
 
@@ -106,8 +109,8 @@ export function ResellerSection() {
               <div className="mb-4 p-3 bg-white/5 rounded-full">
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-              <p className="text-white/70">{feature.description}</p>
+              <h3 className="text-xl font-bold mb-2">{t(feature.title)}</h3>
+              <p className="text-white/70">{t(feature.description)}</p>
             </GlassCard>
           ))}
         </div>
@@ -125,59 +128,68 @@ export function ResellerSection() {
                 onMouseEnter={() => setIsHovered(prev => ({ ...prev, [`card${index+1}`]: true }))}
                 onMouseLeave={() => setIsHovered(prev => ({ ...prev, [`card${index+1}`]: false }))}
               >
+                {/* Neon border animation */}
+                <div className={`absolute -inset-[1px] rounded-xl ${
+                  isPopular 
+                    ? 'bg-gradient-to-r from-yassin-neon-purple via-yassin-neon-blue to-yassin-neon-purple bg-size-200 animate-gradient-x'
+                    : 'bg-gradient-to-r from-white/20 to-white/10'
+                }`}></div>
+                
                 {isPopular && (
                   <div className="absolute -top-4 inset-x-0 flex justify-center">
-                    <span className="bg-yassin-neon-purple px-4 py-1 rounded-full text-sm font-medium animate-pulse-glow">
-                      Most Popular
+                    <span className="bg-yassin-neon-purple px-4 py-1 rounded-full text-sm font-medium animate-pulse-glow shadow-[0_0_10px_rgba(139,92,246,0.6)]">
+                      {t('reseller_most_popular')}
                     </span>
                   </div>
                 )}
                 
                 <GlassCard
-                  className={`p-6 flex flex-col h-full ${isPopular ? "border-yassin-neon-purple" : ""}`}
+                  className={`p-6 flex flex-col h-full border-0 relative z-10`}
                   glowOnHover
                   neonColor={neonColor}
                   tiltEffect
                   floatingEffect
                 >
-                  <h3 className="text-xl font-bold mb-2">{plan.title}</h3>
+                  <h3 className={`text-xl font-bold mb-2 ${isPopular ? 'text-gradient' : 'text-white'}`}>{t(plan.title)}</h3>
                   <div className="mb-2">
-                    <span className="text-3xl font-bold">${plan.price}</span>
+                    <span className={`text-3xl font-bold ${isPopular ? 'text-white drop-shadow-[0_0_10px_rgba(139,92,246,0.5)]' : 'text-white'}`}>${plan.price}</span>
                   </div>
                   <p className="text-yassin-neon-blue mb-5">
-                    {plan.credits} account credits
+                    {plan.credits} {t('reseller_credits')}
                   </p>
                   
                   <ul className="space-y-3 mb-6 flex-grow">
                     {plan.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center gap-2">
-                        <Star className="w-4 h-4 text-yassin-neon-green" />
-                        <span className="text-sm">{feature}</span>
+                        <Star className={`w-4 h-4 ${
+                          isPopular ? 'text-yassin-neon-green' : 'text-yassin-neon-blue'
+                        }`} />
+                        <span className="text-sm">{t(feature)}</span>
                       </li>
                     ))}
                   </ul>
                   
                   <a
-                    href={`https://wa.me/212657263966?text=I'm interested in the ${plan.title} plan`}
+                    href={`https://wa.me/212657263966?text=${encodeURIComponent(`${t('reseller_interested_in')} ${t(plan.title)}`)}`}
                     target="_blank"
                     rel="noopener noreferrer" 
                     className={`w-full text-center py-2 rounded-lg transition-all transform hover:scale-105 ${
                       isPopular 
-                        ? "bg-yassin-neon-purple hover:bg-yassin-neon-purple/80 text-white" 
-                        : "bg-white/10 hover:bg-white/20 text-white"
+                        ? 'bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] text-white' 
+                        : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
                     }`}
                   >
-                    Get Started
+                    {t('reseller_get_started')}
                   </a>
                 </GlassCard>
 
-                {/* Glow effect when hovered */}
+                {/* Enhanced glow effect when hovered */}
                 {isHovered[`card${index+1}` as keyof typeof isHovered] && (
                   <div className="absolute inset-0 -z-10 rounded-lg" 
                     style={{
                       background: `radial-gradient(circle at center, var(--yassin-neon-${neonColor}) 0%, transparent 70%)`,
                       opacity: 0.2,
-                      filter: "blur(20px)"
+                      filter: "blur(30px)"
                     }}
                   />
                 )}
@@ -186,18 +198,20 @@ export function ResellerSection() {
           })}
         </div>
 
-        {/* Call to action */}
+        {/* Call to action with neon effect */}
         <div className="mt-16 text-center reveal-animation">
           <p className="text-white/70 mb-6">
-            Have questions about our reseller program? Our team is ready to help you get started.
+            {t('reseller_questions')}
           </p>
           <a 
             href="https://wa.me/212657263966?text=I need more information about becoming a reseller"
             target="_blank"
             rel="noopener noreferrer" 
-            className="btn-primary inline-block transform transition-transform hover:scale-105"
+            className="btn-primary inline-block transform transition-transform hover:scale-105 relative overflow-hidden group"
           >
-            Contact Us
+            <span className="relative z-10">{t('reseller_contact_us')}</span>
+            {/* Animated glow effect */}
+            <span className="absolute inset-0 bg-gradient-to-r from-yassin-neon-blue/0 via-white/30 to-yassin-neon-blue/0 -skew-x-12 transform translate-x-[-150%] group-hover:animate-shine"></span>
           </a>
         </div>
       </div>

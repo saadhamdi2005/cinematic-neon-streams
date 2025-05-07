@@ -1,4 +1,3 @@
-
 /* Custom animations for the website */
 
 /* Hide scrollbars for auto-scrolling elements */
@@ -265,4 +264,105 @@
 
 .loading-pulse {
   animation: loadingPulse 1.5s infinite;
+}
+
+/* Additional neon animations for cards */
+@keyframes shine {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+.animate-shine {
+  animation: shine 2s infinite;
+}
+
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease infinite;
+}
+
+.bg-size-200 {
+  background-size: 200% 200%;
+}
+
+/* Enhanced neon glow effects */
+.neon-border {
+  position: relative;
+}
+
+.neon-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, var(--yassin-neon-purple), var(--yassin-neon-blue), var(--yassin-neon-pink), var(--yassin-neon-purple));
+  background-size: 300% 300%;
+  animation: gradient-border 8s ease infinite;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+@keyframes gradient-border {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Enhanced card glow effects */
+.neon-card-hover {
+  transition: all 0.3s ease;
+}
+
+.neon-card-hover:hover {
+  box-shadow: 
+    0 0 10px rgba(139, 92, 246, 0.4),
+    0 0 20px rgba(139, 92, 246, 0.2),
+    0 0 30px rgba(139, 92, 246, 0.1);
+  transform: translateY(-5px);
+}
+
+.neon-text-glow {
+  text-shadow: 
+    0 0 5px rgba(255, 255, 255, 0.5),
+    0 0 10px rgba(139, 92, 246, 0.5),
+    0 0 15px rgba(139, 92, 246, 0.3);
+}
+
+/* Glow on hover for plan cards */
+.plan-card-glow {
+  position: relative;
+}
+
+.plan-card-glow::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle at center, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: inherit;
+  filter: blur(20px);
+}
+
+.plan-card-glow:hover::after {
+  opacity: 1;
 }

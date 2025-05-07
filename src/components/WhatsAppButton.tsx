@@ -2,6 +2,7 @@
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { MessageCircle } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface WhatsAppButtonProps {
   phoneNumber: string;
@@ -12,8 +13,9 @@ interface WhatsAppButtonProps {
 export function WhatsAppButton({ 
   phoneNumber, 
   className,
-  text = "Chat with us"
+  text
 }: WhatsAppButtonProps) {
+  const { t } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
   
   // Remove any non-numeric characters from the phone number
@@ -33,6 +35,9 @@ export function WhatsAppButton({
     
     return () => clearInterval(interval);
   }, []);
+
+  // Use the translated text if provided, otherwise use the default
+  const buttonText = text || t('chat_with_us');
 
   return (
     <a
@@ -55,10 +60,10 @@ export function WhatsAppButton({
 
       {/* Text that appears with typing animation effect */}
       <div className="overflow-hidden max-w-0 group-hover:max-w-xs transition-all duration-500 hidden md:block">
-        <span className="whitespace-nowrap typing-animation">{text}</span>
+        <span className="whitespace-nowrap typing-animation">{buttonText}</span>
       </div>
       
-      {/* Glow effect */}
+      {/* Enhanced glow effect */}
       {isHovered && (
         <div className="absolute inset-0 -z-10 bg-green-500/20 blur-xl rounded-full"></div>
       )}

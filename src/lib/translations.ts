@@ -1,4 +1,3 @@
-
 export type LanguageCode = 'en' | 'fr' | 'ar' | 'es';
 
 // Define the translation key type to ensure typesafety
@@ -52,29 +51,40 @@ export type TranslationKey =
   | 'buy_now'
   | 'home'
   | 'pricing'
-  | 'reseller'
-  | 'installation'
-  | 'faq'
-  | 'channels_showcase_title'
-  | 'channels_showcase_description'
-  | 'worldwide_channels'
-  | 'movie_showcase_title'
-  | 'movie_showcase_description'
-  | 'all_genres'
-  | 'chat_welcome'
-  | 'chat_title'
-  | 'chat_placeholder'
-  | 'customer_feedback'
-  | 'feedback_description'
-  | 'customers_say'
-  | 'share_experience'
-  | 'thank_you'
-  | 'feedback_submitted'
-  | 'name'
-  | 'email'
-  | 'rating'
-  | 'your_experience'
-  | 'submit_feedback';
+  | 'reseller_title'
+  | 'reseller_subtitle'
+  | 'reseller_competitive_pricing'
+  | 'reseller_competitive_pricing_desc'
+  | 'reseller_white_label'
+  | 'reseller_white_label_desc'
+  | 'reseller_support'
+  | 'reseller_support_desc'
+  | 'reseller_starter'
+  | 'reseller_pro'
+  | 'reseller_enterprise'
+  | 'reseller_credits'
+  | 'reseller_feature_credits_10'
+  | 'reseller_feature_credits_25'
+  | 'reseller_feature_credits_100'
+  | 'reseller_feature_basic_panel'
+  | 'reseller_feature_advanced_panel'
+  | 'reseller_feature_premium_panel'
+  | 'reseller_feature_email_support'
+  | 'reseller_feature_priority_support'
+  | 'reseller_feature_vip_support'
+  | 'reseller_feature_white_label'
+  | 'reseller_feature_custom_domain'
+  | 'reseller_feature_custom_domain_included'
+  | 'reseller_feature_marketing'
+  | 'reseller_feature_account_manager'
+  | 'reseller_feature_api_access'
+  | 'reseller_most_popular'
+  | 'reseller_get_started'
+  | 'reseller_questions'
+  | 'reseller_contact_us'
+  | 'reseller_interested_in'
+  | 'chat_with_us'
+  | 'quarter';
 
 // English translations (default)
 const en = {
@@ -127,29 +137,40 @@ const en = {
   buy_now: "Buy Now",
   home: "Home",
   pricing: "Pricing",
-  reseller: "Reseller",
-  installation: "Installation",
-  faq: "FAQ",
-  channels_showcase_title: "Thousands of Live Channels",
-  channels_showcase_description: "Enjoy premium TV channels from around the world",
-  worldwide_channels: "Worldwide Channels",
-  movie_showcase_title: "Extensive Movie Collection",
-  movie_showcase_description: "Stream the latest movies and classics from our vast library",
-  all_genres: "All Genres",
-  chat_welcome: "Welcome to our support chat",
-  chat_title: "Customer Support",
-  chat_placeholder: "Type your message here...",
-  customer_feedback: "Customer Feedback",
-  feedback_description: "Join thousands of satisfied customers who love YassinIPTV. Share your experience or read what others have to say.",
-  customers_say: "What Our Customers Say",
-  share_experience: "Share Your Experience",
-  thank_you: "Thank You!",
-  feedback_submitted: "Your feedback has been submitted successfully.",
-  name: "Name",
-  email: "Email",
-  rating: "Rating",
-  your_experience: "Your Experience",
-  submit_feedback: "Submit Feedback"
+  reseller_title: "Become a Reseller",
+  reseller_subtitle: "Start your own IPTV business with our comprehensive reseller program and earn substantial profits",
+  reseller_competitive_pricing: "Competitive Pricing",
+  reseller_competitive_pricing_desc: "Get access to our services at wholesale rates, allowing you to set your own margins and maximize profits.",
+  reseller_white_label: "White-Label Solution",
+  reseller_white_label_desc: "Rebrand our service under your own name with our complete white-label solution.",
+  reseller_support: "24/7 Support",
+  reseller_support_desc: "Dedicated support team to help you and your customers at any time of the day.",
+  reseller_starter: "Starter Reseller",
+  reseller_pro: "Pro Reseller",
+  reseller_enterprise: "Enterprise Reseller",
+  reseller_credits: "account credits",
+  reseller_feature_credits_10: "10 account credits",
+  reseller_feature_credits_25: "25 account credits",
+  reseller_feature_credits_100: "100 account credits",
+  reseller_feature_basic_panel: "Basic reseller panel",
+  reseller_feature_advanced_panel: "Advanced reseller panel",
+  reseller_feature_premium_panel: "Premium reseller panel",
+  reseller_feature_email_support: "Email support",
+  reseller_feature_priority_support: "Priority support",
+  reseller_feature_vip_support: "24/7 VIP support",
+  reseller_feature_white_label: "White label solution",
+  reseller_feature_custom_domain: "Custom domain option",
+  reseller_feature_custom_domain_included: "Custom domain included",
+  reseller_feature_marketing: "Marketing materials",
+  reseller_feature_account_manager: "Dedicated account manager",
+  reseller_feature_api_access: "Custom API access",
+  reseller_most_popular: "Most Popular",
+  reseller_get_started: "Get Started",
+  reseller_questions: "Have questions about our reseller program? Our team is ready to help you get started.",
+  reseller_contact_us: "Contact Us",
+  reseller_interested_in: "I'm interested in the",
+  chat_with_us: "Chat with us",
+  quarter: "Quarter"
 };
 
 // French translations
@@ -189,43 +210,54 @@ const fr = {
   faq_a2: "Notre service fonctionne sur smartphones, tablettes, smart TVs, box Android, Amazon Firestick, Apple TV et la plupart des appareils qui prennent en charge les lecteurs IPTV comme VLC, IPTV Smarters ou Perfect Player.",
   faq_q3: "YassinIPTV est-il légal?",
   faq_a3: "YassinIPTV propose du contenu sous licence grâce à des accords avec les fournisseurs de contenu. Nous assurons la conformité avec les réglementations pertinentes dans les territoires où nous opérons.",
-  faq_q4: "Ai-je besoin d'une connexion internet rapide?",
-  faq_a4: "Nous recommandons une vitesse minimale de 10 Mbps pour le contenu SD et 25 Mbps pour le contenu HD/4K. Notre technologie de streaming adaptatif ajuste la qualité en fonction de votre connexion.",
-  faq_q5: "Puis-je annuler mon abonnement à tout moment?",
-  faq_a5: "Oui, vous pouvez annuler votre abonnement à tout moment. Pas de contrats à long terme ni de frais cachés.",
-  faq_q6: "Qu'est-ce qui distingue YassinIPTV des autres services?",
-  faq_a6: "YassinIPTV offre des chaînes de qualité premium, des flux fiables, un excellent service client et une compatibilité multi-appareils, le tout à un prix abordable.",
-  faq_q7: "Combien d'appareils puis-je utiliser simultanément?",
-  faq_a7: "Selon votre forfait, vous pouvez diffuser sur 1 à 4 appareils simultanément. Consultez les détails de votre forfait pour connaître le nombre exact autorisé.",
-  faq_q8: "Offrez-vous un essai gratuit?",
-  faq_a8: "Oui, nous offrons un essai gratuit de 24 heures pour que vous puissiez tester notre service avant de vous abonner.",
+  faq_q4: "Do I need a fast internet connection?",
+  faq_a4: "We recommend a minimum speed of 10 Mbps for SD content and 25 Mbps for HD/4K content. Our adaptive streaming technology adjusts quality based on your connection.",
+  faq_q5: "Can I cancel my subscription anytime?",
+  faq_a5: "Yes, you can cancel your subscription at any time. No long-term contracts or hidden fees.",
+  faq_q6: "What makes YassinIPTV different from other services?",
+  faq_a6: "YassinIPTV provides premium quality channels, reliable streams, excellent customer service, and multi-device compatibility, all at an affordable price.",
+  faq_q7: "How many devices can I use simultaneously?",
+  faq_a7: "Depending on your plan, you can stream on 1 to 4 devices simultaneously. Check your plan details for the exact number allowed.",
+  faq_q8: "Do you offer a free trial?",
+  faq_a8: "Yes, we offer a 24-hour free trial so you can experience our service before subscribing.",
   free_trial: "Essai gratuit",
   buy_now: "Acheter maintenant",
   home: "Accueil",
   pricing: "Tarifs",
-  reseller: "Revendeur",
-  installation: "Installation",
-  faq: "FAQ",
-  channels_showcase_title: "Des milliers de chaînes en direct",
-  channels_showcase_description: "Profitez des chaînes TV premium du monde entier",
-  worldwide_channels: "Chaînes du monde entier",
-  movie_showcase_title: "Collection de films extensive",
-  movie_showcase_description: "Diffusez les derniers films et les classiques de notre vaste bibliothèque",
-  all_genres: "Tous les genres",
-  chat_welcome: "Bienvenue sur notre chat de support",
-  chat_title: "Support client",
-  chat_placeholder: "Tapez votre message ici...",
-  customer_feedback: "Avis clients",
-  feedback_description: "Rejoignez des milliers de clients satisfaits qui adorent YassinIPTV. Partagez votre expérience ou lisez ce que les autres ont à dire.",
-  customers_say: "Ce que disent nos clients",
-  share_experience: "Partagez votre expérience",
-  thank_you: "Merci !",
-  feedback_submitted: "Votre avis a été soumis avec succès.",
-  name: "Nom",
-  email: "Email",
-  rating: "Évaluation",
-  your_experience: "Votre expérience",
-  submit_feedback: "Soumettre l'avis"
+  reseller_title: "Devenez Revendeur",
+  reseller_subtitle: "Lancez votre propre activité IPTV avec notre programme de revente complet et gagnez des profits substantiels",
+  reseller_competitive_pricing: "Prix Compétitifs",
+  reseller_competitive_pricing_desc: "Accédez à nos services à des tarifs de gros, vous permettant de fixer vos propres marges et maximiser vos profits.",
+  reseller_white_label: "Solution en Marque Blanche",
+  reseller_white_label_desc: "Rebrandez notre service sous votre propre nom avec notre solution complète en marque blanche.",
+  reseller_support: "Support 24/7",
+  reseller_support_desc: "Une équipe de support dédiée pour vous aider, vous et vos clients, à tout moment de la journée.",
+  reseller_starter: "Revendeur Débutant",
+  reseller_pro: "Revendeur Pro",
+  reseller_enterprise: "Revendeur Entreprise",
+  reseller_credits: "crédits de compte",
+  reseller_feature_credits_10: "10 crédits de compte",
+  reseller_feature_credits_25: "25 crédits de compte",
+  reseller_feature_credits_100: "100 crédits de compte",
+  reseller_feature_basic_panel: "Panneau de revendeur basique",
+  reseller_feature_advanced_panel: "Panneau de revendeur avancé",
+  reseller_feature_premium_panel: "Panneau de revendeur premium",
+  reseller_feature_email_support: "Support par email",
+  reseller_feature_priority_support: "Support prioritaire",
+  reseller_feature_vip_support: "Support VIP 24/7",
+  reseller_feature_white_label: "Solution en marque blanche",
+  reseller_feature_custom_domain: "Option de domaine personnalisé",
+  reseller_feature_custom_domain_included: "Domaine personnalisé inclus",
+  reseller_feature_marketing: "Matériels marketing",
+  reseller_feature_account_manager: "Gestionnaire de compte dédié",
+  reseller_feature_api_access: "Accès API personnalisé",
+  reseller_most_popular: "Plus Populaire",
+  reseller_get_started: "Commencer",
+  reseller_questions: "Des questions sur notre programme de revente ? Notre équipe est prête à vous aider à démarrer.",
+  reseller_contact_us: "Contactez-nous",
+  reseller_interested_in: "Je suis intéressé par le",
+  chat_with_us: "Discuter avec nous",
+  quarter: "Trimestre"
 };
 
 // Arabic translations
@@ -259,49 +291,60 @@ const ar = {
   support: "الدعم",
   faq_title: "الأسئلة المتكررة",
   faq_subtitle: "ابحث عن إجابات للأسئلة الشائعة حول خدماتنا",
-  faq_q1: "كيف يعمل YassinIPTV؟",
-  faq_a1: "يبث YassinIPTV المحتوى عبر اتصالك بالإنترنت. ما عليك سوى الاشتراك في خطة، وتنزيل تطبيقنا على جهازك المفضل، وتسجيل الدخول باستخدام بيانات اعتمادك، وبدء المشاهدة.",
-  faq_q2: "ما هي الأجهزة التي يمكنني استخدامها مع YassinIPTV؟",
-  faq_a2: "تعمل خدمتنا على الهواتف الذكية والأجهزة اللوحية وأجهزة التلفزيون الذكية وصناديق Android وAmazon Firestick وApple TV ومعظم الأجهزة التي تدعم مشغلات IPTV مثل VLC أو IPTV Smarters أو Perfect Player.",
-  faq_q3: "هل YassinIPTV قانوني؟",
-  faq_a3: "يقدم YassinIPTV محتوى مرخصًا من خلال اتفاقيات مع مزودي المحتوى. نحن نضمن الامتثال للوائح ذات الصلة في المناطق التي نعمل فيها.",
-  faq_q4: "هل أحتاج إلى اتصال إنترنت سريع؟",
-  faq_a4: "نوصي بسرعة لا تقل عن 10 ميجابت في الثانية للمحتوى بدقة SD و25 ميجابت في الثانية للمحتوى بدقة HD/4K. تقوم تقنية البث المتكيفة لدينا بضبط الجودة بناءً على اتصالك.",
-  faq_q5: "هل يمكنني إلغاء اشتراكي في أي وقت؟",
-  faq_a5: "نعم، يمكنك إلغاء اشتراكك في أي وقت. لا توجد عقود طويلة الأمد أو رسوم خفية.",
-  faq_q6: "ما الذي يميز YassinIPTV عن الخدمات الأخرى؟",
-  faq_a6: "يوفر YassinIPTV قنوات ذات جودة متميزة، وبث موثوق، وخدمة عملاء ممتازة، وتوافق مع أجهزة متعددة، كل ذلك بسعر معقول.",
-  faq_q7: "كم عدد الأجهزة التي يمكنني استخدامها في وقت واحد؟",
-  faq_a7: "اعتمادًا على خطتك، يمكنك البث على 1 إلى 4 أجهزة في وقت واحد. تحقق من تفاصيل خطتك لمعرفة العدد المسموح به بالضبط.",
-  faq_q8: "هل تقدمون تجربة مجانية؟",
-  faq_a8: "نعم، نقدم تجربة مجانية لمدة 24 ساعة حتى تتمكن من تجربة خدمتنا قبل الاشتراك.",
+  faq_q1: "كيف يعمل YassinIPTV?",
+  faq_a1: "YassinIPTV diffuse du contenu via votre connexion internet. Abonnez-vous à un forfait, téléchargez notre application sur votre appareil préféré, connectez-vous avec vos identifiants et commencez à regarder.",
+  faq_q2: "Quels appareils puis-je utiliser avec YassinIPTV?",
+  faq_a2: "Notre service fonctionne sur smartphones, tablettes, smart TVs, box Android, Amazon Firestick, Apple TV et la plupart des appareils qui prennent en charge les lecteurs IPTV comme VLC, IPTV Smarters ou Perfect Player.",
+  faq_q3: "YassinIPTV est-il légal?",
+  faq_a3: "YassinIPTV propose du contenu sous licence grâce à des accords avec les fournisseurs de contenu. Nous assurons la conformité avec les réglementations pertinentes dans les territoires où nous opérons.",
+  faq_q4: "Do I need a fast internet connection?",
+  faq_a4: "We recommend a minimum speed of 10 Mbps for SD content and 25 Mbps for HD/4K content. Our adaptive streaming technology adjusts quality based on your connection.",
+  faq_q5: "Can I cancel my subscription anytime?",
+  faq_a5: "Yes, you can cancel your subscription at any time. No long-term contracts or hidden fees.",
+  faq_q6: "What makes YassinIPTV different from other services?",
+  faq_a6: "YassinIPTV offre des chaînes de qualité premium, des flux fiables, un excellent service client et une compatibilité multi-appareils, le tout à un prix asequible.",
+  faq_q7: "How many devices can I use simultaneously?",
+  faq_a7: "Dependant on your plan, you can stream on 1 to 4 devices simultaneously. Check your plan details for the exact number allowed.",
+  faq_q8: "Do you offer a free trial?",
+  faq_a8: "Yes, we offer a free trial of 24 hours so you can experience our service before subscribing.",
   free_trial: "ابدأ التجربة المجانية",
   buy_now: "اشتر الآن",
   home: "الرئيسية",
   pricing: "التسعير",
-  reseller: "موزع",
-  installation: "التثبيت",
-  faq: "الأسئلة الشائعة",
-  channels_showcase_title: "آلاف القنوات المباشرة",
-  channels_showcase_description: "استمتع بقنوات تلفزيونية متميزة من جميع أنحاء العالم",
-  worldwide_channels: "قنوات عالمية",
-  movie_showcase_title: "مجموعة أفلام واسعة",
-  movie_showcase_description: "شاهد أحدث الأفلام والكلاسيكيات من مكتبتنا الواسعة",
-  all_genres: "كل الأنواع",
-  chat_welcome: "مرحبًا بكم في دردشة الدعم الخاصة بنا",
-  chat_title: "دعم العملاء",
-  chat_placeholder: "اكتب رسالتك هنا...",
-  customer_feedback: "آراء العملاء",
-  feedback_description: "انضم إلى آلاف العملاء الراضين الذين يحبون YassinIPTV. شارك تجربتك أو اقرأ ما يقوله الآخرون.",
-  customers_say: "ما يقوله عملاؤنا",
-  share_experience: "شارك تجربتك",
-  thank_you: "شكرا لك!",
-  feedback_submitted: "تم إرسال رأيك بنجاح.",
-  name: "الاسم",
-  email: "البريد الإلكتروني",
-  rating: "التقييم",
-  your_experience: "تجربتك",
-  submit_feedback: "إرسال التعليق"
+  reseller_title: "كن موزعًا",
+  reseller_subtitle: "ابدأ عملك الخاص في مجال IPTV مع برنامج الموزعين الشامل لدينا واكسب أرباحًا كبيرة",
+  reseller_competitive_pricing: "أسعار تنافسية",
+  reseller_competitive_pricing_desc: "احصل على خدماتنا بأسعار الجملة، مما يتيح لك تحديد هوامش الربح الخاصة بك وتعظيم الأرباح.",
+  reseller_white_label: "حل العلامة البيضاء",
+  reseller_white_label_desc: "أعد تسمية خدمتنا تحت اسمك الخاص مع حل العلامة البيضاء الكامل لدينا.",
+  reseller_support: "دعم على مدار الساعة",
+  reseller_support_desc: "فريق دعم مخصص لمساعدتك ومساعدة عملائك في أي وقت من اليوم.",
+  reseller_starter: "الموزع المبتدئ",
+  reseller_pro: "الموزع المحترف",
+  reseller_enterprise: "موزع المؤسسات",
+  reseller_credits: "رصيد الحساب",
+  reseller_feature_credits_10: "10 أرصدة حساب",
+  reseller_feature_credits_25: "25 رصيد حساب",
+  reseller_feature_credits_100: "100 رصيد حساب",
+  reseller_feature_basic_panel: "لوحة موزع أساسية",
+  reseller_feature_advanced_panel: "لوحة موزع متقدمة",
+  reseller_feature_premium_panel: "لوحة موزع متميزة",
+  reseller_feature_email_support: "دعم بالبريد الإلكتروني",
+  reseller_feature_priority_support: "دعم ذو أولوية",
+  reseller_feature_vip_support: "دعم VIP 24/7",
+  reseller_feature_white_label: "حل العلامة البيضاء",
+  reseller_feature_custom_domain: "خيار النطاق المخصص",
+  reseller_feature_custom_domain_included: "نطاق مخصص مشمول",
+  reseller_feature_marketing: "مواد تسويقية",
+  reseller_feature_account_manager: "مدير حساب مخصص",
+  reseller_feature_api_access: "وصول API مخصص",
+  reseller_most_popular: "الأكثر شعبية",
+  reseller_get_started: "ابدأ الآن",
+  reseller_questions: "هل لديك أسئلة حول برنامج الموزعين لدينا؟ فريقنا جاهز لمساعدتك على البدء.",
+  reseller_contact_us: "اتصل بنا",
+  reseller_interested_in: "أنا مهتم بـ",
+  chat_with_us: "دردش معنا",
+  quarter: "ربع سنوي"
 };
 
 // Spanish translations
@@ -340,7 +383,7 @@ const es = {
   faq_q2: "¿Qué dispositivos puedo usar con YassinIPTV?",
   faq_a2: "Nuestro servicio funciona en teléfonos inteligentes, tabletas, smart TVs, Android Box, Amazon Firestick, Apple TV y la mayoría de dispositivos que admiten reproductores IPTV como VLC, IPTV Smarters o Perfect Player.",
   faq_q3: "¿Es YassinIPTV legal?",
-  faq_a3: "YassinIPTV ofrece contenido con licencia a través de acuerdos con proveedores de contenido. Aseguramos el cumplimiento de las regulaciones relevantes en los territorios en los que operamos.",
+  faq_a3: "YassinIPTV ofrece contenido con licencia a través de acuerdos con proveedores de contenido. Aseguramos el cumplimiento de las regulaciones pertinentes en los territorios en los que operamos.",
   faq_q4: "¿Necesito una conexión a Internet rápida?",
   faq_a4: "Recomendamos una velocidad mínima de 10 Mbps para contenido SD y 25 Mbps para contenido HD/4K. Nuestra tecnología de transmisión adaptativa ajusta la calidad según su conexión.",
   faq_q5: "¿Puedo cancelar mi suscripción en cualquier momento?",
@@ -355,29 +398,40 @@ const es = {
   buy_now: "Comprar ahora",
   home: "Inicio",
   pricing: "Precios",
-  reseller: "Revendedor",
-  installation: "Instalación",
-  faq: "Preguntas frecuentes",
-  channels_showcase_title: "Miles de canales en vivo",
-  channels_showcase_description: "Disfrute de canales premium de todo el mundo",
-  worldwide_channels: "Canales mundiales",
-  movie_showcase_title: "Extensa colección de películas",
-  movie_showcase_description: "Transmita las últimas películas y clásicos de nuestra amplia biblioteca",
-  all_genres: "Todos los géneros",
-  chat_welcome: "Bienvenido a nuestro chat de soporte",
-  chat_title: "Atención al cliente",
-  chat_placeholder: "Escriba su mensaje aquí...",
-  customer_feedback: "Opiniones de clientes",
-  feedback_description: "Únase a miles de clientes satisfechos que aman YassinIPTV. Comparta su experiencia o lea lo que otros tienen que decir.",
-  customers_say: "Lo que dicen nuestros clientes",
-  share_experience: "Comparta su experiencia",
-  thank_you: "¡Gracias!",
-  feedback_submitted: "Su opinión ha sido enviada con éxito.",
-  name: "Nombre",
-  email: "Correo electrónico",
-  rating: "Calificación",
-  your_experience: "Su experiencia",
-  submit_feedback: "Enviar opinión"
+  reseller_title: "Conviértase en Revendedor",
+  reseller_subtitle: "Inicie su propio negocio de IPTV con nuestro programa de revendedor integral y obtenga ganancias sustanciales",
+  reseller_competitive_pricing: "Precios Competitivos",
+  reseller_competitive_pricing_desc: "Acceda a nuestros servicios a precios mayoristas, lo que le permite establecer sus propios márgenes y maximizar las ganancias.",
+  reseller_white_label: "Solución de Marca Blanca",
+  reseller_white_label_desc: "Renombre nuestro servicio bajo su propia marca con nuestra solución completa de marca blanca.",
+  reseller_support: "Soporte 24/7",
+  reseller_support_desc: "Equipo de soporte dedicado para ayudarle a usted y a sus clientes en cualquier momento del día.",
+  reseller_starter: "Revendedor Inicial",
+  reseller_pro: "Revendedor Pro",
+  reseller_enterprise: "Revendedor Empresarial",
+  reseller_credits: "créditos de cuenta",
+  reseller_feature_credits_10: "10 créditos de cuenta",
+  reseller_feature_credits_25: "25 créditos de cuenta",
+  reseller_feature_credits_100: "100 créditos de cuenta",
+  reseller_feature_basic_panel: "Panel de revendedor básico",
+  reseller_feature_advanced_panel: "Panel de revendedor avanzado",
+  reseller_feature_premium_panel: "Panel de revendedor premium",
+  reseller_feature_email_support: "Soporte por email",
+  reseller_feature_priority_support: "Soporte prioritario",
+  reseller_feature_vip_support: "Soporte VIP 24/7",
+  reseller_feature_white_label: "Solución de marca blanca",
+  reseller_feature_custom_domain: "Opción de dominio personalizado",
+  reseller_feature_custom_domain_included: "Dominio personalizado incluido",
+  reseller_feature_marketing: "Materiales de marketing",
+  reseller_feature_account_manager: "Gestor de cuenta dedicado",
+  reseller_feature_api_access: "Acceso API personalizado",
+  reseller_most_popular: "Más Popular",
+  reseller_get_started: "Comenzar",
+  reseller_questions: "¿Tiene preguntas sobre nuestro programa de revendedor? Nuestro equipo está listo para ayudarle a comenzar.",
+  reseller_contact_us: "Contáctenos",
+  reseller_interested_in: "Estoy interesado en el",
+  chat_with_us: "Chatear con nosotros",
+  quarter: "Trimestre"
 };
 
 // Map of all available translations
