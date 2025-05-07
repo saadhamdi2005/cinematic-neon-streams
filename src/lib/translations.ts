@@ -1,3 +1,4 @@
+
 export type LanguageCode = 'en' | 'fr' | 'ar' | 'es';
 
 // Define the translation key type to ensure typesafety
@@ -570,4 +571,73 @@ const es = {
   reseller_feature_credits_25: "25 créditos de cuenta",
   reseller_feature_credits_100: "100 créditos de cuenta",
   reseller_feature_basic_panel: "Panel de revendedor básico",
-  reseller_feature_advanced_panel: "Panel de
+  reseller_feature_advanced_panel: "Panel de revendedor avanzado",
+  reseller_feature_premium_panel: "Panel de revendedor premium",
+  reseller_feature_email_support: "Soporte por email",
+  reseller_feature_priority_support: "Soporte prioritario",
+  reseller_feature_vip_support: "Soporte VIP 24/7",
+  reseller_feature_white_label: "Solución de marca blanca",
+  reseller_feature_custom_domain: "Opción de dominio personalizado",
+  reseller_feature_custom_domain_included: "Dominio personalizado incluido",
+  reseller_feature_marketing: "Materiales de marketing",
+  reseller_feature_account_manager: "Gestor de cuenta dedicado",
+  reseller_feature_api_access: "Acceso API personalizado",
+  reseller_most_popular: "Más Popular",
+  reseller_get_started: "Comenzar",
+  reseller_questions: "¿Tiene preguntas sobre nuestro programa de revendedor? Nuestro equipo está listo para ayudarle a comenzar.",
+  reseller_contact_us: "Contáctenos",
+  reseller_interested_in: "Estoy interesado en el",
+  chat_with_us: "Chatea con nosotros",
+  standard: "Estándar",
+  gold: "Oro",
+  premium: "Premium",
+  all_channels: "Todos los canales",
+  hd_quality: "Calidad HD",
+  vod_access: "Acceso VOD",
+  all_devices: "Todos los dispositivos",
+  ppv_events: "Eventos PPV",
+  ultra_hd: "Ultra HD",
+  multiroom: "Multi-habitación",
+  connections_count: "{count} conexión(es)",
+  select: "Seleccionar",
+  free_trial_title: "Pruebe antes de comprar",
+  free_trial_subtitle: "Obtenga una prueba gratuita de 24 horas para experimentar nuestro servicio de primera mano",
+  free_trial_button: "Solicitar prueba gratuita",
+  chat_welcome: "¡Bienvenido a YassinIPTV! ¿Cómo podemos ayudarle hoy?",
+  chat_title: "Chatear con soporte",
+  chat_placeholder: "Escriba su mensaje...",
+  channels_showcase_title: "Miles de canales",
+  channels_showcase_description: "Disfrute de contenido premium de todo el mundo",
+  worldwide_channels: "Canales de todo el mundo",
+  customer_feedback: "Opiniones de clientes",
+  feedback_description: "Lo que nuestros clientes dicen sobre nuestros servicios",
+  customers_say: "Lo que dicen nuestros clientes",
+  share_experience: "Comparta su experiencia",
+  thank_you: "¡Gracias!",
+  feedback_submitted: "Su opinión ha sido enviada",
+  name: "Nombre",
+  email: "Email",
+  rating: "Valoración",
+  your_experience: "Su experiencia",
+  submit_feedback: "Enviar opinión",
+  movie_showcase_title: "Extensa biblioteca VOD",
+  movie_showcase_description: "Acceda a miles de películas y programas de TV bajo demanda",
+  all_genres: "Todos los géneros"
+};
+
+// Function to get a translation by key and language
+export const getTranslation = (key: TranslationKey, language: LanguageCode = 'en'): string => {
+  // Select the translation object based on language
+  const translations = {
+    en,
+    fr,
+    ar,
+    es
+  };
+  
+  // Get the selected language translations
+  const selectedTranslations = translations[language];
+  
+  // Return the translation or fall back to English if not found
+  return selectedTranslations[key] || en[key] || key;
+};
