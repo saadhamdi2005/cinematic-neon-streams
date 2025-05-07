@@ -2,11 +2,12 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Check, DollarSign, Euro, PoundSterling } from 'lucide-react';
 
 const PricingSection = () => {
   const { t } = useLanguage();
   const [selectedPeriod, setSelectedPeriod] = useState('month');
+  const [selectedCurrency, setSelectedCurrency] = useState('usd');
 
   // This effect adds scroll animations
   useEffect(() => {
@@ -28,12 +29,25 @@ const PricingSection = () => {
     };
   }, []);
 
-  // Format prices based on selected period
+  // Format prices based on selected period and currency
   const getPrice = (basePrice: number) => {
-    if (selectedPeriod === 'month') return basePrice;
-    if (selectedPeriod === 'quarter') return basePrice * 3 * 0.85; // 15% discount
-    if (selectedPeriod === 'year') return basePrice * 12 * 0.7; // 30% discount
-    return basePrice;
+    // Apply period discounts
+    let price = basePrice;
+    if (selectedPeriod === 'quarter') price = basePrice * 3 * 0.85; // 15% discount
+    if (selectedPeriod === 'year') price = basePrice * 12 * 0.7; // 30% discount
+    
+    // Apply currency conversion
+    if (selectedCurrency === 'eur') price = price * 0.92; // USD to EUR
+    if (selectedCurrency === 'gbp') price = price * 0.78; // USD to GBP
+    
+    return price.toFixed(2);
+  };
+
+  // Get currency symbol
+  const getCurrencySymbol = () => {
+    if (selectedCurrency === 'eur') return '€';
+    if (selectedCurrency === 'gbp') return '£';
+    return '$'; // Default USD
   };
 
   const plans = [
@@ -103,8 +117,50 @@ const PricingSection = () => {
             {t('pricing_subtitle')}
           </motion.p>
 
+          {/* Currency Selector */}
+          <motion.div
+            className="mt-8 mb-4 inline-flex p-1 bg-yassin-darkest/70 backdrop-blur-sm rounded-full"
+            {...textAnimation}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <button
+              className={`px-4 py-2 rounded-full flex items-center gap-1 text-sm transition-all ${
+                selectedCurrency === 'usd'
+                  ? 'bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-purple text-white shadow-lg'
+                  : 'text-white/60 hover:text-white'
+              }`}
+              onClick={() => setSelectedCurrency('usd')}
+            >
+              <DollarSign size={16} />
+              {t('currency_usd')}
+            </button>
+            <button
+              className={`px-4 py-2 rounded-full flex items-center gap-1 text-sm transition-all ${
+                selectedCurrency === 'eur'
+                  ? 'bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-purple text-white shadow-lg'
+                  : 'text-white/60 hover:text-white'
+              }`}
+              onClick={() => setSelectedCurrency('eur')}
+            >
+              <Euro size={16} />
+              {t('currency_eur')}
+            </button>
+            <button
+              className={`px-4 py-2 rounded-full flex items-center gap-1 text-sm transition-all ${
+                selectedCurrency === 'gbp'
+                  ? 'bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-purple text-white shadow-lg'
+                  : 'text-white/60 hover:text-white'
+              }`}
+              onClick={() => setSelectedCurrency('gbp')}
+            >
+              <PoundSterling size={16} />
+              {t('currency_gbp')}
+            </button>
+          </motion.div>
+
+          {/* Period Selector */}
           <motion.div 
-            className="mt-8 inline-flex p-1 bg-yassin-darkest/70 backdrop-blur-sm rounded-full"
+            className="mt-4 inline-flex p-1 bg-yassin-darkest/70 backdrop-blur-sm rounded-full"
             {...textAnimation}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
@@ -179,7 +235,9 @@ const PricingSection = () => {
                     plan.name === 'gold'
                       ? 'text-white drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]'
                       : 'text-white'
-                  }`}>${getPrice(plan.price).toFixed(2)}</span>
+                  }`}>
+                    {getCurrencySymbol()}{getPrice(plan.price)}
+                  </span>
                   <span className="text-white/60 ml-2">/ {t(selectedPeriod as any)}</span>
                 </motion.div>
                 

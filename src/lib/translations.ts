@@ -123,11 +123,15 @@ export type TranslationKey =
   | 'movie_showcase_title'
   | 'movie_showcase_description'
   | 'all_genres'
-  | 'starter' 
-  | 'pro' 
-  | 'enterprise' 
-  | 'plan_price' 
-  | 'reseller_contact_form';
+  | 'currency_usd'
+  | 'currency_eur'
+  | 'currency_gbp'
+  | 'international'
+  | 'sports'
+  | 'news'
+  | 'documentary'
+  | 'entertainment'
+  | 'music';
 
 // English translations (default)
 const en = {
@@ -256,7 +260,16 @@ const en = {
   pro: "Pro",
   enterprise: "Enterprise",
   plan_price: "Plan Price",
-  reseller_contact_form: "Reseller Contact Form"
+  reseller_contact_form: "Reseller Contact Form",
+  currency_usd: "USD ($)",
+  currency_eur: "EUR (€)",
+  currency_gbp: "GBP (£)",
+  international: "International",
+  sports: "Sports",
+  news: "News",
+  documentary: "Documentary",
+  entertainment: "Entertainment",
+  music: "Music"
 };
 
 // French translations
@@ -386,7 +399,16 @@ const fr = {
   pro: "Pro",
   enterprise: "Entreprise",
   plan_price: "Prix du plan",
-  reseller_contact_form: "Formulaire de contact du revendeur"
+  reseller_contact_form: "Formulaire de contact du revendeur",
+  currency_usd: "USD ($)",
+  currency_eur: "EUR (€)",
+  currency_gbp: "GBP (£)",
+  international: "International",
+  sports: "Sport",
+  news: "Nouvelles",
+  documentary: "Documentaire",
+  entertainment: "Divertissement",
+  music: "Musique"
 };
 
 // Arabic translations
@@ -431,7 +453,7 @@ const ar = {
   faq_a4: "نوصي بسرعة لا تقل عن 10 ميجابت في الثانية للمحتوى العادي و 25 ميجابت في الثانية للمحتوى عالي الدقة. تقوم تقنية البث المتكيفة لدينا بضبط الجودة بناءً على اتصالك.",
   faq_q5: "هل يمكنني إلغاء اشتراكي في أي وقت؟",
   faq_a5: "نعم، يمكنك إلغاء اشتراكك في أي وقت. لا عقود طويلة الأجل ولا رسوم خفية.",
-  faq_q6: "ما الذي يجعل YassinIPTV مختلفًا عن الخدمات الأخرى?",
+  faq_q6: "ما الذي يجعل YassinIPTV مختلفًا عن الخدمات الأخر��?",
   faq_a6: "يوفر YassinIPTV قنوات عالية الجودة، وبث موثوق، وخدمة عملاء ممتازة، وتوافقًا مع أجهزة متعددة، كل ذلك بسعر معقول.",
   faq_q7: "كم عدد الأجهزة التي يمكنني استخدامها في وقت واحد؟",
   faq_a7: "اعتمادًا على خطتك، يمكنك البث على 1 إلى 4 أجهزة في وقت واحد. تحقق من تفاصيل خطتك لمعرفة العدد الدقيق المسموح به.",
@@ -489,7 +511,7 @@ const ar = {
   multiroom: "متعدد الغرف",
   connections_count: "{count} اتصال",
   select: "اختر",
-  free_trial_title: "جرب قبل الشراء",
+  free_trial_title: "جر�� قبل الشراء",
   free_trial_subtitle: "احصل على تجربة مجانية لمدة 24 ساعة لتجربة خدمتنا بنفسك",
   free_trial_button: "طلب تجربة مجانية",
   chat_welcome: "مرحبًا بك في YassinIPTV! كيف يمكننا مساعدتك اليوم؟",
@@ -516,7 +538,16 @@ const ar = {
   pro: "محترف",
   enterprise: "مؤسسات",
   plan_price: "سعر الخطة",
-  reseller_contact_form: "نموذج التواصل مع الموزع"
+  reseller_contact_form: "نموذج التواصل مع الموزع",
+  currency_usd: "دولار ($)",
+  currency_eur: "يورو (€)",
+  currency_gbp: "جنيه (£)",
+  international: "دولي",
+  sports: "رياضة",
+  news: "أخبار",
+  documentary: "وثائقي",
+  entertainment: "ترفيه",
+  music: "موسيقى"
 };
 
 // Spanish translations
@@ -646,22 +677,30 @@ const es = {
   pro: "Profesional",
   enterprise: "Empresarial",
   plan_price: "Precio del plan",
-  reseller_contact_form: "Formulario de contacto del revendedor"
+  reseller_contact_form: "Formulario de contacto del revendedor",
+  currency_usd: "USD ($)",
+  currency_eur: "EUR (€)",
+  currency_gbp: "GBP (£)",
+  international: "Internacional",
+  sports: "Deportes",
+  news: "Noticias",
+  documentary: "Documental",
+  entertainment: "Entretenimiento",
+  music: "Música",
+  reseller_feature_advanced_panel: "Panel de revendedor avanzado"
 };
 
-// Function to get a translation by key and language
-export const getTranslation = (key: TranslationKey, language: LanguageCode = 'en'): string => {
-  // Select the translation object based on language
-  const translations = {
-    en,
-    fr,
-    ar,
-    es
-  };
-  
-  // Get the selected language translations
-  const selectedTranslations = translations[language];
-  
-  // Return the translation or fall back to English if not found
-  return selectedTranslations[key] || en[key] || key;
+// Function to get translations based on language code
+export const translations = {
+  en,
+  fr,
+  ar,
+  es
 };
+
+// Function to get a specific translation
+export function getTranslation(key: TranslationKey, language: LanguageCode): string {
+  return translations[language][key] || translations.en[key] || key;
+}
+
+export default translations;

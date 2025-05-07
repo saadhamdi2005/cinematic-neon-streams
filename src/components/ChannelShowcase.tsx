@@ -4,13 +4,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import GlassCard from "@/components/ui/GlassCard";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 export function ChannelShowcase() {
   const { t } = useLanguage();
@@ -18,28 +11,23 @@ export function ChannelShowcase() {
   const [autoScrollInterval, setAutoScrollInterval] = useState<NodeJS.Timeout | null>(null);
   const channelCarouselRef = useRef<HTMLDivElement>(null);
 
-  const channels = [
-    { name: "TV5 Monde", category: "International" },
-    { name: "TSN Sports", category: "Sports" },
-    { name: "TRT World", category: "News" },
-    { name: "Viasat History", category: "Documentary" },
-    { name: "BBC World", category: "News" },
-    { name: "Al Jazeera", category: "News" },
-    { name: "CNN", category: "News" },
-    { name: "HBO", category: "Entertainment" },
-    { name: "Sky Sports", category: "Sports" },
-    { name: "National Geographic", category: "Documentary" },
-    { name: "Canal+", category: "Entertainment" },
-    { name: "Disney Channel", category: "Entertainment" },
-    { name: "Fox Sports", category: "Sports" },
-    { name: "DAZN", category: "Sports" },
-    { name: "BeIN Sports", category: "Sports" },
-    { name: "NBC", category: "Entertainment" },
-    { name: "ESPN", category: "Sports" },
-    { name: "Discovery Channel", category: "Documentary" },
-    { name: "Eurosport", category: "Sports" },
-    { name: "MTV", category: "Music" },
-  ];
+  // Define channels by category
+  const channelCategories = {
+    international: ["TV5 Monde"],
+    sports: ["TSN Sports", "Sky Sports", "Fox Sports", "DAZN", "BeIN Sports", "ESPN", "Eurosport"],
+    news: ["TRT World", "BBC World", "Al Jazeera", "CNN"],
+    documentary: ["Viasat History", "National Geographic", "Discovery Channel"],
+    entertainment: ["HBO", "Canal+", "Disney Channel", "NBC"],
+    music: ["MTV"]
+  };
+
+  // Flatten channels for the scrolling carousel
+  const allChannels = Object.values(channelCategories).flat().map(name => ({
+    name,
+    category: Object.keys(channelCategories).find(category => 
+      channelCategories[category as keyof typeof channelCategories].includes(name)
+    ) || ""
+  }));
 
   // Set up auto scrolling for channels
   useEffect(() => {
@@ -95,15 +83,6 @@ export function ChannelShowcase() {
     }
   };
 
-  // Group channels by category
-  const categorizedChannels: Record<string, typeof channels> = {};
-  channels.forEach(channel => {
-    if (!categorizedChannels[channel.category]) {
-      categorizedChannels[channel.category] = [];
-    }
-    categorizedChannels[channel.category].push(channel);
-  });
-
   return (
     <section id="channels" className="py-16 md:py-24 bg-gradient-to-b from-yassin-dark to-yassin-darker">
       <div className="container mx-auto px-4 md:px-6">
@@ -130,7 +109,7 @@ export function ChannelShowcase() {
             className="flex gap-4 pb-4 overflow-x-auto scrollbar-hide"
             style={{ scrollBehavior: 'smooth' }}
           >
-            {channels.map((channel, index) => (
+            {allChannels.map((channel, index) => (
               <div 
                 key={`${channel.name}-${index}`} 
                 className="flex-none"
@@ -145,7 +124,7 @@ export function ChannelShowcase() {
                 >
                   <div className="text-center">
                     <div className="text-lg font-bold">{channel.name}</div>
-                    <div className="text-xs text-white/60">{channel.category}</div>
+                    <div className="text-xs text-white/60">{t(channel.category as any)}</div>
                   </div>
                 </GlassCard>
               </div>
@@ -153,9 +132,9 @@ export function ChannelShowcase() {
           </div>
         </div>
 
-        {/* Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {Object.entries(categorizedChannels).map(([category, channelsList], catIndex) => (
+        {/* Categories - Display in a grid exactly like in the image */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {Object.entries(channelCategories).map(([category, channelList], catIndex) => (
             <div 
               key={category} 
               className="reveal-animation"
@@ -163,12 +142,12 @@ export function ChannelShowcase() {
             >
               <GlassCard className="h-full" neonColor="blue">
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-4 text-yassin-neon-blue">{category}</h3>
+                  <h3 className="text-xl font-semibold mb-4 text-yassin-neon-blue">{t(category as any)}</h3>
                   <ul className="space-y-3">
-                    {channelsList.map((channel, idx) => (
+                    {channelList.map((channelName, idx) => (
                       <li key={idx} className="flex items-center">
                         <span className="w-2 h-2 bg-yassin-neon-blue rounded-full mr-2"></span>
-                        <span className="text-white/90">{channel.name}</span>
+                        <span className="text-white/90">{channelName}</span>
                       </li>
                     ))}
                   </ul>
