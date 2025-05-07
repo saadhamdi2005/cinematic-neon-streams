@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useRef } from 'react';
-import { Movie } from 'lucide-react';
+import { Film } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface MoviePoster {
@@ -77,7 +77,7 @@ const MovieShowcase = ({ additionalMovies = [] }: MovieShowcaseProps) => {
   
   // Get genre labels based on language
   const getGenreLabel = (genre: string) => {
-    const genreMap: Record<string, Record<LanguageCode, string>> = {
+    const genreMap: Record<string, Record<string, string>> = {
       "Action": { en: "Action", fr: "Action", es: "Acción", ar: "أكشن" },
       "Comedy": { en: "Comedy", fr: "Comédie", es: "Comedia", ar: "كوميديا" },
       "Drama": { en: "Drama", fr: "Drame", es: "Drama", ar: "دراما" },
@@ -108,7 +108,7 @@ const MovieShowcase = ({ additionalMovies = [] }: MovieShowcaseProps) => {
         {/* Genre Carousel */}
         <div className="mb-8">
           <h3 className="text-xl font-semibold mb-4 flex items-center">
-            <Movie className="mr-2 text-yassin-neon-blue" />
+            <Film className="mr-2 text-yassin-neon-blue" />
             <span className="text-gradient">{t('all_genres')}</span>
           </h3>
           
@@ -145,8 +145,9 @@ const MovieShowcase = ({ additionalMovies = [] }: MovieShowcaseProps) => {
                 <div className="group relative rounded-lg overflow-hidden shadow-[0_0_15px_rgba(0,0,0,0.5)] h-72">
                   <img 
                     src={movie.image} 
-                    alt={movie.title}
+                    alt={`${movie.title} - ${movie.year} - YassinIPTV Movie`}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                     <h4 className="text-white font-semibold truncate">{movie.title}</h4>

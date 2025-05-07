@@ -25,6 +25,22 @@ body {
   cursor: none; /* Hide default cursor when using custom cursor */
 }
 
+/* Improved Scrollbar */
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0ff;
+  border-radius: 10px;
+}
+
 /* Text centering utility classes */
 .text-center-all {
   text-align: center;

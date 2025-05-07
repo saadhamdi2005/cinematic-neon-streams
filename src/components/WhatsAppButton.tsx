@@ -1,7 +1,7 @@
 
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
-import { MessageSquare } from "lucide-react";
+import { BrandWhatsapp } from "lucide-react";
 
 interface WhatsAppButtonProps {
   phoneNumber: string;
@@ -46,10 +46,11 @@ export function WhatsAppButton({
         "fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-5 rounded-full shadow-lg hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] transition-all duration-300 group",
         className
       )}
+      aria-label="Chat with YassinIPTV support on WhatsApp"
     >
-      {/* WhatsApp Icon - Use the proper WhatsApp-like icon */}
+      {/* WhatsApp Logo - Using the correct WhatsApp icon */}
       <div className="flex items-center justify-center w-7 h-7 bg-white rounded-full shadow-inner overflow-hidden">
-        <MessageSquare className="w-4 h-4 text-green-600" />
+        <BrandWhatsapp className="w-4 h-4 text-green-600" />
       </div>
 
       {/* Text that appears with typing animation effect */}
