@@ -1,4 +1,3 @@
-
 export type LanguageCode = 'en' | 'fr' | 'ar' | 'es';
 
 // Define the translation key type to ensure typesafety
@@ -123,7 +122,12 @@ export type TranslationKey =
   | 'submit_feedback'
   | 'movie_showcase_title'
   | 'movie_showcase_description'
-  | 'all_genres';
+  | 'all_genres'
+  | 'starter' 
+  | 'pro' 
+  | 'enterprise' 
+  | 'plan_price' 
+  | 'reseller_contact_form';
 
 // English translations (default)
 const en = {
@@ -247,7 +251,12 @@ const en = {
   submit_feedback: "Submit Feedback",
   movie_showcase_title: "Extensive VOD Library",
   movie_showcase_description: "Access thousands of movies and TV shows on demand",
-  all_genres: "All Genres"
+  all_genres: "All Genres",
+  starter: "Starter",
+  pro: "Pro",
+  enterprise: "Enterprise",
+  plan_price: "Plan Price",
+  reseller_contact_form: "Reseller Contact Form"
 };
 
 // French translations
@@ -372,7 +381,12 @@ const fr = {
   submit_feedback: "Soumettre",
   movie_showcase_title: "Vaste bibliothèque VOD",
   movie_showcase_description: "Accédez à des milliers de films et séries à la demande",
-  all_genres: "Tous les genres"
+  all_genres: "Tous les genres",
+  starter: "Débutant",
+  pro: "Pro",
+  enterprise: "Entreprise",
+  plan_price: "Prix du plan",
+  reseller_contact_form: "Formulaire de contact du revendeur"
 };
 
 // Arabic translations
@@ -407,17 +421,17 @@ const ar = {
   support: "الدعم",
   faq_title: "الأسئلة المتكررة",
   faq_subtitle: "ابحث عن إجابات للأسئلة الشائعة حول خدماتنا",
-  faq_q1: "كيف يعمل YassinIPTV؟",
+  faq_q1: "كيف يعمل YassinIPTV?",
   faq_a1: "يبث YassinIPTV المحتوى عبر اتصالك بالإنترنت. ما عليك سوى الاشتراك في خطة، وتنزيل تطبيقنا على جهازك المفضل، وتسجيل الدخول باستخدام بيانات الاعتماد الخاصة بك، والبدء في المشاهدة.",
   faq_q2: "ما الأجهزة التي يمكنني استخدامها مع YassinIPTV?",
   faq_a2: "تعمل خدمتنا على الهواتف الذكية والأجهزة اللوحية وأجهزة التلفزيون الذكية وصناديق Android وAmazon Firestick وApple TV ومعظم الأجهزة التي تدعم مشغلات IPTV مثل VLC أو IPTV Smarters أو Perfect Player.",
-  faq_q3: "هل YassinIPTV قانوني؟",
+  faq_q3: "هل YassinIPTV قانوني?",
   faq_a3: "يقدم YassinIPTV محتوى مرخصًا من خلال اتفاقيات مع مزودي المحتوى. نضمن الامتثال للوائح ذات الصلة في المناطق التي نعمل فيها.",
-  faq_q4: "هل أحتاج إلى اتصال إنترنت سريع؟",
+  faq_q4: "هل أحتاج إلى اتصال إنترنت سريع?",
   faq_a4: "نوصي بسرعة لا تقل عن 10 ميجابت في الثانية للمحتوى العادي و 25 ميجابت في الثانية للمحتوى عالي الدقة. تقوم تقنية البث المتكيفة لدينا بضبط الجودة بناءً على اتصالك.",
   faq_q5: "هل يمكنني إلغاء اشتراكي في أي وقت؟",
   faq_a5: "نعم، يمكنك إلغاء اشتراكك في أي وقت. لا عقود طويلة الأجل ولا رسوم خفية.",
-  faq_q6: "ما الذي يجعل YassinIPTV مختلفًا عن الخدمات الأخرى؟",
+  faq_q6: "ما الذي يجعل YassinIPTV مختلفًا عن الخدمات الأخرى?",
   faq_a6: "يوفر YassinIPTV قنوات عالية الجودة، وبث موثوق، وخدمة عملاء ممتازة، وتوافقًا مع أجهزة متعددة، كل ذلك بسعر معقول.",
   faq_q7: "كم عدد الأجهزة التي يمكنني استخدامها في وقت واحد؟",
   faq_a7: "اعتمادًا على خطتك، يمكنك البث على 1 إلى 4 أجهزة في وقت واحد. تحقق من تفاصيل خطتك لمعرفة العدد الدقيق المسموح به.",
@@ -497,7 +511,12 @@ const ar = {
   submit_feedback: "إرسال الملاحظات",
   movie_showcase_title: "مكتبة فيديو عند الطلب واسعة",
   movie_showcase_description: "الوصول إلى آلاف الأفلام والعروض التلفزيونية عند الطلب",
-  all_genres: "جميع الأنواع"
+  all_genres: "جميع الأنواع",
+  starter: "مبدئي",
+  pro: "محترف",
+  enterprise: "مؤسسات",
+  plan_price: "سعر الخطة",
+  reseller_contact_form: "نموذج التواصل مع الموزع"
 };
 
 // Spanish translations
@@ -622,7 +641,12 @@ const es = {
   submit_feedback: "Enviar opinión",
   movie_showcase_title: "Extensa biblioteca VOD",
   movie_showcase_description: "Acceda a miles de películas y programas de TV bajo demanda",
-  all_genres: "Todos los géneros"
+  all_genres: "Todos los géneros",
+  starter: "Iniciante",
+  pro: "Profesional",
+  enterprise: "Empresarial",
+  plan_price: "Precio del plan",
+  reseller_contact_form: "Formulario de contacto del revendedor"
 };
 
 // Function to get a translation by key and language

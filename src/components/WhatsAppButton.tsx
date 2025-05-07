@@ -48,7 +48,7 @@ export function WhatsAppButton({
       onMouseLeave={() => setIsHovered(false)}
       style={{ transform: `translateY(${position}px)` }}
       className={cn(
-        "fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-5 rounded-full shadow-lg hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] transition-all duration-300 group",
+        "fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-5 rounded-full shadow-lg hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] transition-all duration-300 group",
         className
       )}
       aria-label="Chat with YassinIPTV support on WhatsApp"
