@@ -1,7 +1,7 @@
 
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
-import { BrandWhatsapp } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 interface WhatsAppButtonProps {
   phoneNumber: string;
@@ -50,7 +50,7 @@ export function WhatsAppButton({
     >
       {/* WhatsApp Logo - Using the correct WhatsApp icon */}
       <div className="flex items-center justify-center w-7 h-7 bg-white rounded-full shadow-inner overflow-hidden">
-        <BrandWhatsapp className="w-4 h-4 text-green-600" />
+        <MessageCircle className="w-4 h-4 text-green-600" />
       </div>
 
       {/* Text that appears with typing animation effect */}

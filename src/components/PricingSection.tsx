@@ -93,7 +93,7 @@ const PricingSection = () => {
             {...textAnimation}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {t('pricing_desc')}
+            {t('pricing_subtitle')}
           </motion.p>
 
           <motion.div 
@@ -111,7 +111,7 @@ const PricingSection = () => {
                 }`}
                 onClick={() => setSelectedPeriod(period)}
               >
-                {t(period)}
+                {t(period as any)}
               </button>
             ))}
           </motion.div>
@@ -137,7 +137,7 @@ const PricingSection = () => {
             >
               {plan.name === 'gold' && (
                 <div className="absolute -right-10 top-6 transform rotate-45 bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue px-12 py-1 text-xs font-semibold text-white shadow-lg">
-                  {t('most_popular')}
+                  {t('most_popular' as any)}
                 </div>
               )}
               
@@ -147,7 +147,7 @@ const PricingSection = () => {
                   {...textAnimation}
                   transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
                 >
-                  {t(plan.name)}
+                  {t(plan.name as any)}
                 </motion.h3>
                 
                 <motion.div 
@@ -156,7 +156,7 @@ const PricingSection = () => {
                   transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                 >
                   <span className="text-4xl font-bold text-white">${getPrice(plan.price).toFixed(2)}</span>
-                  <span className="text-white/60 ml-2">/ {t(selectedPeriod)}</span>
+                  <span className="text-white/60 ml-2">/ {t(selectedPeriod as any)}</span>
                 </motion.div>
                 
                 <motion.div 
@@ -164,7 +164,7 @@ const PricingSection = () => {
                   {...textAnimation}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                 >
-                  {t('connections').replace('{count}', plan.connections.toString())}
+                  {t('connections_count' as any).replace('{count}', plan.connections.toString())}
                 </motion.div>
                 
                 <motion.ul 
@@ -180,7 +180,7 @@ const PricingSection = () => {
                       transition={{ duration: 0.3, delay: 0.1 }}
                     >
                       <Check className="text-yassin-neon-blue shrink-0 mt-0.5" size={16} />
-                      <span className="text-white/80">{t(feature)}</span>
+                      <span className="text-white/80">{t(feature as any)}</span>
                     </motion.li>
                   ))}
                 </motion.ul>
@@ -197,7 +197,7 @@ const PricingSection = () => {
                         : 'bg-white/10 text-white hover:bg-white/20'
                     }`}
                   >
-                    {plan.name === 'gold' ? t('get_started') : t('select_plan')}
+                    {plan.name === 'gold' ? t('get_started' as any) : t('select' as any)}
                   </a>
                 </motion.div>
               </div>
@@ -218,7 +218,7 @@ const PricingSection = () => {
             {...textAnimation}
             transition={{ duration: 0.4, delay: 0.2 }}
           >
-            {t('try_before_buy')}
+            {t('free_trial_title' as any)}
           </motion.h3>
           
           <motion.p 
@@ -226,7 +226,7 @@ const PricingSection = () => {
             {...textAnimation}
             transition={{ duration: 0.4, delay: 0.3 }}
           >
-            {t('free_trial_desc')}
+            {t('free_trial_subtitle' as any)}
           </motion.p>
           
           <motion.div
@@ -237,7 +237,7 @@ const PricingSection = () => {
               href="#contact"
               className="btn-primary py-3 px-8 text-lg"
             >
-              {t('get_free_trial')}
+              {t('free_trial_button' as any)}
             </a>
           </motion.div>
         </motion.div>
