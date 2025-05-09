@@ -1,166 +1,185 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Globe, Tv, Film } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import MovieShowcase from "./MovieShowcase";
+import AutoScrollingCarousel from "./AutoScrollingCarousel";
+import { toast } from "sonner";
 
-interface ChannelsAndMoviesSectionProps {
-  movieData?: any[];
+interface Movie {
+  id: number;
+  title: string;
+  genre: string;
+  year: number;
+  rating: number;
+  image: string;
 }
 
-// New combined section for channels and movies in the same section (per user request)
-const ChannelsAndMoviesSection: React.FC<ChannelsAndMoviesSectionProps> = ({ movieData = [] }) => {
-  const { t } = useLanguage();
+interface ChannelsAndMoviesSectionProps {
+  movieData: Movie[];
+}
 
-  // Sample channels data
-  const featuredChannels = [
-    { name: "ESPN", category: "Sports", logo: "/lovable-uploads/f61546a6-412a-4fe4-a644-490ba93e26fd.png" },
-    { name: "HBO", category: "Movies", logo: "/lovable-uploads/bf7c8b90-df9e-4342-8a10-53e5a44b7238.png" },
-    { name: "CNN", category: "News", logo: "/lovable-uploads/1200eca0-3026-444b-8579-b152bea0a0d4.png" },
-    { name: "Discovery", category: "Documentary", logo: "/lovable-uploads/c29f6ab2-7027-4beb-8256-fe5525fdf66d.png" },
-    { name: "Disney+", category: "Family", logo: "/lovable-uploads/8a00e0f3-c27e-4db5-85a9-d34170154cb4.png" },
-    { name: "Sky Sports", category: "Sports", logo: "/lovable-uploads/93dde9aa-2025-4264-812f-6e4dc4e96261.png" }
+const ChannelsAndMoviesSection: React.FC<ChannelsAndMoviesSectionProps> = ({ movieData }) => {
+  const { t } = useLanguage();
+  const [activeTab, setActiveTab] = useState<"all" | "live" | "movies" | "featured">("all");
+  
+  // Channels list with logos for auto-scrolling
+  const channels = [
+    { name: "ESPN", logo: "/lovable-uploads/e1b3a044-cc20-4696-a88b-caca10023057.png", category: "Sports" },
+    { name: "HBO", logo: "/lovable-uploads/0650b9d0-e10d-4a26-a76c-3a9a8072140b.png", category: "Movies" },
+    { name: "CNN", logo: "/lovable-uploads/20482f8f-22ee-4241-9549-7137736f00f9.png", category: "News" },
+    { name: "Discovery", logo: "/lovable-uploads/c7b76c61-391a-491b-a4cd-7756be710fac.png", category: "Documentary" },
+    { name: "Disney+", logo: "/lovable-uploads/e365fc79-0f94-4ce2-ba63-1a149be9e383.png", category: "Family" },
+    { name: "Sky Sports", logo: "/lovable-uploads/465d0abd-a959-469b-b82e-2070327b5ddf.png", category: "Sports" },
+    { name: "BBC", logo: "/lovable-uploads/1966ec4a-d3b6-4f82-a6a4-99d2781b0976.png", category: "Entertainment" },
+    { name: "Fox", logo: "/lovable-uploads/18b95498-97f9-4645-9a43-03c03038042c.png", category: "Entertainment" },
+    { name: "Paramount+", logo: "/lovable-uploads/9f6d8456-79ad-4bb9-8f4e-a61179c9189c.png", category: "Movies" },
+    { name: "NBC", logo: "/lovable-uploads/ba378fe3-feeb-40ae-9b1e-1f57fe0408cd.png", category: "Entertainment" },
+    { name: "ABC", logo: "/lovable-uploads/61ae7544-e0ad-47e5-a07d-85e6f8c68475.png", category: "Entertainment" },
+    { name: "Netflix", logo: "/lovable-uploads/de37ace9-e5c0-4e91-89ea-5044f3504298.png", category: "Movies" },
+    { name: "Amazon Prime", logo: "/lovable-uploads/dfd5268e-a3b1-4d7a-8387-1dc5a4623cdb.png", category: "Movies" },
+    { name: "NFL Network", logo: "/lovable-uploads/b48df112-d880-4e84-ade3-e59bf123db0b.png", category: "Sports" },
+    { name: "History", logo: "/lovable-uploads/3b5ea4b6-6a71-4e63-ba57-cb2b71a2f60a.png", category: "Documentary" },
+    { name: "MTV", logo: "/lovable-uploads/6cd53962-48d0-4424-9b03-e32da4604648.png", category: "Music" },
+    { name: "Cartoon Network", logo: "/lovable-uploads/2bdd82e6-9a66-42ce-89e3-3d2c7159ace0.png", category: "Kids" },
+    { name: "National Geographic", logo: "/lovable-uploads/9810ba33-9132-47ca-a8ab-5de75f5d019e.png", category: "Documentary" },
+    { name: "Fox Sports", logo: "/lovable-uploads/9d9fdc01-80ae-4fdd-a283-69f73a5343ea.png", category: "Sports" },
+    { name: "HGTV", logo: "/lovable-uploads/7f7caaed-046e-4c56-9691-77c579c38f8d.png", category: "Lifestyle" },
   ];
 
+  // Handler for adding to favorites (demo)
+  const handleAddToFavorites = (title: string) => {
+    toast.success(`Added "${title}" to favorites!`, {
+      position: "bottom-right",
+      duration: 3000,
+    });
+  };
+
   return (
-    <section className="py-16 relative overflow-hidden bg-gradient-to-b from-yassin-darkest via-yassin-darker to-yassin-darkest">
-      {/* Decorative background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--yassin-neon-purple)_0%,transparent_70%)] opacity-5"></div>
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yassin-neon-blue to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yassin-neon-purple to-transparent"></div>
-      </div>
-      
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-14">
-          <h2 className="text-4xl md:text-5xl font-bold mb-5">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yassin-neon-blue via-yassin-neon-purple to-yassin-neon-pink">
-              Premium Entertainment
-            </span>
-          </h2>
-          <p className="text-lg text-white/70 max-w-3xl mx-auto">
-            Explore our vast library of movies and TV shows along with thousands of live channels from around the world
+    <section id="channels" className="py-16 px-4 bg-yassin-darkest">
+      <div className="container mx-auto max-w-7xl">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Premium Entertainment</h2>
+          <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            Explore our vast library of movies and shows with thousands of live channels from around the world
           </p>
         </div>
-
-        {/* Tabs for Content Types */}
-        <div className="flex justify-center mb-10 gap-4">
-          <Button className="bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-purple rounded-full px-6 py-2 text-white font-medium shadow-glow" aria-pressed="true">
-            <Tv className="mr-2 h-5 w-5" />
-            All Content
-          </Button>
-          <Button variant="outline" className="rounded-full px-6 py-2 text-white border border-white/20 bg-black/20 hover:bg-yassin-neon-blue/20">
-            <Globe className="mr-2 h-5 w-5" />
-            Live TV
-          </Button>
-          <Button variant="outline" className="rounded-full px-6 py-2 text-white border border-white/20 bg-black/20 hover:bg-yassin-neon-blue/20">
-            <Film className="mr-2 h-5 w-5" />
-            Movies & Series
-          </Button>
+        
+        {/* Content tabs */}
+        <div className="mb-8 flex flex-wrap justify-center gap-4">
+          {["all", "live", "movies", "featured"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab as any)}
+              className={`px-5 py-2 rounded-full transition-all duration-300 ${
+                activeTab === tab
+                  ? "bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue text-white shadow-lg"
+                  : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              {tab === "all" && "All Content"}
+              {tab === "live" && "Live TV"}
+              {tab === "movies" && "Movies & Shows"}
+              {tab === "featured" && "Featured Channels"}
+            </button>
+          ))}
         </div>
 
-        {/* Featured TV Channels Section */}
-        <div className="mb-16">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold text-white flex items-center">
-              <Tv className="text-yassin-neon-blue mr-2" />
-              Featured Channels
-            </h3>
-            <Button variant="link" className="text-yassin-neon-blue hover:text-yassin-neon-purple">
-              View All Channels →
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {featuredChannels.map((channel, index) => (
-              <div 
-                key={index}
-                className="bg-black/40 backdrop-blur-sm rounded-lg border border-white/10 p-4 flex flex-col items-center hover:border-yassin-neon-blue/50 transition-all duration-300 hover:shadow-glow-sm group"
-              >
-                <div className="w-16 h-16 mb-3 bg-white/5 rounded-full p-2 flex items-center justify-center">
-                  <img 
-                    src={channel.logo} 
-                    alt={channel.name} 
-                    className="max-w-full max-h-full object-contain" 
-                  />
+        {/* Featured Channels Section */}
+        {(activeTab === "all" || activeTab === "featured" || activeTab === "live") && (
+          <div className="mb-16">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold">Featured Channels</h3>
+              <a href="#all-channels" className="text-yassin-neon-blue hover:text-yassin-neon-purple transition-colors">
+                View all channels →
+              </a>
+            </div>
+            
+            {/* Auto-scrolling channel carousel */}
+            <AutoScrollingCarousel 
+              id="channel-carousel" 
+              speed={0.3} 
+              className="mb-8"
+            >
+              {channels.map((channel, index) => (
+                <div 
+                  key={index}
+                  className="flex flex-col items-center justify-center p-4 min-w-[160px]"
+                >
+                  <div className="h-24 w-24 rounded-full bg-gradient-to-br from-white/5 to-black/30 p-4 flex items-center justify-center mb-3 border border-white/10 backdrop-blur-sm hover:border-yassin-neon-blue/30 transition-all duration-300 hover:scale-110">
+                    <img 
+                      src={channel.logo} 
+                      alt={channel.name} 
+                      className="max-h-full max-w-full object-contain"
+                    />
+                  </div>
+                  <h4 className="font-medium text-center">{channel.name}</h4>
+                  <p className="text-xs text-white/50">{channel.category}</p>
                 </div>
-                <h4 className="font-semibold text-white group-hover:text-yassin-neon-blue transition-colors">
-                  {channel.name}
-                </h4>
-                <span className="text-xs text-yassin-neon-purple">{channel.category}</span>
-              </div>
-            ))}
+              ))}
+            </AutoScrollingCarousel>
           </div>
-        </div>
-
-        {/* Movies Showcase Section (reusing the improved component) */}
-        <div>
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold text-white flex items-center">
-              <Film className="text-yassin-neon-pink mr-2" />
-              Featured Movies & Series
-            </h3>
-            <Button variant="link" className="text-yassin-neon-pink hover:text-yassin-neon-purple">
-              View Full Library →
-            </Button>
-          </div>
-          
-          {/* Render movie showcases here */}
-          <div className="relative mt-8 py-4">
-            <div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth pb-6">
-              {movieData.slice(0, 10).map((movie) => (
+        )}
+        
+        {/* Movies & Shows Section */}
+        {(activeTab === "all" || activeTab === "movies") && (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold">Movies & Series Highlights</h3>
+              <a href="#full-library" className="text-yassin-neon-blue hover:text-yassin-neon-purple transition-colors">
+                View full library →
+              </a>
+            </div>
+            
+            {/* Auto-scrolling movie carousel */}
+            <AutoScrollingCarousel 
+              id="movie-carousel" 
+              speed={0.5}
+              reverse={true}
+            >
+              {movieData.map((movie) => (
                 <div 
                   key={movie.id}
-                  className="flex-shrink-0 w-48 transition-all duration-300 transform hover:scale-105"
+                  className="relative p-3"
                 >
-                  <div className="group relative rounded-lg overflow-hidden shadow-[0_0_15px_rgba(0,0,0,0.5)] h-72">
+                  <div className="relative group">
                     <img 
                       src={movie.image} 
-                      alt={movie.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      alt={movie.title} 
+                      className="movie-image object-cover rounded-lg shadow-lg transition-all duration-300 transform group-hover:scale-[1.02]"
+                      width={400}
+                      height={198}
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                      <h4 className="text-white font-semibold truncate">{movie.title}</h4>
-                      <div className="text-sm flex justify-between items-center mt-1">
-                        <span className="text-yassin-neon-blue">{movie.year}</span>
-                        <span className="bg-yellow-500/90 text-black px-2 py-0.5 rounded-sm text-xs font-bold">
-                          {movie.rating.toFixed(1)}
-                        </span>
-                      </div>
-                      <p className="text-white/60 text-xs mt-1">{movie.genre}</p>
+                    <div className="absolute top-2 right-2 bg-yassin-darkest/70 backdrop-blur-sm text-xs py-1 px-2 rounded-lg">
+                      <span>{movie.rating}</span>
+                      <span className="text-yassin-neon-purple ml-1">★</span>
                     </div>
+                    
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex flex-col justify-end p-4">
+                      <button 
+                        onClick={() => handleAddToFavorites(movie.title)}
+                        className="bg-yassin-neon-purple/80 hover:bg-yassin-neon-purple text-white py-2 px-4 rounded-lg mb-2 transition-all duration-300"
+                      >
+                        Watch Now
+                      </button>
+                      <button 
+                        onClick={() => handleAddToFavorites(movie.title)}
+                        className="bg-white/10 hover:bg-white/20 text-white py-2 px-4 rounded-lg transition-all duration-300"
+                      >
+                        + Add to Favorites
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mt-2">
+                    <h4 className="font-medium text-white truncate" title={movie.title}>{movie.title}</h4>
+                    <p className="text-xs text-white/60">{movie.year} • {movie.genre}</p>
                   </div>
                 </div>
               ))}
-            </div>
-            
-            {/* Left and right gradients for scroll indication */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-yassin-darkest to-transparent pointer-events-none z-10"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-yassin-darkest to-transparent pointer-events-none z-10"></div>
+            </AutoScrollingCarousel>
           </div>
-        </div>
-        
-        {/* Call to Action */}
-        <div className="mt-16 text-center">
-          <div className="inline-block bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue p-[1px] rounded-full">
-            <Button 
-              size="lg"
-              className="bg-yassin-darkest hover:bg-black text-white font-semibold text-lg px-8 py-6 rounded-full"
-              onClick={() => window.location.href = '/payment'}
-            >
-              Start Free Trial
-            </Button>
-          </div>
-          <p className="text-white/60 mt-4">No credit card required, cancel anytime</p>
-        </div>
+        )}
       </div>
-      
-      {/* Decorative gradient blobs */}
-      <div className="absolute -top-40 -left-40 w-80 h-80 bg-yassin-neon-blue/10 rounded-full blur-3xl"></div>
-      <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-yassin-neon-purple/10 rounded-full blur-3xl"></div>
     </section>
   );
 };
