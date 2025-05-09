@@ -1,250 +1,186 @@
 
-import { useRef, useEffect, useState } from "react";
+import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { cn } from "@/lib/utils";
-import GlassCard from "@/components/ui/GlassCard";
-import { Star } from "lucide-react";
-import { motion } from "framer-motion";
+import { Globe, Tv } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-export function ChannelShowcase() {
-  const { t } = useLanguage();
-  const isMobile = useIsMobile();
-  const [autoScrollInterval, setAutoScrollInterval] = useState<NodeJS.Timeout | null>(null);
-  const channelCarouselRef = useRef<HTMLDivElement>(null);
-  const [hoveredChannel, setHoveredChannel] = useState<string | null>(null);
+// Define structure for country data with channels
+interface Country {
+  name: string;
+  code: string;
+  channels: number;
+  flag: string;
+}
 
-  // Define channels by category
-  const channelCategories = {
-    international: ["TV5 Monde", "Al Aoula", "2M", "Medi1TV", "France 24"],
-    sports: ["TSN Sports", "Sky Sports", "Fox Sports", "DAZN", "BeIN Sports", "ESPN", "Eurosport", "RMC Sport"],
-    news: ["TRT World", "BBC World", "Al Jazeera", "CNN", "France Info", "CNBC", "Bloomberg"],
-    documentary: ["Viasat History", "National Geographic", "Discovery Channel", "Animal Planet", "History Channel"],
-    entertainment: ["HBO", "Canal+", "Disney Channel", "NBC", "AMC", "Fox"],
-    music: ["MTV", "VH1", "Trace Urban", "MCM"]
-  };
+// Enhanced Channel Showcase component with worldwide channels list
+const ChannelShowcase = () => {
+  const { t, language } = useLanguage();
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
-  // Flatten channels for the scrolling carousel
-  const allChannels = Object.values(channelCategories).flat().map(name => ({
-    name,
-    category: Object.keys(channelCategories).find(category => 
-      channelCategories[category as keyof typeof channelCategories].includes(name)
-    ) || ""
-  }));
+  // Array of countries with their channels count and flag codes (similar to raverr.net)
+  const countries: Country[] = [
+    { name: "United States", code: "us", channels: 850, flag: "🇺🇸" },
+    { name: "United Kingdom", code: "uk", channels: 620, flag: "🇬🇧" },
+    { name: "Canada", code: "ca", channels: 380, flag: "🇨🇦" },
+    { name: "France", code: "fr", channels: 410, flag: "🇫🇷" },
+    { name: "Germany", code: "de", channels: 295, flag: "🇩🇪" },
+    { name: "Spain", code: "es", channels: 265, flag: "🇪🇸" },
+    { name: "Italy", code: "it", channels: 310, flag: "🇮🇹" },
+    { name: "Portugal", code: "pt", channels: 180, flag: "🇵🇹" },
+    { name: "Netherlands", code: "nl", channels: 165, flag: "🇳🇱" },
+    { name: "Belgium", code: "be", channels: 140, flag: "🇧🇪" },
+    { name: "Sweden", code: "se", channels: 125, flag: "🇸🇪" },
+    { name: "Norway", code: "no", channels: 110, flag: "🇳🇴" },
+    { name: "Denmark", code: "dk", channels: 105, flag: "🇩🇰" },
+    { name: "Finland", code: "fi", channels: 95, flag: "🇫🇮" },
+    { name: "Ireland", code: "ie", channels: 85, flag: "🇮🇪" },
+    { name: "Switzerland", code: "ch", channels: 120, flag: "🇨🇭" },
+    { name: "Austria", code: "at", channels: 110, flag: "🇦🇹" },
+    { name: "Poland", code: "pl", channels: 190, flag: "🇵🇱" },
+    { name: "Romania", code: "ro", channels: 150, flag: "🇷🇴" },
+    { name: "Greece", code: "gr", channels: 130, flag: "🇬🇷" },
+    { name: "Turkey", code: "tr", channels: 240, flag: "🇹🇷" },
+    { name: "Russia", code: "ru", channels: 280, flag: "🇷🇺" },
+    { name: "Ukraine", code: "ua", channels: 190, flag: "🇺🇦" },
+    { name: "India", code: "in", channels: 320, flag: "🇮🇳" },
+    { name: "Pakistan", code: "pk", channels: 170, flag: "🇵🇰" },
+    { name: "Australia", code: "au", channels: 210, flag: "🇦🇺" },
+    { name: "New Zealand", code: "nz", channels: 95, flag: "🇳🇿" },
+    { name: "Japan", code: "jp", channels: 180, flag: "🇯🇵" },
+    { name: "South Korea", code: "kr", channels: 145, flag: "🇰🇷" },
+    { name: "China", code: "cn", channels: 220, flag: "🇨🇳" },
+    { name: "Brazil", code: "br", channels: 270, flag: "🇧🇷" },
+    { name: "Mexico", code: "mx", channels: 230, flag: "🇲🇽" },
+    { name: "Argentina", code: "ar", channels: 180, flag: "🇦🇷" },
+    { name: "Chile", code: "cl", channels: 140, flag: "🇨🇱" },
+    { name: "Colombia", code: "co", channels: 150, flag: "🇨🇴" },
+    { name: "Peru", code: "pe", channels: 120, flag: "🇵🇪" },
+    { name: "South Africa", code: "za", channels: 160, flag: "🇿🇦" },
+    { name: "Egypt", code: "eg", channels: 210, flag: "🇪🇬" },
+    { name: "Morocco", code: "ma", channels: 180, flag: "🇲🇦" },
+    { name: "Saudi Arabia", code: "sa", channels: 230, flag: "🇸🇦" },
+    { name: "United Arab Emirates", code: "ae", channels: 190, flag: "🇦🇪" },
+    { name: "Qatar", code: "qa", channels: 150, flag: "🇶🇦" },
+    { name: "Israel", code: "il", channels: 130, flag: "🇮🇱" },
+    { name: "Lebanon", code: "lb", channels: 140, flag: "🇱🇧" },
+    { name: "Tunisia", code: "tn", channels: 120, flag: "🇹🇳" },
+    { name: "Algeria", code: "dz", channels: 135, flag: "🇩🇿" },
+    { name: "Nigeria", code: "ng", channels: 110, flag: "🇳🇬" },
+    { name: "Kenya", code: "ke", channels: 85, flag: "🇰🇪" },
+    { name: "Singapore", code: "sg", channels: 95, flag: "🇸🇬" },
+    { name: "Malaysia", code: "my", channels: 105, flag: "🇲🇾" },
+    { name: "Indonesia", code: "id", channels: 125, flag: "🇮🇩" },
+    { name: "Thailand", code: "th", channels: 115, flag: "🇹🇭" },
+    { name: "Vietnam", code: "vn", channels: 90, flag: "🇻🇳" },
+    { name: "Philippines", code: "ph", channels: 100, flag: "🇵🇭" }
+  ];
 
-  // Set up auto scrolling for channels
-  useEffect(() => {
-    const scrollContainer = channelCarouselRef.current;
-    if (!scrollContainer) return;
-    
-    // Start auto-scrolling
-    const interval = setInterval(() => {
-      if (scrollContainer) {
-        scrollContainer.scrollLeft += 1;
-        
-        // Reset scroll position if we've reached the end
-        const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-        if (scrollContainer.scrollLeft >= maxScroll - 1) {
-          scrollContainer.scrollLeft = 0;
-        }
-      }
-    }, 30); // Adjust speed of scrolling here
-    
-    setAutoScrollInterval(interval);
-    
-    // Cleanup function
-    return () => {
-      if (autoScrollInterval) {
-        clearInterval(autoScrollInterval);
-      }
-    };
-  }, []);
-  
-  // Stop auto-scroll on manual interaction
-  const handleManualScroll = () => {
-    if (autoScrollInterval) {
-      clearInterval(autoScrollInterval);
-      
-      // Restart auto-scroll after a period of inactivity
-      const timeout = setTimeout(() => {
-        const interval = setInterval(() => {
-          if (channelCarouselRef.current) {
-            channelCarouselRef.current.scrollLeft += 1;
-            
-            // Reset scroll position if we've reached the end
-            const maxScroll = channelCarouselRef.current.scrollWidth - channelCarouselRef.current.clientWidth;
-            if (channelCarouselRef.current.scrollLeft >= maxScroll - 1) {
-              channelCarouselRef.current.scrollLeft = 0;
-            }
-          }
-        }, 30);
-        
-        setAutoScrollInterval(interval);
-      }, 5000); // Wait 5 seconds after manual interaction
-      
-      return () => clearTimeout(timeout);
-    }
-  };
+  // Channel categories
+  const categories = [
+    { id: "all", label: t('all_channels'), icon: <Globe className="h-4 w-4" /> },
+    { id: "entertainment", label: t('entertainment'), icon: <Tv className="h-4 w-4" /> },
+    { id: "sports", label: t('sports'), icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><circle cx="12" cy="12" r="10"></circle><path d="M6 12h12"></path><path d="M12 6v12"></path></svg> },
+    { id: "movie", label: t('movies'), icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg> },
+    { id: "news", label: t('news'), icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path><path d="M18 14h-8"></path><path d="M15 18h-5"></path><path d="M10 6h8v4h-8V6Z"></path></svg> },
+    { id: "music", label: t('music'), icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg> },
+    { id: "documentary", label: t('documentary'), icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> },
+  ];
 
-  // Create a function to get corresponding neon color based on category
-  const getCategoryNeonColor = (category: string) => {
-    switch(category) {
-      case 'international': return "blue";
-      case 'sports': return "purple";
-      case 'news': return "green";
-      case 'documentary': return "blue";
-      case 'entertainment': return "pink";
-      case 'music': return "purple";
-      default: return "blue";
-    }
-  };
-
-  // Animation variants for cards
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({ 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        delay: i * 0.1,
-        duration: 0.4,
-        ease: "easeOut" 
-      }
-    })
-  };
+  // Total channels count
+  const totalChannels = countries.reduce((sum, country) => sum + country.channels, 0);
 
   return (
-    <section id="channels" className="py-16 md:py-24 bg-gradient-to-b from-yassin-dark to-yassin-darker relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 -z-10">
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" 
-            style={{ 
-              backgroundImage: 'radial-gradient(circle, rgba(139, 92, 246, 0.1) 1px, transparent 1px)', 
-              backgroundSize: '30px 30px' 
-            }}
-          />
+    <section id="channels" className="py-16 lg:py-24 relative glass-morphism">
+      {/* Section background with gradient */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-yassin-darker to-yassin-darkest opacity-90"></div>
+      </div>
+      
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yassin-neon-blue to-transparent"></div>
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yassin-neon-purple to-transparent"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Section Header */}
+        <div className="text-center mb-12 reveal-animation">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white heading-glow">
+            {t('channels_from_worldwide')}
+          </h2>
+          <p className="max-w-2xl mx-auto text-lg text-white/70">
+            {t('worldwide_channels_desc')}
+          </p>
+          
+          {/* Total Channels Counter */}
+          <div className="flex items-center justify-center mt-6">
+            <div className="bg-black/40 backdrop-blur-sm border border-yassin-neon-purple/30 rounded-lg px-6 py-3 inline-flex items-center">
+              <Globe className="text-yassin-neon-blue mr-3 h-6 w-6" />
+              <div className="text-left">
+                <div className="text-3xl font-bold text-white">
+                  {totalChannels.toLocaleString()}+
+                </div>
+                <div className="text-sm text-white/70">Total Channels Worldwide</div>
+              </div>
+            </div>
+          </div>
         </div>
         
-        {/* Animated glow spots */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-yassin-neon-purple/10 filter blur-[80px] animate-pulse-slow" />
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full bg-yassin-neon-blue/10 filter blur-[100px] animate-pulse-slow" style={{ animationDelay: '1.5s' }} />
-        <div className="absolute top-1/2 right-1/3 w-72 h-72 rounded-full bg-yassin-neon-pink/10 filter blur-[90px] animate-pulse-slow" style={{ animationDelay: '2.3s' }} />
-      </div>
-
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <motion.div 
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gradient bg-clip-text text-transparent bg-gradient-to-r from-yassin-neon-purple via-yassin-neon-blue to-yassin-neon-purple animate-gradient-x bg-size-200">
-            {t('channels_showcase_title')}
-          </h2>
-          <p className="text-lg text-white/70 max-w-3xl mx-auto">
-            {t('channels_showcase_description')}
-          </p>
-        </motion.div>
-
-        {/* Enhanced Worldwide Channels Carousel - Auto-scrolling */}
-        <motion.div 
-          className="mb-16 overflow-hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <h3 className="text-xl md:text-2xl font-semibold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-purple">
-            {t('worldwide_channels')}
-          </h3>
-          
-          <div 
-            ref={channelCarouselRef}
-            className="flex gap-4 pb-4 overflow-x-auto scrollbar-hide"
-            style={{ scrollBehavior: 'smooth' }}
-            onMouseDown={handleManualScroll}
-            onTouchStart={handleManualScroll}
-          >
-            {allChannels.map((channel, index) => (
-              <div 
-                key={`${channel.name}-${index}`} 
-                className="flex-none"
-                onMouseEnter={() => setHoveredChannel(channel.name)}
-                onMouseLeave={() => setHoveredChannel(null)}
-              >
-                <GlassCard 
-                  className={cn(
-                    "px-6 py-4 flex items-center justify-center h-20 w-44",
-                    "hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-                  )}
-                  glowOnHover 
-                  neonColor={getCategoryNeonColor(channel.category) as "purple" | "pink" | "blue" | "green"}
-                  tiltEffect
-                >
-                  <div className="text-center">
-                    <div className="text-lg font-bold relative">
-                      {channel.name}
-                      
-                      {/* Animated underline on hover */}
-                      <div 
-                        className={cn(
-                          "absolute bottom-0 left-0 h-0.5 bg-yassin-neon-blue rounded-full transform origin-left transition-all duration-300",
-                          hoveredChannel === channel.name ? "w-full" : "w-0"
-                        )}
-                      />
-                    </div>
-                    <div className="text-xs text-white/60">{t(channel.category as any)}</div>
-                  </div>
-                </GlassCard>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Enhanced Categories - Display in a grid with modern layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {Object.entries(channelCategories).map(([category, channelList], catIndex) => (
-            <motion.div 
-              key={category}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              custom={catIndex}
-              variants={cardVariants}
+        {/* Category filter buttons - all same size and in same line */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10 uniform-button-container">
+          {categories.map((category) => (
+            <Button
+              key={category.id}
+              variant={selectedCategory === category.id ? "default" : "outline"}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`rounded-full min-w-[120px] transition-all duration-300 ${
+                selectedCategory === category.id 
+                  ? "bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-purple text-white shadow-glow" 
+                  : "bg-black/20 border border-white/10 text-white hover:border-yassin-neon-blue/50 hover:text-yassin-neon-blue"
+              }`}
+              aria-label={`Filter by ${category.label}`}
             >
-              <GlassCard 
-                className="h-full transform transition-all duration-500" 
-                neonColor={getCategoryNeonColor(category) as "purple" | "pink" | "blue" | "green"}
-                glowOnHover
-                glowIntensity="medium"
-              >
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Star className={`w-5 h-5 text-yassin-neon-${getCategoryNeonColor(category)} animate-pulse-slow`} />
-                    <h3 className={`text-xl font-semibold text-yassin-neon-${getCategoryNeonColor(category)}`}>
-                      {t(category as any)}
-                    </h3>
-                  </div>
-
-                  <ul className="space-y-3">
-                    {channelList.map((channelName, idx) => (
-                      <li key={idx} className="flex items-center group">
-                        <span className={`w-2 h-2 bg-yassin-neon-${getCategoryNeonColor(category)} rounded-full mr-2 group-hover:animate-pulse`}></span>
-                        <span className="text-white/90 group-hover:text-white transition-colors duration-200">
-                          {channelName}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </GlassCard>
-            </motion.div>
+              <span className="flex items-center gap-2">
+                {category.icon}
+                <span>{category.label}</span>
+              </span>
+            </Button>
           ))}
+        </div>
+
+        {/* Worldwide Channels Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {countries.map((country) => (
+            <div
+              key={country.code}
+              className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-4 hover:border-yassin-neon-blue transition-all duration-300 transform hover:-translate-y-1 hover:shadow-glow-sm group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="text-2xl" aria-hidden="true">{country.flag}</div>
+                <div>
+                  <h3 className="text-white font-medium group-hover:text-yassin-neon-blue transition-colors">
+                    {country.name}
+                  </h3>
+                  <p className="text-xs text-white/60">
+                    <span className="font-medium text-yassin-neon-purple">{country.channels}</span> channels
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Channel Action Button */}
+        <div className="text-center mt-12">
+          <Button
+            size="lg" 
+            className="neon-button text-lg font-semibold px-8 py-6 bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue hover:from-yassin-neon-blue hover:to-yassin-neon-purple transition-all duration-300 rounded-full shadow-glow"
+            aria-label="View all channels"
+          >
+            View All Channels
+          </Button>
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default ChannelShowcase;

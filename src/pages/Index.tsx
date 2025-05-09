@@ -1,8 +1,9 @@
+
 import { useEffect } from "react";
 import NavBar from "@/components/NavBar";
 import Hero from "@/components/Hero";
 import ChannelShowcase from "@/components/ChannelShowcase";
-import MovieShowcase from "@/components/MovieShowcase";
+import ChannelsAndMoviesSection from "@/components/ChannelsAndMoviesSection";
 import PricingSection from "@/components/PricingSection";
 import ResellerSection from "@/components/ResellerSection";
 import InstallGuide from "@/components/InstallGuide";
@@ -12,11 +13,30 @@ import ParticleBackground from "@/components/ParticleBackground";
 import FeedbackSection from "@/components/FeedbackSection";
 import FAQSection from "@/components/FAQSection";
 import LanguageNotice from "@/components/LanguageNotice";
+import LoadingOverlay from "@/components/ui/LoadingOverlay";
 import "@/styles/loadingStyles.css";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { t } = useLanguage();
+  
   // Add scroll animation observer
   useEffect(() => {
+    // Show loading overlay for a brief period for the enhanced loading effect
+    const loadingTimeout = setTimeout(() => {
+      const loadingOverlay = document.querySelector('.loading-overlay');
+      if (loadingOverlay) {
+        loadingOverlay.classList.add('fade-out');
+        setTimeout(() => {
+          loadingOverlay.remove();
+          document.body.classList.remove('overflow-hidden');
+        }, 500);
+      }
+    }, 2000);
+    
+    // Add body class to prevent scrolling during loading
+    document.body.classList.add('overflow-hidden');
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -95,6 +115,7 @@ const Index = () => {
     setTimeout(cursorInit, 100);
 
     return () => {
+      clearTimeout(loadingTimeout);
       fadeElements.forEach((element) => {
         observer.unobserve(element);
       });
@@ -267,6 +288,45 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-yassin-darkest overflow-x-hidden">
+      {/* Enhanced Loading Overlay */}
+      <div className="loading-overlay bg-black/90 fixed top-0 left-0 w-full h-full z-50 flex flex-col items-center justify-center transition-opacity duration-500">
+        <div className="relative">
+          <div className="text-5xl font-black mb-8 flex items-center justify-center">
+            <span className="text-gradient-primary bg-gradient-to-r from-yassin-neon-blue via-yassin-neon-purple to-yassin-neon-pink bg-clip-text text-transparent">
+              YASSIN IPTV
+            </span>
+          </div>
+          
+          <div className="relative flex flex-col items-center">
+            {/* Spinner with rings */}
+            <div className="loading-spinner mb-6">
+              <div className="spinner-ring"></div>
+              <div className="spinner-ring"></div>
+              <div className="spinner-ring"></div>
+              <div className="spinner-core"></div>
+            </div>
+            
+            {/* Loading text */}
+            <div className="loading-text text-lg font-bold mb-3">
+              {t('loading')}
+            </div>
+            
+            {/* Progress bar */}
+            <div className="cyber-progress-container w-60 mb-4">
+              <div className="cyber-progress-bar"></div>
+            </div>
+            
+            {/* Loading dots */}
+            <div className="loading-dots">
+              <div className="dot"></div>
+              <div className="dot"></div>
+              <div className="dot"></div>
+              <div className="dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Enhanced Animated Background */}
       <div className="animated-bg"></div>
       <div className="animated-grid">
@@ -359,7 +419,8 @@ const Index = () => {
           </svg>
         </div>
         
-        <MovieShowcase additionalMovies={moviePosters} />
+        {/* NEW Combined Channels and Movies Section */}
+        <ChannelsAndMoviesSection movieData={moviePosters} />
         
         <div className="section-divider"></div>
         
@@ -404,7 +465,7 @@ const Index = () => {
       {/* Footer */}
       <Footer />
 
-      {/* Floating WhatsApp Button - Positioned on the right side like amigo8kiptv.com */}
+      {/* Floating WhatsApp Button - Positioned on the right side with enhanced style */}
       <WhatsAppButton 
         phoneNumber="212643264633"
         text="Chat on WhatsApp"

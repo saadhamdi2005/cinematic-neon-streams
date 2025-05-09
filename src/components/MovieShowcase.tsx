@@ -112,13 +112,14 @@ const MovieShowcase = ({ additionalMovies = [] }: MovieShowcaseProps) => {
             <span className="text-gradient">{t('all_genres')}</span>
           </h3>
           
-          <div className="flex flex-wrap gap-2 md:gap-4">
+          <div className="flex flex-wrap gap-2 md:gap-4 uniform-button-container justify-center">
             {genres.map((genre) => (
               <button 
                 key={genre}
                 className="bg-black/30 border border-yassin-neon-blue/30 rounded-full px-4 py-2 text-sm 
                          text-white/70 hover:bg-yassin-neon-blue/20 hover:text-white transition-all duration-300
-                         hover:shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                         hover:shadow-[0_0_10px_rgba(59,130,246,0.5)] min-w-[100px]"
+                aria-label={`Filter by ${getGenreLabel(genre)}`}
               >
                 {getGenreLabel(genre)}
               </button>

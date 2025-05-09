@@ -1,3 +1,4 @@
+
 export type LanguageCode = 'en' | 'fr' | 'ar' | 'es';
 export type Direction = 'ltr' | 'rtl';
 
@@ -33,8 +34,8 @@ export type TranslationKey =
   | 'worldwide_channels'
   | 'channels_showcase_title'
   | 'channels_showcase_description'
-  | 'movies_showcase_title'
-  | 'movies_showcase_description'
+  | 'movie_showcase_title'
+  | 'movie_showcase_description'
   | 'genre_action'
   | 'genre_comedy'
   | 'genre_drama'
@@ -196,7 +197,12 @@ export type TranslationKey =
   | 'chat_welcome'
   | 'chat_title'
   | 'chat_placeholder'
-  | 'chat_with_us';
+  | 'chat_with_us'
+  | 'welcome_message'
+  | 'power_of_entertainment'
+  | 'best_experience'
+  | 'channels_from_worldwide'
+  | 'worldwide_channels_desc';
 
 // English translations (default)
 const en = {
@@ -292,6 +298,7 @@ const en = {
   all_channels: "All channels",
   hd_quality: "HD quality",
   vod_access: "VOD access",
+  support: "Support",
   all_devices: "All devices",
   ppv_events: "PPV events",
   ultra_hd: "Ultra HD",
@@ -306,6 +313,8 @@ const en = {
   chat_placeholder: "Type your message...",
   channels_showcase_title: "Thousands of Channels",
   channels_showcase_description: "Enjoy premium content from around the world",
+  movie_showcase_title: "Extensive VOD Library",
+  movie_showcase_description: "Access thousands of movies and TV shows on demand",
   worldwide_channels: "Channels from all around the world",
   customer_feedback: "Customer Feedback",
   feedback_description: "What our customers say about our services",
@@ -318,12 +327,7 @@ const en = {
   rating: "Rating",
   your_experience: "Your Experience",
   submit_feedback: "Submit Feedback",
-  movie_showcase_title: "Extensive VOD Library",
-  movie_showcase_description: "Access thousands of movies and TV shows on demand",
   all_genres: "All Genres",
-  currency_usd: "USD ($)",
-  currency_eur: "EUR (€)",
-  currency_gbp: "GBP (£)",
   international: "International",
   sports: "Sports",
   news: "News",
@@ -334,10 +338,15 @@ const en = {
   pro: "Pro",
   enterprise: "Enterprise",
   plan_price: "Pricing",
-  reseller_contact_form: "Formulario de contacto del revendedor",
+  reseller_contact_form: "Reseller contact form",
   currency_usd: "USD ($)",
   currency_eur: "EUR (€)",
-  currency_gbp: "GBP (£)"
+  currency_gbp: "GBP (£)",
+  welcome_message: "Welcome to Yassin IPTV",
+  power_of_entertainment: "The Power of Entertainment",
+  best_experience: "Experience the best streaming service in 2025",
+  channels_from_worldwide: "Channels From Worldwide",
+  worldwide_channels_desc: "Explore our vast selection of international channels"
 };
 
 // French translations
@@ -378,16 +387,16 @@ const fr = {
   faq_a2: "Notre service fonctionne sur smartphones, tablettes, smart TVs, box Android, Amazon Firestick, Apple TV et la plupart des appareils qui prennent en charge les lecteurs IPTV comme VLC, IPTV Smarters ou Perfect Player.",
   faq_q3: "YassinIPTV est-il légal?",
   faq_a3: "YassinIPTV propose du contenu sous licence grâce à des accords avec les fournisseurs de contenu. Nous assurons la conformité avec les réglementations pertinentes dans les territoires où nous opérons.",
-  faq_q4: "Do I need a fast internet connection?",
-  faq_a4: "We recommend a minimum speed of 10 Mbps for SD content and 25 Mbps for HD/4K content. Our adaptive streaming technology adjusts quality based on your connection.",
-  faq_q5: "Can I cancel my subscription anytime?",
-  faq_a5: "Yes, you can cancel your subscription at any time. No long-term contracts or hidden fees.",
-  faq_q6: "What makes YassinIPTV different from other services?",
-  faq_a6: "YassinIPTV provides premium quality channels, reliable streams, excellent customer service, and multi-device compatibility, all at an affordable price.",
-  faq_q7: "How many devices can I use simultaneously?",
-  faq_a7: "Depending on your plan, you can stream on 1 to 4 devices simultaneously. Check your plan details for the exact number allowed.",
-  faq_q8: "Do you offer a free trial?",
-  faq_a8: "Yes, we offer a 24-hour free trial so you can experience our service before subscribing.",
+  faq_q4: "Ai-je besoin d'une connexion internet rapide?",
+  faq_a4: "Nous recommandons une vitesse minimale de 10 Mbps pour le contenu SD et 25 Mbps pour le contenu HD/4K. Notre technologie de streaming adaptatif ajuste la qualité en fonction de votre connexion.",
+  faq_q5: "Puis-je annuler mon abonnement à tout moment?",
+  faq_a5: "Oui, vous pouvez annuler votre abonnement à tout moment. Pas de contrats à long terme ni de frais cachés.",
+  faq_q6: "Qu'est-ce qui rend YassinIPTV différent des autres services?",
+  faq_a6: "YassinIPTV fournit des chaînes de qualité premium, des flux fiables, un excellent service client et une compatibilité multi-appareils, le tout à un prix abordable.",
+  faq_q7: "Combien d'appareils puis-je utiliser simultanément?",
+  faq_a7: "Selon votre forfait, vous pouvez diffuser sur 1 à 4 appareils simultanément. Consultez les détails de votre forfait pour connaître le nombre exact autorisé.",
+  faq_q8: "Proposez-vous un essai gratuit?",
+  faq_a8: "Oui, nous proposons un essai gratuit de 24 heures pour que vous puissiez expérimenter notre service avant de vous abonner.",
   free_trial: "Essai gratuit",
   buy_now: "Acheter maintenant",
   home: "Accueil",
@@ -448,6 +457,8 @@ const fr = {
   chat_placeholder: "Tapez votre message...",
   channels_showcase_title: "Des milliers de chaînes",
   channels_showcase_description: "Profitez de contenu premium du monde entier",
+  movie_showcase_title: "Vaste bibliothèque VOD",
+  movie_showcase_description: "Accédez à des milliers de films et séries à la demande",
   worldwide_channels: "Des chaînes du monde entier",
   customer_feedback: "Avis des clients",
   feedback_description: "Ce que nos clients disent de nos services",
@@ -460,9 +471,13 @@ const fr = {
   rating: "Note",
   your_experience: "Votre expérience",
   submit_feedback: "Soumettre",
-  movie_showcase_title: "Vaste bibliothèque VOD",
-  movie_showcase_description: "Accédez à des milliers de films et séries à la demande",
   all_genres: "Tous les genres",
+  international: "International",
+  sports: "Sport",
+  news: "Nouvelles",
+  documentary: "Documentaire",
+  entertainment: "Divertissement",
+  music: "Musique",
   starter: "Débutant",
   pro: "Pro",
   enterprise: "Entreprise",
@@ -471,27 +486,11 @@ const fr = {
   currency_usd: "USD ($)",
   currency_eur: "EUR (€)",
   currency_gbp: "GBP (£)",
-  international: "International",
-  sports: "Sport",
-  news: "Nouvelles",
-  documentary: "Documentaire",
-  entertainment: "Divertissement",
-  music: "Musique",
-  genre_action: "Action",
-  genre_comedy: "Comédie",
-  genre_drama: "Drame",
-  genre_horror: "Horreur",
-  genre_scifi: "Science-fiction",
-  genre_romance: "Romance",
-  genre_thriller: "Thriller",
-  genre_animation: "Animation",
-  genre_documentary: "Documentaire",
-  genre_fantasy: "Fantasy",
-  plan_price: "Prix du plan",
-  reseller_contact_form: "Formulaire de contact du revendeur",
-  currency_usd: "USD ($)",
-  currency_eur: "EUR (€)",
-  currency_gbp: "GBP (£)"
+  welcome_message: "Bienvenue chez Yassin IPTV",
+  power_of_entertainment: "La Puissance du Divertissement",
+  best_experience: "Expérimentez le meilleur service de streaming en 2025",
+  channels_from_worldwide: "Chaînes du Monde Entier",
+  worldwide_channels_desc: "Explorez notre vaste sélection de chaînes internationales"
 };
 
 // Arabic translations
@@ -533,10 +532,10 @@ const ar = {
   faq_q3: "هل YassinIPTV قانوني?",
   faq_a3: "يقدم YassinIPTV محتوى مرخصًا من خلال اتفاقيات مع مزودي المحتوى. نضمن الامتثال للوائح ذات الصلة في المناطق التي نعمل فيها.",
   faq_q4: "هل أحتاج إلى اتصال إنترنت سريع?",
-  faq_a4: "ن��صي بسرعة لا تقل عن 10 ميجابت في الثانية للمحتوى العادي و 25 ميجابت في الثانية للمحتوى عالي الدقة. تقوم تقنية البث المتكيفة لدينا بضبط الجودة بناءً على اتصالك.",
+  faq_a4: "نوصي بسرعة لا تقل عن 10 ميجابت في الثانية للمحتوى العادي و 25 ميجابت في الثانية للمحتوى عالي الدقة. تقوم تقنية البث المتكيفة لدينا بضبط الجودة بناءً على اتصالك.",
   faq_q5: "هل يمكنني إلغاء اشتراكي في أي وقت؟",
   faq_a5: "نعم، يمكنك إلغاء اشتراكك في أي وقت. لا عقود طويلة الأجل ولا رسوم خفية.",
-  faq_q6: "ما الذي يجعل YassinIPTV مختلفًا عن الخدمات الأخر��?",
+  faq_q6: "ما الذي يجعل YassinIPTV مختلفًا عن الخدمات الأخرى?",
   faq_a6: "يوفر YassinIPTV قنوات عالية الجودة، وبث موثوق، وخدمة عملاء ممتازة، وتوافقًا مع أجهزة متعددة، كل ذلك بسعر معقول.",
   faq_q7: "كم عدد الأجهزة التي يمكنني استخدامها في وقت واحد؟",
   faq_a7: "اعتمادًا على خطتك، يمكنك البث على 1 إلى 4 أجهزة في وقت واحد. تحقق من تفاصيل خطتك لمعرفة العدد الدقيق المسموح به.",
@@ -556,7 +555,7 @@ const ar = {
   reseller_white_label: "حل العلامة البيضاء",
   reseller_white_label_desc: "أعد تسمية خدمتنا تحت اسمك الخاص مع حل العلامة البيضاء الكامل لدينا.",
   reseller_support: "دعم على مدار الساعة",
-  reseller_support_desc: "فريق دعم مخصص لمساعدتك ومساعدة ع��لائك في أي وقت من اليوم.",
+  reseller_support_desc: "فريق دعم مخصص لمساعدتك ومساعدة عملائك في أي وقت من اليوم.",
   reseller_starter: "الموزع المبتدئ",
   reseller_pro: "الموزع المحترف",
   reseller_enterprise: "موزع المؤسسات",
@@ -594,7 +593,7 @@ const ar = {
   multiroom: "متعدد الغرف",
   connections_count: "{count} اتصال",
   select: "اختر",
-  free_trial_title: "جر�� قبل الشراء",
+  free_trial_title: "جرب قبل الشراء",
   free_trial_subtitle: "احصل على تجربة مجانية لمدة 24 ساعة لتجربة خدمتنا بنفسك",
   free_trial_button: "طلب تجربة مجانية",
   chat_welcome: "مرحبًا بك في YassinIPTV! كيف يمكننا مساعدتك اليوم?",
@@ -602,6 +601,8 @@ const ar = {
   chat_placeholder: "اكتب رسالتك...",
   channels_showcase_title: "آلاف القنوات",
   channels_showcase_description: "استمتع بمحتوى متميز من جميع أنحاء العالم",
+  movie_showcase_title: "مكتبة فيديو عند الطلب واسعة",
+  movie_showcase_description: "الوصول إلى آلاف الأفلام والعروض التلفزيونية عند الطلب",
   worldwide_channels: "قنوات من جميع أنحاء العالم",
   customer_feedback: "آراء العملاء",
   feedback_description: "ما يقوله عملاؤنا عن خدماتنا",
@@ -614,8 +615,6 @@ const ar = {
   rating: "التقييم",
   your_experience: "تجربتك",
   submit_feedback: "إرسال الملاحظات",
-  movie_showcase_title: "مكتبة فيديو عند الطلب واسعة",
-  movie_showcase_description: "الوصول إلى آلاف الأفلام والعروض التلفزيونية عند الطلب",
   all_genres: "جميع الأنواع",
   starter: "مبدئي",
   pro: "محترف",
@@ -631,21 +630,11 @@ const ar = {
   documentary: "وثائقي",
   entertainment: "ترفيه",
   music: "موسيقى",
-  genre_action: "Action",
-  genre_comedy: "Comedy",
-  genre_drama: "Drama",
-  genre_horror: "Horror",
-  genre_scifi: "Sci-Fi",
-  genre_romance: "Romance",
-  genre_thriller: "Thriller",
-  genre_animation: "Animation",
-  genre_documentary: "Documentary",
-  genre_fantasy: "Fantasy",
-  plan_price: "سعر الخطة",
-  reseller_contact_form: "نموذج التواصل مع الموزع",
-  currency_usd: "USD ($)",
-  currency_eur: "EUR (€)",
-  currency_gbp: "GBP (£)"
+  welcome_message: "مرحباً بك في ياسين IPTV",
+  power_of_entertainment: "قوة الترفيه",
+  best_experience: "استمتع بأفضل خدمة بث في 2025",
+  channels_from_worldwide: "قنوات من جميع أنحاء العالم",
+  worldwide_channels_desc: "استكشف مجموعتنا الواسعة من القنوات الدولية"
 };
 
 // Spanish translations
@@ -751,13 +740,45 @@ const es = {
   free_trial_title: "Pruebe antes de comprar",
   free_trial_subtitle: "Obtenga una prueba gratuita de 24 horas para experimentar nuestro servicio de primera mano",
   free_trial_button: "Solicitar prueba gratuita",
-  get_started: "Get Started",
-  most_popular: "Most Popular",
-  quarter: "Quarter",
   chat_welcome: "¡Bienvenido a YassinIPTV! ¿Cómo podemos ayudarle hoy?",
   chat_title: "Chatear con soporte",
   chat_placeholder: "Escriba su mensaje...",
-  chat_with_us: "Chatea con nosotros"
+  channels_showcase_title: "Miles de canales",
+  channels_showcase_description: "Disfrute de contenido premium de todo el mundo",
+  movie_showcase_title: "Amplia biblioteca VOD",
+  movie_showcase_description: "Acceda a miles de películas y programas de TV bajo demanda",
+  worldwide_channels: "Canales de todo el mundo",
+  customer_feedback: "Comentarios de clientes",
+  feedback_description: "Lo que nuestros clientes dicen sobre nuestros servicios",
+  customers_say: "Lo que dicen nuestros clientes",
+  share_experience: "Comparta su experiencia",
+  thank_you: "¡Gracias!",
+  feedback_submitted: "Su comentario ha sido enviado",
+  name: "Nombre",
+  email: "Correo electrónico",
+  rating: "Calificación",
+  your_experience: "Su experiencia",
+  submit_feedback: "Enviar comentario",
+  all_genres: "Todos los géneros",
+  international: "Internacional",
+  sports: "Deportes",
+  news: "Noticias",
+  documentary: "Documental",
+  entertainment: "Entretenimiento",
+  music: "Música",
+  starter: "Inicial",
+  pro: "Pro",
+  enterprise: "Empresarial",
+  plan_price: "Precio del plan",
+  reseller_contact_form: "Formulario de contacto del revendedor",
+  currency_usd: "USD ($)",
+  currency_eur: "EUR (€)",
+  currency_gbp: "GBP (£)",
+  welcome_message: "Bienvenido a Yassin IPTV",
+  power_of_entertainment: "El Poder del Entretenimiento",
+  best_experience: "Experimente el mejor servicio de streaming en 2025",
+  channels_from_worldwide: "Canales de Todo el Mundo",
+  worldwide_channels_desc: "Explore nuestra amplia selección de canales internacionales"
 };
 
 // Function to get translations based on language code
