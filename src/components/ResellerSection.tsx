@@ -4,6 +4,7 @@ import TypedText from "@/components/ui/TypedText";
 import GlassCard from "@/components/ui/GlassCard";
 import { Zap, Shield, Star } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { motion } from "framer-motion";
 
 export function ResellerSection() {
   const { t } = useLanguage();
@@ -15,20 +16,20 @@ export function ResellerSection() {
 
   const features = [
     {
-      title: "reseller_competitive_pricing",
-      description: "reseller_competitive_pricing_desc",
+      title: "reseller_competitive_pricing" as const,
+      description: "reseller_competitive_pricing_desc" as const,
       icon: <Zap className="w-8 h-8 text-yassin-neon-purple" />,
       color: "purple"
     },
     {
-      title: "reseller_white_label",
-      description: "reseller_white_label_desc",
+      title: "reseller_white_label" as const,
+      description: "reseller_white_label_desc" as const,
       icon: <Star className="w-8 h-8 text-yassin-neon-blue" />,
       color: "blue"
     },
     {
-      title: "reseller_support",
-      description: "reseller_support_desc",
+      title: "reseller_support" as const,
+      description: "reseller_support_desc" as const,
       icon: <Shield className="w-8 h-8 text-yassin-neon-green" />,
       color: "green"
     },
@@ -36,49 +37,77 @@ export function ResellerSection() {
 
   const plans = [
     {
-      title: "reseller_starter",
+      title: "reseller_starter" as const,
       credits: 10,
       price: 100,
       features: [
-        "reseller_feature_credits_10",
-        "reseller_feature_basic_panel",
-        "reseller_feature_email_support",
-        "reseller_feature_white_label"
+        "reseller_feature_credits_10" as const,
+        "reseller_feature_basic_panel" as const,
+        "reseller_feature_email_support" as const,
+        "reseller_feature_white_label" as const
       ],
-      color: "blue"
+      color: "blue" as const
     },
     {
-      title: "reseller_pro",
+      title: "reseller_pro" as const,
       credits: 25,
       price: 200,
       features: [
-        "reseller_feature_credits_25",
-        "reseller_feature_advanced_panel",
-        "reseller_feature_priority_support",
-        "reseller_feature_white_label",
-        "reseller_feature_custom_domain",
-        "reseller_feature_marketing"
+        "reseller_feature_credits_25" as const,
+        "reseller_feature_advanced_panel" as const,
+        "reseller_feature_priority_support" as const,
+        "reseller_feature_white_label" as const,
+        "reseller_feature_custom_domain" as const,
+        "reseller_feature_marketing" as const
       ],
-      color: "purple",
+      color: "purple" as const,
       popular: true
     },
     {
-      title: "reseller_enterprise",
+      title: "reseller_enterprise" as const,
       credits: 100,
       price: 600,
       features: [
-        "reseller_feature_credits_100",
-        "reseller_feature_premium_panel",
-        "reseller_feature_vip_support",
-        "reseller_feature_white_label",
-        "reseller_feature_custom_domain_included",
-        "reseller_feature_marketing",
-        "reseller_feature_account_manager",
-        "reseller_feature_api_access"
+        "reseller_feature_credits_100" as const,
+        "reseller_feature_premium_panel" as const,
+        "reseller_feature_vip_support" as const,
+        "reseller_feature_white_label" as const,
+        "reseller_feature_custom_domain_included" as const,
+        "reseller_feature_marketing" as const,
+        "reseller_feature_account_manager" as const,
+        "reseller_feature_api_access" as const
       ],
-      color: "pink"
+      color: "pink" as const
     }
   ];
+
+  // Animation variants for feature cards
+  const featureVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (index: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.2 + index * 0.1,
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    })
+  };
+
+  // Animation variants for plan cards
+  const planVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: (index: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.4 + index * 0.15,
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    })
+  };
 
   return (
     <section id="reseller" className="py-20 relative overflow-hidden">
@@ -87,52 +116,81 @@ export function ResellerSection() {
         <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-yassin-neon-purple/10 blur-[120px] rounded-full animate-pulse"></div>
         <div className="absolute bottom-1/3 left-1/3 w-[500px] h-[500px] bg-yassin-neon-blue/10 blur-[100px] rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
         <div className="absolute top-2/3 right-1/3 w-[400px] h-[400px] bg-yassin-neon-green/5 blur-[80px] rounded-full animate-pulse" style={{ animationDelay: "2s" }}></div>
+        
+        {/* Animated grid pattern for depth */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" 
+            style={{ 
+              backgroundImage: 'linear-gradient(to right, rgba(139, 92, 246, 0.3) 1px, transparent 1px), linear-gradient(to bottom, rgba(139, 92, 246, 0.3) 1px, transparent 1px)', 
+              backgroundSize: '40px 40px',
+              backgroundPosition: 'center center'
+            }}
+          />
+        </div>
       </div>
 
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-12 reveal-animation">
-          <h2 className="text-4xl font-bold mb-4">
-            <TypedText text={t('reseller_title')} className="text-gradient" delay={100} />
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue">
+            <TypedText text={t('reseller_title')} delay={100} />
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
             {t('reseller_subtitle')}
           </p>
-        </div>
+        </motion.div>
 
         {/* Features */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16 reveal-animation">
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
           {features.map((feature, index) => (
-            <GlassCard 
+            <motion.div
               key={index}
-              className="p-6 flex flex-col items-center text-center h-full transform transition-transform hover:scale-105"
-              glowOnHover
-              neonColor={feature.color as "purple" | "blue" | "green"}
-              glowIntensity="high"
-              tiltEffect
-              pulsate={index === 1}
+              custom={index}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={featureVariants}
             >
-              <div className="mb-4 p-3 bg-white/5 rounded-full ring-2 ring-white/10 shadow-xl">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-bold mb-2">{t(feature.title)}</h3>
-              <p className="text-white/70">{t(feature.description)}</p>
-              
-              {/* Enhanced neon reflection */}
-              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-yassin-neon-purple/5 to-transparent rounded-b-xl"></div>
-            </GlassCard>
+              <GlassCard 
+                className="p-6 flex flex-col items-center text-center h-full transform transition-transform hover:scale-105"
+                glowOnHover
+                neonColor={feature.color as "purple" | "blue" | "green"}
+                glowIntensity="high"
+                tiltEffect
+                pulsate={index === 1}
+              >
+                <div className="mb-4 p-3 bg-white/5 rounded-full ring-2 ring-white/10 shadow-xl">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold mb-2">{t(feature.title)}</h3>
+                <p className="text-white/70">{t(feature.description)}</p>
+                
+                {/* Enhanced neon reflection */}
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-yassin-neon-purple/5 to-transparent rounded-b-xl"></div>
+              </GlassCard>
+            </motion.div>
           ))}
         </div>
 
         {/* Reseller Plans */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto reveal-animation">
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {plans.map((plan, index) => {
             const neonColor = plan.color as "purple" | "pink" | "blue" | "green";
             const isPopular = plan.popular;
             
             return (
-              <div 
+              <motion.div 
                 key={index} 
                 className={`relative ${isPopular ? "md:-mt-4" : ""}`}
+                custom={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                variants={planVariants}
                 onMouseEnter={() => setIsHovered(prev => ({ ...prev, [`card${index+1}`]: true }))}
                 onMouseLeave={() => setIsHovered(prev => ({ ...prev, [`card${index+1}`]: false }))}
               >
@@ -205,13 +263,19 @@ export function ResellerSection() {
                     }}
                   />
                 )}
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Call to action with enhanced neon effect */}
-        <div className="mt-16 text-center reveal-animation">
+        <motion.div 
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <p className="text-white/70 mb-6">
             {t('reseller_questions')}
           </p>
@@ -233,12 +297,12 @@ export function ResellerSection() {
             </span>
             
             {/* Text */}
-            <span className="relative z-10 text-gradient">{t('reseller_contact_us')}</span>
+            <span className="relative z-10 text-gradient bg-clip-text text-transparent bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue">{t('reseller_contact_us')}</span>
             
             {/* Animated glow effect */}
             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 transform translate-x-[-150%] group-hover:animate-shine"></span>
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

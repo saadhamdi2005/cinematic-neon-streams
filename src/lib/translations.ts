@@ -1,60 +1,73 @@
 export type LanguageCode = 'en' | 'fr' | 'ar' | 'es';
+export type Direction = 'ltr' | 'rtl';
 
 // Define the translation key type to ensure typesafety
 export type TranslationKey = 
-  | 'loading'
-  | 'please_wait'
-  | 'language_notice'
-  | 'channelsTitle'
-  | 'channelsSubtitle'
-  | 'pricing_title'
-  | 'pricing_subtitle'
-  | 'monthly'
-  | 'yearly'
-  | 'save'
-  | 'yearly_discount'
-  | 'month'
-  | 'year'
-  | 'quarter'
-  | 'basic_plan'
-  | 'standard_plan'
-  | 'premium_plan'
-  | 'get_started'
-  | 'most_popular'
-  | 'basic_description'
-  | 'standard_description'
-  | 'premium_description'
+  | 'home'
   | 'channels'
   | 'movies'
-  | 'tv_shows'
-  | 'quality'
-  | 'devices'
-  | 'support'
-  | 'faq_title'
-  | 'faq_subtitle'
-  | 'faq_q1'
-  | 'faq_a1'
-  | 'faq_q2'
-  | 'faq_a2'
-  | 'faq_q3'
-  | 'faq_a3'
-  | 'faq_q4'
-  | 'faq_a4'
-  | 'faq_q5'
-  | 'faq_a5'
-  | 'faq_q6'
-  | 'faq_a6'
-  | 'faq_q7'
-  | 'faq_a7'
-  | 'faq_q8'
-  | 'faq_a8'
-  | 'free_trial'
-  | 'buy_now'
-  | 'home'
   | 'pricing'
   | 'reseller'
   | 'installation'
   | 'faq'
+  | 'free_trial'
+  | 'try_now'
+  | 'contact_sales'
+  | 'contact_us'
+  | 'months'
+  | 'days'
+  | 'hours'
+  | 'minutes'
+  | 'seconds'
+  | 'and'
+  | 'loading'
+  | 'please_wait'
+  | 'hero_title'
+  | 'hero_subtitle'
+  | 'hero_cta'
+  | 'hero_secondary_cta'
+  | 'hero_feature_channels'
+  | 'hero_feature_movies'
+  | 'hero_feature_devices'
+  | 'hero_feature_support'
+  | 'worldwide_channels'
+  | 'channels_showcase_title'
+  | 'channels_showcase_description'
+  | 'movies_showcase_title'
+  | 'movies_showcase_description'
+  | 'genre_action'
+  | 'genre_comedy'
+  | 'genre_drama'
+  | 'genre_horror'
+  | 'genre_scifi'
+  | 'genre_romance'
+  | 'genre_thriller'
+  | 'genre_animation'
+  | 'genre_documentary'
+  | 'genre_fantasy'
+  | 'pricing_title'
+  | 'pricing_subtitle'
+  | 'plan_basic'
+  | 'plan_standard'
+  | 'plan_premium'
+  | 'plan_duration_1'
+  | 'plan_duration_3'
+  | 'plan_duration_6'
+  | 'plan_duration_12'
+  | 'plan_feature_channels'
+  | 'plan_feature_vod'
+  | 'plan_feature_devices'
+  | 'plan_feature_no_ads'
+  | 'plan_feature_hd'
+  | 'plan_feature_4k'
+  | 'plan_feature_support'
+  | 'plan_feature_epg'
+  | 'plan_feature_catchup'
+  | 'plan_feature_ppv'
+  | 'plan_cta'
+  | 'plan_best_value'
+  | 'plan_most_popular'
+  | 'month'
   | 'reseller_title'
   | 'reseller_subtitle'
   | 'reseller_competitive_pricing'
@@ -87,45 +100,53 @@ export type TranslationKey =
   | 'reseller_questions'
   | 'reseller_contact_us'
   | 'reseller_interested_in'
-  | 'chat_with_us'
-  | 'standard'
-  | 'gold'
-  | 'premium'
-  | 'all_channels'
-  | 'hd_quality'
-  | 'vod_access'
-  | 'all_devices'
-  | 'ppv_events'
-  | 'ultra_hd'
-  | 'multiroom'
-  | 'connections_count'
-  | 'select'
-  | 'free_trial_title'
-  | 'free_trial_subtitle'
-  | 'free_trial_button'
-  | 'chat_welcome'
-  | 'chat_title'
-  | 'chat_placeholder'
-  | 'channels_showcase_title'
-  | 'channels_showcase_description'
-  | 'worldwide_channels'
-  | 'customer_feedback'
-  | 'feedback_description'
-  | 'customers_say'
-  | 'share_experience'
-  | 'thank_you'
-  | 'feedback_submitted'
-  | 'name'
-  | 'email'
-  | 'rating'
-  | 'your_experience'
-  | 'submit_feedback'
-  | 'movie_showcase_title'
-  | 'movie_showcase_description'
-  | 'all_genres'
-  | 'currency_usd'
-  | 'currency_eur'
-  | 'currency_gbp'
+  | 'install_title'
+  | 'install_subtitle'
+  | 'install_step_1'
+  | 'install_step_1_desc'
+  | 'install_step_2'
+  | 'install_step_2_desc'
+  | 'install_step_3'
+  | 'install_step_3_desc'
+  | 'install_step_4'
+  | 'install_step_4_desc'
+  | 'install_supported_devices'
+  | 'install_device_android'
+  | 'install_device_ios'
+  | 'install_device_firestick'
+  | 'install_device_smarttv'
+  | 'install_device_mag'
+  | 'install_device_windows'
+  | 'install_device_mac'
+  | 'install_device_linux'
+  | 'install_device_roku'
+  | 'install_device_xbox'
+  | 'install_device_playstation'
+  | 'install_device_browser'
+  | 'install_need_help'
+  | 'install_contact_support'
+  | 'faq_title'
+  | 'faq_subtitle'
+  | 'faq_q1'
+  | 'faq_a1'
+  | 'faq_q2'
+  | 'faq_a2'
+  | 'faq_q3'
+  | 'faq_a3'
+  | 'faq_q4'
+  | 'faq_a4'
+  | 'faq_q5'
+  | 'faq_a5'
+  | 'faq_q6'
+  | 'faq_a6'
+  | 'faq_q7'
+  | 'faq_a7'
+  | 'faq_q8'
+  | 'faq_a8'
+  | 'faq_more_questions'
+  | 'faq_contact_support'
+  | 'feedback_title'
+  | 'feedback_subtitle'
   | 'international'
   | 'sports'
   | 'news'
@@ -136,7 +157,10 @@ export type TranslationKey =
   | 'pro'
   | 'enterprise'
   | 'plan_price'
-  | 'reseller_contact_form';
+  | 'reseller_contact_form'
+  | 'currency_usd'
+  | 'currency_eur'
+  | 'currency_gbp';
 
 // English translations (default)
 const en = {
@@ -269,7 +293,22 @@ const en = {
   news: "News",
   documentary: "Documentary",
   entertainment: "Entertainment",
-  music: "Music"
+  music: "Music",
+  genre_action: "Action",
+  genre_comedy: "Comedy",
+  genre_drama: "Drama",
+  genre_horror: "Horror",
+  genre_scifi: "Sci-Fi",
+  genre_romance: "Romance",
+  genre_thriller: "Thriller",
+  genre_animation: "Animation",
+  genre_documentary: "Documentary",
+  genre_fantasy: "Fantasy",
+  plan_price: "Pricing",
+  reseller_contact_form: "Formulario de contacto del revendedor",
+  currency_usd: "USD ($)",
+  currency_eur: "EUR (€)",
+  currency_gbp: "GBP (£)"
 };
 
 // French translations
@@ -310,16 +349,16 @@ const fr = {
   faq_a2: "Notre service fonctionne sur smartphones, tablettes, smart TVs, box Android, Amazon Firestick, Apple TV et la plupart des appareils qui prennent en charge les lecteurs IPTV comme VLC, IPTV Smarters ou Perfect Player.",
   faq_q3: "YassinIPTV est-il légal?",
   faq_a3: "YassinIPTV propose du contenu sous licence grâce à des accords avec les fournisseurs de contenu. Nous assurons la conformité avec les réglementations pertinentes dans les territoires où nous opérons.",
-  faq_q4: "Ai-je besoin d'une connexion internet rapide?",
-  faq_a4: "Nous recommandons une vitesse minimale de 10 Mbps pour le contenu SD et 25 Mbps pour le contenu HD/4K. Notre technologie de streaming adaptatif ajuste la qualité en fonction de votre connexion.",
-  faq_q5: "Puis-je annuler mon abonnement à tout moment?",
-  faq_a5: "Oui, vous pouvez annuler votre abonnement à tout moment. Pas de contrats à long terme ni de frais cachés.",
-  faq_q6: "Qu'est-ce qui rend YassinIPTV différent des autres services?",
-  faq_a6: "YassinIPTV offre des chaînes de qualité premium, des flux fiables, un excellent service client et une compatibilité multi-appareils, le tout à un prix abordable.",
-  faq_q7: "Combien d'appareils puis-je utiliser simultanément?",
-  faq_a7: "Selon votre forfait, vous pouvez diffuser sur 1 à 4 appareils simultanément. Vérifiez les détails de votre forfait pour connaître le nombre exact autorisé.",
-  faq_q8: "Offrez-vous un essai gratuit?",
-  faq_a8: "Oui, nous proposons un essai gratuit de 24 heures pour que vous puissiez tester notre service avant de vous abonner.",
+  faq_q4: "Do I need a fast internet connection?",
+  faq_a4: "We recommend a minimum speed of 10 Mbps for SD content and 25 Mbps for HD/4K content. Our adaptive streaming technology adjusts quality based on your connection.",
+  faq_q5: "Can I cancel my subscription anytime?",
+  faq_a5: "Yes, you can cancel your subscription at any time. No long-term contracts or hidden fees.",
+  faq_q6: "What makes YassinIPTV different from other services?",
+  faq_a6: "YassinIPTV provides premium quality channels, reliable streams, excellent customer service, and multi-device compatibility, all at an affordable price.",
+  faq_q7: "How many devices can I use simultaneously?",
+  faq_a7: "Depending on your plan, you can stream on 1 to 4 devices simultaneously. Check your plan details for the exact number allowed.",
+  faq_q8: "Do you offer a free trial?",
+  faq_a8: "Yes, we offer a 24-hour free trial so you can experience our service before subscribing.",
   free_trial: "Essai gratuit",
   buy_now: "Acheter maintenant",
   home: "Accueil",
@@ -408,7 +447,22 @@ const fr = {
   news: "Nouvelles",
   documentary: "Documentaire",
   entertainment: "Divertissement",
-  music: "Musique"
+  music: "Musique",
+  genre_action: "Action",
+  genre_comedy: "Comédie",
+  genre_drama: "Drame",
+  genre_horror: "Horreur",
+  genre_scifi: "Science-fiction",
+  genre_romance: "Romance",
+  genre_thriller: "Thriller",
+  genre_animation: "Animation",
+  genre_documentary: "Documentaire",
+  genre_fantasy: "Fantasy",
+  plan_price: "Prix du plan",
+  reseller_contact_form: "Formulaire de contact du revendeur",
+  currency_usd: "USD ($)",
+  currency_eur: "EUR (€)",
+  currency_gbp: "GBP (£)"
 };
 
 // Arabic translations
@@ -547,7 +601,22 @@ const ar = {
   news: "أخبار",
   documentary: "وثائقي",
   entertainment: "ترفيه",
-  music: "موسيقى"
+  music: "موسيقى",
+  genre_action: "Action",
+  genre_comedy: "Comedy",
+  genre_drama: "Drama",
+  genre_horror: "Horror",
+  genre_scifi: "Sci-Fi",
+  genre_romance: "Romance",
+  genre_thriller: "Thriller",
+  genre_animation: "Animation",
+  genre_documentary: "Documentary",
+  genre_fantasy: "Fantasy",
+  plan_price: "سعر الخطة",
+  reseller_contact_form: "نموذج التواصل مع الموزع",
+  currency_usd: "USD ($)",
+  currency_eur: "EUR (€)",
+  currency_gbp: "GBP (£)"
 };
 
 // Spanish translations
@@ -686,7 +755,22 @@ const es = {
   news: "Noticias",
   documentary: "Documental",
   entertainment: "Entretenimiento",
-  music: "Música"
+  music: "Música",
+  genre_action: "Action",
+  genre_comedy: "Comedy",
+  genre_drama: "Drama",
+  genre_horror: "Horror",
+  genre_scifi: "Sci-Fi",
+  genre_romance: "Romance",
+  genre_thriller: "Thriller",
+  genre_animation: "Animation",
+  genre_documentary: "Documentary",
+  genre_fantasy: "Fantasy",
+  plan_price: "Precio del plan",
+  reseller_contact_form: "Formulario de contacto del revendedor",
+  currency_usd: "USD ($)",
+  currency_eur: "EUR (€)",
+  currency_gbp: "GBP (£)"
 };
 
 // Function to get translations based on language code
