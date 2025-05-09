@@ -13,12 +13,12 @@ export function ChannelShowcase() {
 
   // Define channels by category
   const channelCategories = {
-    international: ["TV5 Monde"],
-    sports: ["TSN Sports", "Sky Sports", "Fox Sports", "DAZN", "BeIN Sports", "ESPN", "Eurosport"],
-    news: ["TRT World", "BBC World", "Al Jazeera", "CNN"],
-    documentary: ["Viasat History", "National Geographic", "Discovery Channel"],
-    entertainment: ["HBO", "Canal+", "Disney Channel", "NBC"],
-    music: ["MTV"]
+    international: ["TV5 Monde", "Al Aoula", "2M", "Medi1TV", "France 24"],
+    sports: ["TSN Sports", "Sky Sports", "Fox Sports", "DAZN", "BeIN Sports", "ESPN", "Eurosport", "RMC Sport"],
+    news: ["TRT World", "BBC World", "Al Jazeera", "CNN", "France Info", "CNBC", "Bloomberg"],
+    documentary: ["Viasat History", "National Geographic", "Discovery Channel", "Animal Planet", "History Channel"],
+    entertainment: ["HBO", "Canal+", "Disney Channel", "NBC", "AMC", "Fox"],
+    music: ["MTV", "VH1", "Trace Urban", "MCM"]
   };
 
   // Flatten channels for the scrolling carousel

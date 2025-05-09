@@ -131,7 +131,12 @@ export type TranslationKey =
   | 'news'
   | 'documentary'
   | 'entertainment'
-  | 'music';
+  | 'music'
+  | 'starter'
+  | 'pro'
+  | 'enterprise'
+  | 'plan_price'
+  | 'reseller_contact_form';
 
 // English translations (default)
 const en = {
@@ -256,11 +261,6 @@ const en = {
   movie_showcase_title: "Extensive VOD Library",
   movie_showcase_description: "Access thousands of movies and TV shows on demand",
   all_genres: "All Genres",
-  starter: "Starter",
-  pro: "Pro",
-  enterprise: "Enterprise",
-  plan_price: "Plan Price",
-  reseller_contact_form: "Reseller Contact Form",
   currency_usd: "USD ($)",
   currency_eur: "EUR (€)",
   currency_gbp: "GBP (£)",
@@ -450,7 +450,7 @@ const ar = {
   faq_q3: "هل YassinIPTV قانوني?",
   faq_a3: "يقدم YassinIPTV محتوى مرخصًا من خلال اتفاقيات مع مزودي المحتوى. نضمن الامتثال للوائح ذات الصلة في المناطق التي نعمل فيها.",
   faq_q4: "هل أحتاج إلى اتصال إنترنت سريع?",
-  faq_a4: "نوصي بسرعة لا تقل عن 10 ميجابت في الثانية للمحتوى العادي و 25 ميجابت في الثانية للمحتوى عالي الدقة. تقوم تقنية البث المتكيفة لدينا بضبط الجودة بناءً على اتصالك.",
+  faq_a4: "ن��صي بسرعة لا تقل عن 10 ميجابت في الثانية للمحتوى العادي و 25 ميجابت في الثانية للمحتوى عالي الدقة. تقوم تقنية البث المتكيفة لدينا بضبط الجودة بناءً على اتصالك.",
   faq_q5: "هل يمكنني إلغاء اشتراكي في أي وقت؟",
   faq_a5: "نعم، يمكنك إلغاء اشتراكك في أي وقت. لا عقود طويلة الأجل ولا رسوم خفية.",
   faq_q6: "ما الذي يجعل YassinIPTV مختلفًا عن الخدمات الأخر��?",
@@ -686,8 +686,7 @@ const es = {
   news: "Noticias",
   documentary: "Documental",
   entertainment: "Entretenimiento",
-  music: "Música",
-  reseller_feature_advanced_panel: "Panel de revendedor avanzado"
+  music: "Música"
 };
 
 // Function to get translations based on language code
