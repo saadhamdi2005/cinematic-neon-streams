@@ -2,7 +2,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Phone } from "lucide-react";
 
 interface WhatsAppButtonProps {
   phoneNumber: string;

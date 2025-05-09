@@ -3,7 +3,7 @@ import React from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Globe, Tv, Film } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MovieShowcase } from "./";
+import MovieShowcase from "./MovieShowcase";
 
 interface ChannelsAndMoviesSectionProps {
   movieData?: any[];
@@ -149,6 +149,7 @@ const ChannelsAndMoviesSection: React.FC<ChannelsAndMoviesSectionProps> = ({ mov
             <Button 
               size="lg"
               className="bg-yassin-darkest hover:bg-black text-white font-semibold text-lg px-8 py-6 rounded-full"
+              onClick={() => window.location.href = '/payment'}
             >
               Start Free Trial
             </Button>

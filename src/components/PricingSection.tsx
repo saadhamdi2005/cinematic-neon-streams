@@ -90,18 +90,19 @@ const PricingSection = () => {
           <div className="relative bg-gradient-to-r from-black to-yassin-darker border border-white/10 p-8 rounded-2xl shadow-glow flex flex-col md:flex-row items-center justify-between">
             <div className="text-center md:text-left mb-6 md:mb-0">
               <h3 className="text-2xl md:text-3xl font-bold mb-2 text-white">
-                {t('free_trial_title')}
+                Free Trial
               </h3>
               <p className="text-white/70 max-w-xl">
-                {t('free_trial_subtitle')}
+                Try our premium service for free. No credit card required, cancel anytime.
               </p>
             </div>
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue hover:from-yassin-neon-blue hover:to-yassin-neon-purple text-white font-bold py-3 px-8 rounded-full shadow-glow transition-all duration-300 transform hover:scale-105"
               aria-label="Request free trial"
+              onClick={() => window.location.href = '/payment'}
             >
-              {t('free_trial_button')}
+              Start Free Trial
             </Button>
           </div>
         </div>
@@ -109,10 +110,10 @@ const PricingSection = () => {
         {/* Section header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient heading-glow">
-            {t('pricing_title')}
+            Choose Your Plan
           </h2>
           <p className="text-white/70 max-w-2xl mx-auto">
-            {t('pricing_subtitle')}
+            Select the perfect plan for your entertainment needs. All plans include access to our premium content.
           </p>
         </div>
         
@@ -128,7 +129,7 @@ const PricingSection = () => {
             aria-pressed={billingCycle === "month"}
             aria-label="Switch to monthly billing"
           >
-            {t('monthly')}
+            Monthly
           </Button>
           <Button
             onClick={() => handleBillingCycleChange("quarter")}
@@ -140,7 +141,7 @@ const PricingSection = () => {
             aria-pressed={billingCycle === "quarter"}
             aria-label="Switch to quarterly billing"
           >
-            {t('quarter')}
+            Quarterly
           </Button>
           <Button
             onClick={() => handleBillingCycleChange("year")}
@@ -152,7 +153,7 @@ const PricingSection = () => {
             aria-pressed={billingCycle === "year"}
             aria-label="Switch to yearly billing"
           >
-            {t('yearly')}
+            Yearly
             <span className="absolute -top-2 -right-2 bg-yassin-neon-pink text-white text-xs font-bold px-2 py-0.5 rounded-full">
               -20%
             </span>
@@ -164,26 +165,26 @@ const PricingSection = () => {
           {/* Basic Plan */}
           <div className="bg-black/30 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-yassin-neon-blue/50 hover:shadow-glow-sm transform hover:-translate-y-1">
             <div className="p-6 border-b border-white/10">
-              <h3 className="text-2xl font-bold text-white mb-2">{t('basic_plan')}</h3>
+              <h3 className="text-2xl font-bold text-white mb-2">Basic Plan</h3>
               <div className="flex items-baseline">
                 <span className="text-3xl font-bold text-yassin-neon-blue">$</span>
                 <span className="text-4xl font-extrabold text-white">
                   {pricingData.basic[billingCycle].toFixed(2)}
                 </span>
                 <span className="text-white/70 ml-1">
-                  {billingCycle === "year" ? t('year') : billingCycle === "quarter" ? "/quarter" : t('month')}
+                  {billingCycle === "year" ? "/year" : billingCycle === "quarter" ? "/quarter" : "/month"}
                 </span>
               </div>
               
               {/* Show savings if quarterly or yearly */}
               {billingCycle !== "month" && (
                 <div className="mt-2 inline-block bg-white/10 text-yassin-neon-pink text-sm font-medium px-2 py-0.5 rounded">
-                  {t('save')} {calculateSavings("basic", billingCycle === "quarter" ? "quarter" : "year")}%
+                  Save {calculateSavings("basic", billingCycle === "quarter" ? "quarter" : "year")}%
                 </div>
               )}
               
               <p className="text-white/70 mt-4">
-                {pricingData.basic.connections} {t('connections_count', { count: pricingData.basic.connections })}
+                {pricingData.basic.connections} connection
               </p>
             </div>
             
@@ -205,8 +206,9 @@ const PricingSection = () => {
               
               <Button 
                 className="w-full mt-6 bg-transparent border border-yassin-neon-blue text-white hover:bg-yassin-neon-blue/20 transition-all rounded-xl py-3 font-medium"
+                onClick={() => window.location.href = '/payment'}
               >
-                {t('get_started')}
+                Get Started
               </Button>
             </div>
           </div>
@@ -216,31 +218,31 @@ const PricingSection = () => {
             {/* Most popular badge */}
             <div className="absolute top-0 right-0">
               <div className="bg-yassin-neon-purple text-white text-xs font-bold px-3 py-1 rounded-bl-lg animate-pulse-slow">
-                {t('most_popular')}
+                Most Popular
               </div>
             </div>
             
             <div className="p-6 border-b border-white/10">
-              <h3 className="text-2xl font-bold text-white mb-2">{t('standard_plan')}</h3>
+              <h3 className="text-2xl font-bold text-white mb-2">Standard Plan</h3>
               <div className="flex items-baseline">
                 <span className="text-3xl font-bold text-yassin-neon-purple">$</span>
                 <span className="text-4xl font-extrabold text-white">
                   {pricingData.standard[billingCycle].toFixed(2)}
                 </span>
                 <span className="text-white/70 ml-1">
-                  {billingCycle === "year" ? t('year') : billingCycle === "quarter" ? "/quarter" : t('month')}
+                  {billingCycle === "year" ? "/year" : billingCycle === "quarter" ? "/quarter" : "/month"}
                 </span>
               </div>
               
               {/* Show savings if quarterly or yearly */}
               {billingCycle !== "month" && (
                 <div className="mt-2 inline-block bg-white/10 text-yassin-neon-pink text-sm font-medium px-2 py-0.5 rounded">
-                  {t('save')} {calculateSavings("standard", billingCycle === "quarter" ? "quarter" : "year")}%
+                  Save {calculateSavings("standard", billingCycle === "quarter" ? "quarter" : "year")}%
                 </div>
               )}
               
               <p className="text-white/70 mt-4">
-                {pricingData.standard.connections} {t('connections_count', { count: pricingData.standard.connections })}
+                {pricingData.standard.connections} connections
               </p>
             </div>
             
@@ -262,8 +264,9 @@ const PricingSection = () => {
               
               <Button 
                 className="w-full mt-6 bg-gradient-to-r from-yassin-neon-purple to-yassin-neon-blue hover:from-yassin-neon-blue hover:to-yassin-neon-purple text-white transition-all rounded-xl py-3 font-medium shadow-glow"
+                onClick={() => window.location.href = '/payment'}
               >
-                {t('get_started')}
+                Get Started
               </Button>
             </div>
           </div>
@@ -271,26 +274,26 @@ const PricingSection = () => {
           {/* Premium Plan */}
           <div className="bg-black/30 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-yassin-neon-pink/50 hover:shadow-glow-sm transform hover:-translate-y-1">
             <div className="p-6 border-b border-white/10">
-              <h3 className="text-2xl font-bold text-white mb-2">{t('premium_plan')}</h3>
+              <h3 className="text-2xl font-bold text-white mb-2">Premium Plan</h3>
               <div className="flex items-baseline">
                 <span className="text-3xl font-bold text-yassin-neon-pink">$</span>
                 <span className="text-4xl font-extrabold text-white">
                   {pricingData.premium[billingCycle].toFixed(2)}
                 </span>
                 <span className="text-white/70 ml-1">
-                  {billingCycle === "year" ? t('year') : billingCycle === "quarter" ? "/quarter" : t('month')}
+                  {billingCycle === "year" ? "/year" : billingCycle === "quarter" ? "/quarter" : "/month"}
                 </span>
               </div>
               
               {/* Show savings if quarterly or yearly */}
               {billingCycle !== "month" && (
                 <div className="mt-2 inline-block bg-white/10 text-yassin-neon-pink text-sm font-medium px-2 py-0.5 rounded">
-                  {t('save')} {calculateSavings("premium", billingCycle === "quarter" ? "quarter" : "year")}%
+                  Save {calculateSavings("premium", billingCycle === "quarter" ? "quarter" : "year")}%
                 </div>
               )}
               
               <p className="text-white/70 mt-4">
-                {pricingData.premium.connections} {t('connections_count', { count: pricingData.premium.connections })}
+                {pricingData.premium.connections} connections
               </p>
             </div>
             
@@ -312,8 +315,9 @@ const PricingSection = () => {
               
               <Button 
                 className="w-full mt-6 bg-transparent border border-yassin-neon-pink text-white hover:bg-yassin-neon-pink/20 transition-all rounded-xl py-3 font-medium"
+                onClick={() => window.location.href = '/payment'}
               >
-                {t('select')}
+                Select
               </Button>
             </div>
           </div>
