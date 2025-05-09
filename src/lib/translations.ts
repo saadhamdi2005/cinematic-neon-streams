@@ -160,7 +160,43 @@ export type TranslationKey =
   | 'reseller_contact_form'
   | 'currency_usd'
   | 'currency_eur'
-  | 'currency_gbp';
+  | 'currency_gbp'
+  | 'customer_feedback'
+  | 'feedback_description'
+  | 'customers_say'
+  | 'share_experience'
+  | 'thank_you'
+  | 'feedback_submitted'
+  | 'name'
+  | 'email'
+  | 'rating'
+  | 'your_experience'
+  | 'submit_feedback'
+  | 'all_genres'
+  | 'standard'
+  | 'gold'
+  | 'premium'
+  | 'all_channels'
+  | 'hd_quality'
+  | 'vod_access'
+  | 'support'
+  | 'all_devices'
+  | 'ppv_events'
+  | 'ultra_hd'
+  | 'multiroom'
+  | 'connections_count'
+  | 'select'
+  | 'free_trial_title'
+  | 'free_trial_subtitle'
+  | 'free_trial_button'
+  | 'get_started'
+  | 'most_popular'
+  | 'quarter'
+  | 'year'
+  | 'chat_welcome'
+  | 'chat_title'
+  | 'chat_placeholder'
+  | 'chat_with_us';
 
 // English translations (default)
 const en = {
@@ -294,16 +330,9 @@ const en = {
   documentary: "Documentary",
   entertainment: "Entertainment",
   music: "Music",
-  genre_action: "Action",
-  genre_comedy: "Comedy",
-  genre_drama: "Drama",
-  genre_horror: "Horror",
-  genre_scifi: "Sci-Fi",
-  genre_romance: "Romance",
-  genre_thriller: "Thriller",
-  genre_animation: "Animation",
-  genre_documentary: "Documentary",
-  genre_fantasy: "Fantasy",
+  starter: "Starter",
+  pro: "Pro",
+  enterprise: "Enterprise",
   plan_price: "Pricing",
   reseller_contact_form: "Formulario de contacto del revendedor",
   currency_usd: "USD ($)",
@@ -527,7 +556,7 @@ const ar = {
   reseller_white_label: "حل العلامة البيضاء",
   reseller_white_label_desc: "أعد تسمية خدمتنا تحت اسمك الخاص مع حل العلامة البيضاء الكامل لدينا.",
   reseller_support: "دعم على مدار الساعة",
-  reseller_support_desc: "فريق دعم مخصص لمساعدتك ومساعدة عملائك في أي وقت من اليوم.",
+  reseller_support_desc: "فريق دعم مخصص لمساعدتك ومساعدة ع��لائك في أي وقت من اليوم.",
   reseller_starter: "الموزع المبتدئ",
   reseller_pro: "الموزع المحترف",
   reseller_enterprise: "موزع المؤسسات",
@@ -568,7 +597,7 @@ const ar = {
   free_trial_title: "جر�� قبل الشراء",
   free_trial_subtitle: "احصل على تجربة مجانية لمدة 24 ساعة لتجربة خدمتنا بنفسك",
   free_trial_button: "طلب تجربة مجانية",
-  chat_welcome: "مرحبًا بك في YassinIPTV! كيف يمكننا مساعدتك اليوم؟",
+  chat_welcome: "مرحبًا بك في YassinIPTV! كيف يمكننا مساعدتك اليوم?",
   chat_title: "الدردشة مع الدعم",
   chat_placeholder: "اكتب رسالتك...",
   channels_showcase_title: "آلاف القنوات",
@@ -722,55 +751,13 @@ const es = {
   free_trial_title: "Pruebe antes de comprar",
   free_trial_subtitle: "Obtenga una prueba gratuita de 24 horas para experimentar nuestro servicio de primera mano",
   free_trial_button: "Solicitar prueba gratuita",
+  get_started: "Get Started",
+  most_popular: "Most Popular",
+  quarter: "Quarter",
   chat_welcome: "¡Bienvenido a YassinIPTV! ¿Cómo podemos ayudarle hoy?",
   chat_title: "Chatear con soporte",
   chat_placeholder: "Escriba su mensaje...",
-  channels_showcase_title: "Miles de canales",
-  channels_showcase_description: "Disfrute de contenido premium de todo el mundo",
-  worldwide_channels: "Canales de todo el mundo",
-  customer_feedback: "Opiniones de clientes",
-  feedback_description: "Lo que nuestros clientes dicen sobre nuestros servicios",
-  customers_say: "Lo que dicen nuestros clientes",
-  share_experience: "Comparta su experiencia",
-  thank_you: "¡Gracias!",
-  feedback_submitted: "Su opinión ha sido enviada",
-  name: "Nombre",
-  email: "Email",
-  rating: "Valoración",
-  your_experience: "Su experiencia",
-  submit_feedback: "Enviar opinión",
-  movie_showcase_title: "Extensa biblioteca VOD",
-  movie_showcase_description: "Acceda a miles de películas y programas de TV bajo demanda",
-  all_genres: "Todos los géneros",
-  starter: "Iniciante",
-  pro: "Profesional",
-  enterprise: "Empresarial",
-  plan_price: "Precio del plan",
-  reseller_contact_form: "Formulario de contacto del revendedor",
-  currency_usd: "USD ($)",
-  currency_eur: "EUR (€)",
-  currency_gbp: "GBP (£)",
-  international: "Internacional",
-  sports: "Deportes",
-  news: "Noticias",
-  documentary: "Documental",
-  entertainment: "Entretenimiento",
-  music: "Música",
-  genre_action: "Action",
-  genre_comedy: "Comedy",
-  genre_drama: "Drama",
-  genre_horror: "Horror",
-  genre_scifi: "Sci-Fi",
-  genre_romance: "Romance",
-  genre_thriller: "Thriller",
-  genre_animation: "Animation",
-  genre_documentary: "Documentary",
-  genre_fantasy: "Fantasy",
-  plan_price: "Precio del plan",
-  reseller_contact_form: "Formulario de contacto del revendedor",
-  currency_usd: "USD ($)",
-  currency_eur: "EUR (€)",
-  currency_gbp: "GBP (£)"
+  chat_with_us: "Chatea con nosotros"
 };
 
 // Function to get translations based on language code
