@@ -419,7 +419,7 @@ const Index = () => {
           </svg>
         </div>
         
-        {/* NEW Combined Channels and Movies Section */}
+        {/* NEW Combined Channels and Movies Section with consistent movie sizes and auto-scrolling */}
         <ChannelsAndMoviesSection movieData={moviePosters} />
         
         <div className="section-divider"></div>

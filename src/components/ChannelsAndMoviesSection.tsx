@@ -1,7 +1,7 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import AutoScrollingCarousel from "./AutoScrollingCarousel";
+import MovieCarousel from "./MovieCarousel";
 import { toast } from "sonner";
 
 interface Movie {
@@ -129,54 +129,8 @@ const ChannelsAndMoviesSection: React.FC<ChannelsAndMoviesSectionProps> = ({ mov
               </a>
             </div>
             
-            {/* Auto-scrolling movie carousel */}
-            <AutoScrollingCarousel 
-              id="movie-carousel" 
-              speed={0.5}
-              reverse={true}
-            >
-              {movieData.map((movie) => (
-                <div 
-                  key={movie.id}
-                  className="relative p-3"
-                >
-                  <div className="relative group">
-                    <img 
-                      src={movie.image} 
-                      alt={movie.title} 
-                      className="movie-image object-cover rounded-lg shadow-lg transition-all duration-300 transform group-hover:scale-[1.02]"
-                      width={400}
-                      height={198}
-                      loading="lazy"
-                    />
-                    <div className="absolute top-2 right-2 bg-yassin-darkest/70 backdrop-blur-sm text-xs py-1 px-2 rounded-lg">
-                      <span>{movie.rating}</span>
-                      <span className="text-yassin-neon-purple ml-1">★</span>
-                    </div>
-                    
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex flex-col justify-end p-4">
-                      <button 
-                        onClick={() => handleAddToFavorites(movie.title)}
-                        className="bg-yassin-neon-purple/80 hover:bg-yassin-neon-purple text-white py-2 px-4 rounded-lg mb-2 transition-all duration-300"
-                      >
-                        Watch Now
-                      </button>
-                      <button 
-                        onClick={() => handleAddToFavorites(movie.title)}
-                        className="bg-white/10 hover:bg-white/20 text-white py-2 px-4 rounded-lg transition-all duration-300"
-                      >
-                        + Add to Favorites
-                      </button>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <h4 className="font-medium text-white truncate" title={movie.title}>{movie.title}</h4>
-                    <p className="text-xs text-white/60">{movie.year} • {movie.genre}</p>
-                  </div>
-                </div>
-              ))}
-            </AutoScrollingCarousel>
+            {/* NEW: Using the MovieCarousel component for movies with automatic scrolling */}
+            <MovieCarousel movies={movieData} autoScroll={true} autoScrollInterval={5000} />
           </div>
         )}
       </div>
