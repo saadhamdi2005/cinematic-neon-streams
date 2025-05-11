@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { toast } from 'sonner';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 interface MoviePoster {
   id: number;
@@ -100,41 +101,41 @@ const MovieCarousel = ({
           {movies.map((movie) => (
             <CarouselItem key={movie.id} className="pl-1 md:basis-1/2 lg:basis-1/4">
               <div className="p-1">
-                <div className="relative group overflow-hidden rounded-lg">
-                  <div className="aspect-[16/9] bg-black rounded-lg overflow-hidden">
+                <div className="relative group overflow-hidden rounded-lg border border-white/10 shadow-xl">
+                  <AspectRatio ratio={2/3}>
                     <img 
                       src={movie.image} 
                       alt={`${movie.title} - ${movie.year}`}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
                     />
-                  </div>
-                  <div className="absolute top-2 right-2 bg-yassin-darkest/70 backdrop-blur-sm text-xs py-1 px-2 rounded-lg">
+                  </AspectRatio>
+                  <div className="absolute top-2 right-2 bg-yassin-darkest/80 backdrop-blur-sm text-sm py-1 px-2 rounded-lg">
                     <span>{movie.rating.toFixed(1)}</span>
                     <span className="text-yassin-neon-purple ml-1">★</span>
                   </div>
                   
                   {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                     <button 
                       onClick={() => handleAddToFavorites(movie.title)}
-                      className="bg-yassin-neon-purple/80 hover:bg-yassin-neon-purple text-white py-2 px-4 rounded-lg mb-2 transition-all duration-300"
+                      className="bg-yassin-neon-purple/90 hover:bg-yassin-neon-purple text-white py-2 px-4 rounded-lg mb-2 transition-all duration-300"
                     >
                       Watch Now
                     </button>
                     <button 
                       onClick={() => handleAddToFavorites(movie.title)}
-                      className="bg-white/10 hover:bg-white/20 text-white py-2 px-4 rounded-lg transition-all duration-300"
+                      className="bg-white/20 hover:bg-white/30 text-white py-2 px-4 rounded-lg transition-all duration-300"
                     >
                       + Add to Favorites
                     </button>
                   </div>
                 </div>
-                <div className="mt-2">
+                <div className="mt-3">
                   <h4 className="font-medium text-white truncate" title={movie.title}>
                     {movie.title}
                   </h4>
-                  <p className="text-xs text-white/60">
+                  <p className="text-xs text-white/70">
                     {movie.year} • {getGenreLabel(movie.genre)}
                   </p>
                 </div>
@@ -142,8 +143,8 @@ const MovieCarousel = ({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-0 md:-left-8 bg-black/30 hover:bg-black/60" />
-        <CarouselNext className="right-0 md:-right-8 bg-black/30 hover:bg-black/60" />
+        <CarouselPrevious className="left-0 md:-left-8 bg-black/50 hover:bg-black/70" />
+        <CarouselNext className="right-0 md:-right-8 bg-black/50 hover:bg-black/70" />
       </Carousel>
     </div>
   );
