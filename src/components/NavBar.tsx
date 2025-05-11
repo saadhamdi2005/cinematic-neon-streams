@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -7,16 +6,15 @@ import TypedText from "@/components/ui/TypedText";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageCode } from "@/lib/translations";
 
-// Define nav link structure
+// Define nav link structure with the new order: Home, Channels&Movies, Pricing, Reseller, Installation, FAQ
 interface NavLink {
-  translationKey: 'home' | 'channels' | 'movies' | 'pricing' | 'reseller' | 'installation' | 'faq';
+  translationKey: 'home' | 'channels' | 'pricing' | 'reseller' | 'installation' | 'faq';
   url: string;
 }
 
 const NavLinks: NavLink[] = [
   { translationKey: "home", url: "/" },
   { translationKey: "channels", url: "#channels" },
-  { translationKey: "movies", url: "#movies" },
   { translationKey: "pricing", url: "#pricing" },
   { translationKey: "reseller", url: "#reseller" },
   { translationKey: "installation", url: "#install" },

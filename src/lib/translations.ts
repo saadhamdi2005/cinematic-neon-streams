@@ -110,7 +110,42 @@ export type TranslationKey =
   | 'reseller_most_popular'
   | 'reseller_questions'
   | 'reseller_contact_us'
-  | 'reseller_interested_in';
+  | 'reseller_interested_in'
+  | 'loading'
+  | 'please_wait'
+  | 'welcome_message'
+  | 'power_of_entertainment'
+  | 'free_trial'
+  | 'channels'
+  | 'movies'
+  | 'installation'
+  | 'faq'
+  | 'channels_from_worldwide'
+  | 'worldwide_channels_desc'
+  | 'all_channels'
+  | 'entertainment'
+  | 'sports'
+  | 'news'
+  | 'music'
+  | 'documentary'
+  | 'faq_title'
+  | 'faq_subtitle'
+  | 'faq_q1'
+  | 'faq_a1'
+  | 'faq_q2'
+  | 'faq_a2'
+  | 'faq_q3'
+  | 'faq_a3'
+  | 'faq_q4'
+  | 'faq_a4'
+  | 'faq_q5'
+  | 'faq_a5'
+  | 'faq_q6'
+  | 'faq_a6'
+  | 'faq_q7'
+  | 'faq_a7'
+  | 'faq_q8'
+  | 'faq_a8';
 
 // English translations (default)
 export const enTranslations: Record<TranslationKey, string> = {
@@ -222,6 +257,41 @@ export const enTranslations: Record<TranslationKey, string> = {
   reseller_questions: "Have more questions about our reseller program?",
   reseller_contact_us: "Contact Us",
   reseller_interested_in: "I'm interested in",
+  loading: "Loading...",
+  please_wait: "Please wait",
+  welcome_message: "Welcome Message",
+  power_of_entertainment: "Power of Entertainment",
+  free_trial: "Free Trial",
+  channels: "Channels",
+  movies: "Movies",
+  installation: "Installation",
+  faq: "FAQ",
+  channels_from_worldwide: "Channels from Worldwide",
+  worldwide_channels_desc: "Worldwide Channels Description",
+  all_channels: "All Channels",
+  entertainment: "Entertainment",
+  sports: "Sports",
+  news: "News",
+  music: "Music",
+  documentary: "Documentary",
+  faq_title: "FAQ Title",
+  faq_subtitle: "FAQ Subtitle",
+  faq_q1: "FAQ Question 1",
+  faq_a1: "FAQ Answer 1",
+  faq_q2: "FAQ Question 2",
+  faq_a2: "FAQ Answer 2",
+  faq_q3: "FAQ Question 3",
+  faq_a3: "FAQ Answer 3",
+  faq_q4: "FAQ Question 4",
+  faq_a4: "FAQ Answer 4",
+  faq_q5: "FAQ Question 5",
+  faq_a5: "FAQ Answer 5",
+  faq_q6: "FAQ Question 6",
+  faq_a6: "FAQ Answer 6",
+  faq_q7: "FAQ Question 7",
+  faq_a7: "FAQ Answer 7",
+  faq_q8: "FAQ Question 8",
+  faq_a8: "FAQ Answer 8",
 };
 
 // French translations
@@ -334,6 +404,41 @@ export const frTranslations: Record<TranslationKey, string> = {
   reseller_questions: "Avez-vous plus de questions sur notre programme de revendeur?",
   reseller_contact_us: "Contactez-Nous",
   reseller_interested_in: "Je suis intéressé par",
+  loading: "Chargement...",
+  please_wait: "Veuillez patienter",
+  welcome_message: "Message de bienvenue",
+  power_of_entertainment: "Pouvoir du divertissement",
+  free_trial: "Essai gratuit",
+  channels: "Chaînes",
+  movies: "Films",
+  installation: "Installation",
+  faq: "FAQ",
+  channels_from_worldwide: "Chaînes du monde entier",
+  worldwide_channels_desc: "Description des chaînes du monde entier",
+  all_channels: "Toutes les chaînes",
+  entertainment: "Divertissement",
+  sports: "Des sports",
+  news: "Nouvelles",
+  music: "Musique",
+  documentary: "Documentaire",
+  faq_title: "Titre FAQ",
+  faq_subtitle: "Sous-titre FAQ",
+  faq_q1: "FAQ Question 1",
+  faq_a1: "FAQ Réponse 1",
+  faq_q2: "FAQ Question 2",
+  faq_a2: "FAQ Réponse 2",
+  faq_q3: "FAQ Question 3",
+  faq_a3: "FAQ Réponse 3",
+  faq_q4: "FAQ Question 4",
+  faq_a4: "FAQ Réponse 4",
+  faq_q5: "FAQ Question 5",
+  faq_a5: "FAQ Réponse 5",
+  faq_q6: "FAQ Question 6",
+  faq_a6: "FAQ Réponse 6",
+  faq_q7: "FAQ Question 7",
+  faq_a7: "FAQ Réponse 7",
+  faq_q8: "FAQ Question 8",
+  faq_a8: "FAQ Réponse 8",
 };
 
 // Arabic translations
@@ -431,7 +536,7 @@ export const arTranslations: Record<TranslationKey, string> = {
   reseller_feature_basic_panel: "لوحة موزع أساسية",
   reseller_feature_advanced_panel: "لوحة موزع متقدمة",
   reseller_feature_premium_panel: "لوحة موزع مميزة",
-  reseller_feature_email_support: "د��م بالبريد الإلكتروني",
+  reseller_feature_email_support: "دعم بالبريد الإلكتروني",
   reseller_feature_priority_support: "دعم ذو أولوية",
   reseller_feature_vip_support: "دعم VIP",
   reseller_feature_white_label: "خيار العلامة البيضاء",
@@ -445,7 +550,42 @@ export const arTranslations: Record<TranslationKey, string> = {
   reseller_most_popular: "الأكثر شعبية",
   reseller_questions: "هل لديك المزيد من الأسئلة حول برنامج الموزعين؟",
   reseller_contact_us: "اتصل بنا",
-  reseller_interested_in: "أنا مهتم بـ"
+  reseller_interested_in: "أنا مهتم بـ",
+  loading: "جار التحميل...",
+  please_wait: "الرجاء الانتظار",
+  welcome_message: "رسالة ترحيب",
+  power_of_entertainment: "قوة الترفيه",
+  free_trial: "تجربة مجانية",
+  channels: "القنوات",
+  movies: "الأفلام",
+  installation: "التثبيت",
+  faq: "الأسئلة الشائعة",
+  channels_from_worldwide: "قنوات من جميع أنحاء العالم",
+  worldwide_channels_desc: "وصف القنوات العالمية",
+  all_channels: "جميع القنوات",
+  entertainment: "وسائل الترفيه",
+  sports: "الرياضة",
+  news: "أخبار",
+  music: "موسيقى",
+  documentary: "وثائقي",
+  faq_title: "عنوان الأسئلة الشائعة",
+  faq_subtitle: "العنوان الفرعي للأسئلة الشائعة",
+  faq_q1: "سؤال وجواب 1",
+  faq_a1: "الاجابة 1",
+  faq_q2: "سؤال وجواب 2",
+  faq_a2: "الاجابة 2",
+  faq_q3: "سؤال وجواب 3",
+  faq_a3: "الاجابة 3",
+  faq_q4: "سؤال وجواب 4",
+  faq_a4: "الاجابة 4",
+  faq_q5: "سؤال وجواب 5",
+  faq_a5: "الاجابة 5",
+  faq_q6: "سؤال وجواب 6",
+  faq_a6: "الاجابة 6",
+  faq_q7: "سؤال وجواب 7",
+  faq_a7: "الاجابة 7",
+  faq_q8: "سؤال وجواب 8",
+  faq_a8: "الاجابة 8",
 };
 
 // Spanish translations
@@ -530,47 +670,4 @@ export const esTranslations: Record<TranslationKey, string> = {
   reseller_subtitle: "Inicia tu propio negocio de IPTV con nuestro programa de revendedores",
   reseller_competitive_pricing: "Precios competitivos",
   reseller_competitive_pricing_desc: "Gana altos beneficios con nuestros precios competitivos para revendedores",
-  reseller_white_label: "Solución de marca blanca",
-  reseller_white_label_desc: "Renombra nuestro servicio como propio",
-  reseller_support: "Soporte 24/7 para revendedores",
-  reseller_support_desc: "Soporte dedicado para todos los revendedores",
-  reseller_starter: "Plan Inicial",
-  reseller_pro: "Plan Pro",
-  reseller_enterprise: "Plan Empresarial",
-  reseller_feature_credits_10: "10 créditos",
-  reseller_feature_credits_25: "25 créditos",
-  reseller_feature_credits_100: "100 créditos",
-  reseller_feature_basic_panel: "Panel de revendedor básico",
-  reseller_feature_advanced_panel: "Panel de revendedor avanzado",
-  reseller_feature_premium_panel: "Panel de revendedor premium",
-  reseller_feature_email_support: "Soporte por correo",
-  reseller_feature_priority_support: "Soporte prioritario",
-  reseller_feature_vip_support: "Soporte VIP",
-  reseller_feature_white_label: "Opción de marca blanca",
-  reseller_feature_custom_domain: "Dominio personalizado (extra)",
-  reseller_feature_custom_domain_included: "Dominio personalizado incluido",
-  reseller_feature_marketing: "Materiales de marketing",
-  reseller_feature_account_manager: "Gerente de cuenta dedicado",
-  reseller_feature_api_access: "Acceso API",
-  reseller_credits: "créditos",
-  reseller_get_started: "Comenzar",
-  reseller_most_popular: "Más popular",
-  reseller_questions: "¿Tienes más preguntas sobre nuestro programa de revendedor?",
-  reseller_contact_us: "Contáctanos",
-  reseller_interested_in: "Estoy interesado en"
-};
-
-// Function to get translations based on language code
-export const translations: Record<LanguageCode, Record<TranslationKey, string>> = {
-  en: enTranslations,
-  fr: frTranslations,
-  ar: arTranslations,
-  es: esTranslations
-};
-
-// Function to get a specific translation
-export function getTranslation(key: TranslationKey, language: LanguageCode): string {
-  return translations[language][key] || translations.en[key] || key;
-}
-
-export default translations;
+  reseller_white_label: "
