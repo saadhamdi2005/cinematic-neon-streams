@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Globe, Tv } from "lucide-react";
+import { Globe, Tv, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Define structure for country data with channels
@@ -146,26 +146,31 @@ const ChannelShowcase = () => {
           ))}
         </div>
 
-        {/* Worldwide Channels Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {countries.map((country) => (
-            <div
-              key={country.code}
-              className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-4 hover:border-yassin-neon-blue transition-all duration-300 transform hover:-translate-y-1 hover:shadow-glow-sm group"
-            >
-              <div className="flex items-center gap-3">
-                <div className="text-2xl" aria-hidden="true">{country.flag}</div>
-                <div>
-                  <h3 className="text-white font-medium group-hover:text-yassin-neon-blue transition-colors">
-                    {country.name}
-                  </h3>
-                  <p className="text-xs text-white/60">
-                    <span className="font-medium text-yassin-neon-purple">{country.channels}</span> channels
-                  </p>
+        {/* Worldwide Channels List - Changed from Grid to List */}
+        <div className="max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+          <ul className="space-y-2">
+            {countries.map((country) => (
+              <li
+                key={country.code}
+                className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-3 hover:border-yassin-neon-blue transition-all duration-200 group"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="text-2xl" aria-hidden="true">{country.flag}</div>
+                    <div>
+                      <h3 className="text-white font-medium group-hover:text-yassin-neon-blue transition-colors">
+                        {country.name}
+                      </h3>
+                      <p className="text-xs text-white/60">
+                        <span className="font-medium text-yassin-neon-purple">{country.channels}</span> channels
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="h-5 w-5 text-white/40 group-hover:text-yassin-neon-blue transition-colors" />
                 </div>
-              </div>
-            </div>
-          ))}
+              </li>
+            ))}
+          </ul>
         </div>
         
         {/* Channel Action Button */}
