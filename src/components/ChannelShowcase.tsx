@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Globe, Tv, ChevronRight } from "lucide-react";
+import { Globe, Tv, ChevronRight, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Define structure for country data with channels
@@ -146,31 +146,22 @@ const ChannelShowcase = () => {
           ))}
         </div>
 
-        {/* Worldwide Channels List - Changed from Grid to List */}
-        <div className="max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
-          <ul className="space-y-2">
-            {countries.map((country) => (
-              <li
-                key={country.code}
-                className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-3 hover:border-yassin-neon-blue transition-all duration-200 group"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="text-2xl" aria-hidden="true">{country.flag}</div>
-                    <div>
-                      <h3 className="text-white font-medium group-hover:text-yassin-neon-blue transition-colors">
-                        {country.name}
-                      </h3>
-                      <p className="text-xs text-white/60">
-                        <span className="font-medium text-yassin-neon-purple">{country.channels}</span> channels
-                      </p>
-                    </div>
-                  </div>
-                  <ChevronRight className="h-5 w-5 text-white/40 group-hover:text-yassin-neon-blue transition-colors" />
+        {/* Country Grid Layout - styled like raverr.net */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-8">
+          {countries.map((country) => (
+            <div
+              key={country.code}
+              className="bg-black/30 backdrop-blur-sm border border-purple-500/30 hover:border-purple-400 rounded-md text-white overflow-hidden transition-all duration-300"
+            >
+              <a href="#" className="flex items-center justify-between p-3 w-full group">
+                <div className="flex items-center gap-3">
+                  <Plus className="h-5 w-5 text-white/70 group-hover:text-purple-400" />
+                  <span className="font-medium uppercase">{country.name}</span>
                 </div>
-              </li>
-            ))}
-          </ul>
+                <ChevronRight className="h-5 w-5 text-white/50 group-hover:text-purple-400 transition-transform group-hover:translate-x-1" />
+              </a>
+            </div>
+          ))}
         </div>
         
         {/* Channel Action Button */}
