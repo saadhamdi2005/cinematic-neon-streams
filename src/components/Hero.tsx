@@ -48,7 +48,7 @@ const Hero = () => {
                   <div className="absolute inset-0 blur-lg bg-gradient-to-r from-yassin-neon-blue via-yassin-neon-purple to-yassin-neon-pink rounded-full opacity-60"></div>
                   <div className="relative flex items-center justify-center h-full">
                     <span className="text-4xl md:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-yassin-neon-blue via-white to-yassin-neon-pink drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
-                      YASSIN
+                      BOX
                     </span>
                     <span className="text-xl md:text-2xl font-bold text-white ml-2 bg-gradient-to-r from-yassin-neon-blue to-yassin-neon-pink px-2 py-1 rounded">
                       IPTV

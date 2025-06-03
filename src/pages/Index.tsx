@@ -293,7 +293,7 @@ const Index = () => {
         <div className="relative">
           <div className="text-5xl font-black mb-8 flex items-center justify-center">
             <span className="text-gradient-primary bg-gradient-to-r from-yassin-neon-blue via-yassin-neon-purple to-yassin-neon-pink bg-clip-text text-transparent">
-              YASSIN IPTV
+              BOX IPTV
             </span>
           </div>
           
@@ -365,17 +365,17 @@ const Index = () => {
         {/* SEO Content Section */}
         <section className="py-12 px-4 bg-yassin-dark">
           <div className="container mx-auto max-w-4xl">
-            <h2 className="text-3xl font-bold mb-6 text-white text-center">Welcome to Yassin IPTV - Your Gateway to Premium Entertainment</h2>
+            <h2 className="text-3xl font-bold mb-6 text-white text-center">Welcome to Box IPTV - Your Gateway to Premium Entertainment</h2>
             <div className="prose prose-invert max-w-none">
               <p className="text-lg text-white/80 mb-6">
                 Looking to <a href="#pricing" className="text-yassin-neon-blue hover:text-yassin-neon-purple">buy IPTV</a>? 
-                Yassin IPTV offers the best <a href="#pricing" className="text-yassin-neon-blue hover:text-yassin-neon-purple">IPTV subscription</a> 
+                Box IPTV offers the best <a href="#pricing" className="text-yassin-neon-blue hover:text-yassin-neon-purple">IPTV subscription</a> 
                 for global audiences. Experience the ultimate in entertainment with our premium HD channels and a vast library of movies. 
                 As a leading <a href="#reseller" className="text-yassin-neon-blue hover:text-yassin-neon-purple">IPTV reseller</a>, 
                 we provide reliable service, fast support, and unbeatable value.
               </p>
               
-              <h3 className="text-2xl font-bold mb-4 text-white">Why Choose Yassin IPTV?</h3>
+              <h3 className="text-2xl font-bold mb-4 text-white">Why Choose Box IPTV?</h3>
               <ul className="space-y-2 text-white/80">
                 <li className="flex items-start gap-2">
                   <span className="text-yassin-neon-blue">✓</span> 

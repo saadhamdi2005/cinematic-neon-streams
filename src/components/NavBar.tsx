@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -131,7 +132,7 @@ export function NavBar() {
           <Link to="/" className="flex items-center space-x-2">
             <span className="text-3xl logo-text text-gradient">
               <TypedText
-                text="YassinIPTV"
+                text="BoxIPTV"
                 typingSpeed={70}
                 showCursor={false}
                 loop={false}

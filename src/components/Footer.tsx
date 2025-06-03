@@ -1,4 +1,3 @@
-
 import { Facebook, Instagram, Twitter, Youtube, ArrowUp, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -52,7 +51,7 @@ export function Footer() {
         <div className="flex flex-col items-center mb-12">
           <Link to="/" className="inline-block mb-4 relative overflow-hidden group">
             <span className="text-5xl font-bold text-gradient relative z-10 transition-all duration-500">
-              YassinIPTV
+              BoxIPTV
             </span>
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-yassin-neon-blue via-yassin-neon-purple to-yassin-neon-pink transform transition-all duration-500 group-hover:h-full opacity-20 group-hover:opacity-10"></span>
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -141,7 +140,7 @@ export function Footer() {
               </li>
               <li className="hover:text-yassin-neon-pink transition-colors flex items-center gap-2">
                 <MailIcon className="w-4 h-4" />
-                <span>support@yassiniptv.com</span>
+                <span>support@boxiptv.com</span>
               </li>
             </ul>
             
@@ -197,7 +196,7 @@ export function Footer() {
           </div>
           
           <div className="pt-8 text-center text-white/40 text-sm">
-            <p>© {currentYear} YassinIPTV. All rights reserved.</p>
+            <p>© {currentYear} BoxIPTV. All rights reserved.</p>
             <p className="mt-2 text-xs">Made with <span className="text-yassin-neon-pink">♥</span> for IPTV enthusiasts worldwide</p>
           </div>
         </div>
